@@ -1,2 +1,390 @@
-{'ingredients': [{'name': 'apple', 'id': 9003, 'possibleUnits': ['small', 'large', 'piece', 'slice', 'g', 'extra small', 'medium', 'oz', 'cup slice', 'NLEA serving', 'cup', 'serving'], 'edit': False, 'amount': '1', 'unit': 'large', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 115.96, 'unit': 'kcal', 'percentOfDailyNeeds': 5.8}, 'fat': {'name': 'Fat', 'amount': 0.38, 'unit': 'g', 'percentOfDailyNeeds': 0.58}, 'saturates': {'name': 'Saturated Fat', 'amount': 0.06, 'unit': 'g', 'percentOfDailyNeeds': 0.39}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 25.42, 'unit': 'g', 'percentOfDailyNeeds': 9.24}, 'sugars': {'name': 'Sugar', 'amount': 23.19, 'unit': 'g', 'percentOfDailyNeeds': 25.77}, 'fibre': {'name': 'Fiber', 'amount': 5.35, 'unit': 'g', 'percentOfDailyNeeds': 21.41}, 'protein': {'name': 'Protein', 'amount': 0.58, 'unit': 'g', 'percentOfDailyNeeds': 1.16}, 'sodium': {'name': 'Sodium', 'amount': 2.23, 'unit': 'mg', 'percentOfDailyNeeds': 0.1}}, 'hover': False}], 'cookingMethod': 'Just apple', 'title': 'Apple', 'numServings': 2, 'mealType': 'Breakfast', 'nutritionTable': {'kcal': {'amount': 57.98, 'unit': '', 'percentOfDailyNeeds': 2.9}, 'fat': {'amount': 0.19, 'unit': 'g', 'percentOfDailyNeeds': 0.29}, 'saturates': {'amount': 0.03, 'unit': 'g', 'percentOfDailyNeeds': 0.195}, 'carbs': {'amount': 12.71, 'unit': 'g', 'percentOfDailyNeeds': 4.62}, 'sugars': {'amount': 11.595, 'unit': 'g', 'percentOfDailyNeeds': 12.885}, 'fibre': {'amount': 2.675, 'unit': 'g', 'percentOfDailyNeeds': 10.705}, 'protein': {'amount': 0.29, 'unit': 'g', 'percentOfDailyNeeds': 0.58}, 'sodium': {'amount': 1.115, 'unit': 'mg', 'percentOfDailyNeeds': 0.05}}}
-{'ingredients': [{'name': 'sweet potato', 'id': 11507, 'possibleUnits': ['small', 'large', 'piece', 'g', 'medium', 'oz', 'sweetpotato', 'cup'], 'edit': False, 'amount': '2', 'unit': 'medium', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 388.72, 'unit': 'kcal', 'percentOfDailyNeeds': 19.44}, 'fat': {'name': 'Fat', 'amount': 0.23, 'unit': 'g', 'percentOfDailyNeeds': 0.35}, 'saturates': {'name': 'Saturated Fat', 'amount': 0.08, 'unit': 'g', 'percentOfDailyNeeds': 0.51}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 77.38, 'unit': 'g', 'percentOfDailyNeeds': 28.14}, 'sugars': {'name': 'Sugar', 'amount': 18.89, 'unit': 'g', 'percentOfDailyNeeds': 20.99}, 'fibre': {'name': 'Fiber', 'amount': 13.56, 'unit': 'g', 'percentOfDailyNeeds': 54.24}, 'protein': {'name': 'Protein', 'amount': 7.1, 'unit': 'g', 'percentOfDailyNeeds': 14.19}, 'sodium': {'name': 'Sodium', 'amount': 248.6, 'unit': 'mg', 'percentOfDailyNeeds': 10.81}}, 'hover': False}, {'name': 'tuna', 'id': 10015121, 'possibleUnits': ['can', 'piece', 'g', 'tin', 'ounce', 'oz', 'cup', 'serving'], 'edit': False, 'amount': '240', 'unit': 'g', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 216, 'unit': 'kcal', 'percentOfDailyNeeds': 10.8}, 'fat': {'name': 'Fat', 'amount': 2.26, 'unit': 'g', 'percentOfDailyNeeds': 3.47}, 'saturates': {'name': 'Saturated Fat', 'amount': 0.54, 'unit': 'g', 'percentOfDailyNeeds': 3.36}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 0.19, 'unit': 'g', 'percentOfDailyNeeds': 0.07}, 'sugars': {'name': 'Sugar', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'fibre': {'name': 'Fiber', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'protein': {'name': 'Protein', 'amount': 45.6, 'unit': 'g', 'percentOfDailyNeeds': 91.2}, 'sodium': {'name': 'Sodium', 'amount': 525.6, 'unit': 'mg', 'percentOfDailyNeeds': 22.85}}, 'hover': False}, {'name': 'coarse sea salt', 'id': 1012047, 'possibleUnits': ['pinch', 'g', 'oz', 'dash', 'teaspoon', 'cup', 'serving', 'tablespoon'], 'edit': False, 'amount': '1', 'unit': 'teaspoon', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 0, 'unit': 'kcal', 'percentOfDailyNeeds': 0}, 'fat': {'name': 'Fat', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'saturates': {'name': 'Saturated Fat', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'sugars': {'name': 'Sugar', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'fibre': {'name': 'Fiber', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'protein': {'name': 'Protein', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'sodium': {'name': 'Sodium', 'amount': 2325.48, 'unit': 'mg', 'percentOfDailyNeeds': 101.11}}, 'hover': False}, {'name': 'coconut oil', 'id': 4047, 'possibleUnits': ['g', 'oz', 'teaspoon', 'cup', 'serving', 'tablespoon'], 'edit': False, 'amount': '1', 'unit': 'tablespoon', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 116.62, 'unit': 'kcal', 'percentOfDailyNeeds': 5.83}, 'fat': {'name': 'Fat', 'amount': 13.87, 'unit': 'g', 'percentOfDailyNeeds': 21.34}, 'saturates': {'name': 'Saturated Fat', 'amount': 11.55, 'unit': 'g', 'percentOfDailyNeeds': 72.19}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 0.12, 'unit': 'g', 'percentOfDailyNeeds': 0.04}, 'sugars': {'name': 'Sugar', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'fibre': {'name': 'Fiber', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'protein': {'name': 'Protein', 'amount': 0, 'unit': 'g', 'percentOfDailyNeeds': 0}, 'sodium': {'name': 'Sodium', 'amount': 0, 'unit': 'mg', 'percentOfDailyNeeds': 0}}, 'hover': False}, {'name': 'lemon', 'id': 9150, 'possibleUnits': ['wedge or slice', 'piece', 'slice', 'fruit', 'g', 'wedge', 'oz', 'NLEA serving', 'cup', 'serving'], 'edit': False, 'amount': '3', 'unit': 'wedge', 'nutrition': {'kcal': {'name': 'Calories', 'amount': 15.66, 'unit': 'kcal', 'percentOfDailyNeeds': 0.78}, 'fat': {'name': 'Fat', 'amount': 0.16, 'unit': 'g', 'percentOfDailyNeeds': 0.25}, 'saturates': {'name': 'Saturated Fat', 'amount': 0.02, 'unit': 'g', 'percentOfDailyNeeds': 0.13}, 'carbs': {'name': 'Net Carbohydrates', 'amount': 3.52, 'unit': 'g', 'percentOfDailyNeeds': 1.28}, 'sugars': {'name': 'Sugar', 'amount': 1.35, 'unit': 'g', 'percentOfDailyNeeds': 1.5}, 'fibre': {'name': 'Fiber', 'amount': 1.51, 'unit': 'g', 'percentOfDailyNeeds': 6.05}, 'protein': {'name': 'Protein', 'amount': 0.59, 'unit': 'g', 'percentOfDailyNeeds': 1.19}, 'sodium': {'name': 'Sodium', 'amount': 1.08, 'unit': 'mg', 'percentOfDailyNeeds': 0.05}}, 'hover': False}], 'cookingMethod': 'Cut the sweet potatoes into wedges.\nSprinkle the flour, salt, pepper and\nmelted coconut oil over them about a\nlittle to coat them (this will make them\nsuper-crispy). Pop them onto a baking\ntray and bake at 200°C for 25 minutes.\nCoat each steak with pink peppercorns\n(crushed) and sea salt, then fry or\ngriddle on high heat with the coconut\noil. When the pan just about begins to\nsmoke, add the tuna steaks and fry on\neach side for 45 seconds if you prefer\nseared tuna, or 2 minutes on each side\nif you prefer it cooked through.\nServe with lemon wedges and your\nfavourite vegetables.', 'title': 'Sear tuna and potatoes', 'numServings': 2, 'mealType': 'Dinner', 'nutritionTable': {'kcal': {'amount': 368.5, 'unit': '', 'percentOfDailyNeeds': 18.43}, 'fat': {'amount': 8.26, 'unit': 'g', 'percentOfDailyNeeds': 12.71}, 'saturates': {'amount': 6.1, 'unit': 'g', 'percentOfDailyNeeds': 38.1}, 'carbs': {'amount': 40.6, 'unit': 'g', 'percentOfDailyNeeds': 14.77}, 'sugars': {'amount': 10.12, 'unit': 'g', 'percentOfDailyNeeds': 11.25}, 'fibre': {'amount': 7.54, 'unit': 'g', 'percentOfDailyNeeds': 30.15}, 'protein': {'amount': 26.65, 'unit': 'g', 'percentOfDailyNeeds': 53.29}, 'sodium': {'amount': 1550.38, 'unit': 'mg', 'percentOfDailyNeeds': 67.41}}}
+{
+    "ingredients": [
+        {
+            "name": "sweet potato",
+            "id": 11507,
+            "possibleUnits": [
+                "small",
+                "large",
+                "piece",
+                "g",
+                "medium",
+                "oz",
+                "sweetpotato",
+                "cup"
+            ],
+            "edit": false,
+            "amount": "2",
+            "unit": "medium",
+            "nutrition": {
+                "kcal": {
+                    "name": "Calories",
+                    "amount": 388.72,
+                    "unit": "kcal",
+                    "percentOfDailyNeeds": 19.44
+                },
+                "fat": {
+                    "name": "Fat",
+                    "amount": 0.23,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.35
+                },
+                "saturates": {
+                    "name": "Saturated Fat",
+                    "amount": 0.08,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.51
+                },
+                "carbs": {
+                    "name": "Net Carbohydrates",
+                    "amount": 77.38,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 28.14
+                },
+                "sugars": {
+                    "name": "Sugar",
+                    "amount": 18.89,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 20.99
+                },
+                "fibre": {
+                    "name": "Fiber",
+                    "amount": 13.56,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 54.24
+                },
+                "protein": {
+                    "name": "Protein",
+                    "amount": 7.1,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 14.19
+                },
+                "sodium": {
+                    "name": "Sodium",
+                    "amount": 248.6,
+                    "unit": "mg",
+                    "percentOfDailyNeeds": 10.81
+                }
+            },
+            "hover": false
+        },
+        {
+            "name": "tuna",
+            "id": 10015121,
+            "possibleUnits": [
+                "can",
+                "piece",
+                "g",
+                "tin",
+                "ounce",
+                "oz",
+                "cup",
+                "serving"
+            ],
+            "edit": false,
+            "amount": "240",
+            "unit": "g",
+            "nutrition": {
+                "kcal": {
+                    "name": "Calories",
+                    "amount": 216,
+                    "unit": "kcal",
+                    "percentOfDailyNeeds": 10.8
+                },
+                "fat": {
+                    "name": "Fat",
+                    "amount": 2.26,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 3.47
+                },
+                "saturates": {
+                    "name": "Saturated Fat",
+                    "amount": 0.54,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 3.36
+                },
+                "carbs": {
+                    "name": "Net Carbohydrates",
+                    "amount": 0.19,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.07
+                },
+                "sugars": {
+                    "name": "Sugar",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "fibre": {
+                    "name": "Fiber",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "protein": {
+                    "name": "Protein",
+                    "amount": 45.6,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 91.2
+                },
+                "sodium": {
+                    "name": "Sodium",
+                    "amount": 525.6,
+                    "unit": "mg",
+                    "percentOfDailyNeeds": 22.85
+                }
+            },
+            "hover": false
+        },
+        {
+            "name": "coarse sea salt",
+            "id": 1012047,
+            "possibleUnits": [
+                "pinch",
+                "g",
+                "oz",
+                "dash",
+                "teaspoon",
+                "cup",
+                "serving",
+                "tablespoon"
+            ],
+            "edit": false,
+            "amount": "1",
+            "unit": "teaspoon",
+            "nutrition": {
+                "kcal": {
+                    "name": "Calories",
+                    "amount": 0,
+                    "unit": "kcal",
+                    "percentOfDailyNeeds": 0
+                },
+                "fat": {
+                    "name": "Fat",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "saturates": {
+                    "name": "Saturated Fat",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "carbs": {
+                    "name": "Net Carbohydrates",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "sugars": {
+                    "name": "Sugar",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "fibre": {
+                    "name": "Fiber",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "protein": {
+                    "name": "Protein",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "sodium": {
+                    "name": "Sodium",
+                    "amount": 2325.48,
+                    "unit": "mg",
+                    "percentOfDailyNeeds": 101.11
+                }
+            },
+            "hover": false
+        },
+        {
+            "name": "coconut oil",
+            "id": 4047,
+            "possibleUnits": [
+                "g",
+                "oz",
+                "teaspoon",
+                "cup",
+                "serving",
+                "tablespoon"
+            ],
+            "edit": false,
+            "amount": "1",
+            "unit": "tablespoon",
+            "nutrition": {
+                "kcal": {
+                    "name": "Calories",
+                    "amount": 116.62,
+                    "unit": "kcal",
+                    "percentOfDailyNeeds": 5.83
+                },
+                "fat": {
+                    "name": "Fat",
+                    "amount": 13.87,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 21.34
+                },
+                "saturates": {
+                    "name": "Saturated Fat",
+                    "amount": 11.55,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 72.19
+                },
+                "carbs": {
+                    "name": "Net Carbohydrates",
+                    "amount": 0.12,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.04
+                },
+                "sugars": {
+                    "name": "Sugar",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "fibre": {
+                    "name": "Fiber",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "protein": {
+                    "name": "Protein",
+                    "amount": 0,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0
+                },
+                "sodium": {
+                    "name": "Sodium",
+                    "amount": 0,
+                    "unit": "mg",
+                    "percentOfDailyNeeds": 0
+                }
+            },
+            "hover": false
+        },
+        {
+            "name": "lemon",
+            "id": 9150,
+            "possibleUnits": [
+                "wedge or slice",
+                "piece",
+                "slice",
+                "fruit",
+                "g",
+                "wedge",
+                "oz",
+                "NLEA serving",
+                "cup",
+                "serving"
+            ],
+            "edit": false,
+            "amount": "3",
+            "unit": "wedge",
+            "nutrition": {
+                "kcal": {
+                    "name": "Calories",
+                    "amount": 15.66,
+                    "unit": "kcal",
+                    "percentOfDailyNeeds": 0.78
+                },
+                "fat": {
+                    "name": "Fat",
+                    "amount": 0.16,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.25
+                },
+                "saturates": {
+                    "name": "Saturated Fat",
+                    "amount": 0.02,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 0.13
+                },
+                "carbs": {
+                    "name": "Net Carbohydrates",
+                    "amount": 3.52,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 1.28
+                },
+                "sugars": {
+                    "name": "Sugar",
+                    "amount": 1.35,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 1.5
+                },
+                "fibre": {
+                    "name": "Fiber",
+                    "amount": 1.51,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 6.05
+                },
+                "protein": {
+                    "name": "Protein",
+                    "amount": 0.59,
+                    "unit": "g",
+                    "percentOfDailyNeeds": 1.19
+                },
+                "sodium": {
+                    "name": "Sodium",
+                    "amount": 1.08,
+                    "unit": "mg",
+                    "percentOfDailyNeeds": 0.05
+                }
+            },
+            "hover": false
+        }
+    ],
+    "cookingMethod": "Cut the sweet potatoes into wedges.\nSprinkle the flour, salt, pepper and\nmelted coconut oil over them about a\nlittle to coat them (this will make them\nsuper-crispy). Pop them onto a baking\ntray and bake at 200°C for 25 minutes.\nCoat each steak with pink peppercorns\n(crushed) and sea salt, then fry or\ngriddle on high heat with the coconut\noil. When the pan just about begins to\nsmoke, add the tuna steaks and fry on\neach side for 45 seconds if you prefer\nseared tuna, or 2 minutes on each side\nif you prefer it cooked through.\nServe with lemon wedges and your\nfavourite vegetables.",
+    "title": "Sear tuna and potatoes",
+    "numServings": 2,
+    "mealType": "Dinner",
+    "nutritionTable": {
+        "kcal": {
+            "amount": 368.5,
+            "unit": "",
+            "percentOfDailyNeeds": 18.43
+        },
+        "fat": {
+            "amount": 8.26,
+            "unit": "g",
+            "percentOfDailyNeeds": 12.71
+        },
+        "saturates": {
+            "amount": 6.1,
+            "unit": "g",
+            "percentOfDailyNeeds": 38.1
+        },
+        "carbs": {
+            "amount": 40.6,
+            "unit": "g",
+            "percentOfDailyNeeds": 14.77
+        },
+        "sugars": {
+            "amount": 10.12,
+            "unit": "g",
+            "percentOfDailyNeeds": 11.25
+        },
+        "fibre": {
+            "amount": 7.54,
+            "unit": "g",
+            "percentOfDailyNeeds": 30.15
+        },
+        "protein": {
+            "amount": 26.65,
+            "unit": "g",
+            "percentOfDailyNeeds": 53.29
+        },
+        "sodium": {
+            "amount": 1550.38,
+            "unit": "mg",
+            "percentOfDailyNeeds": 67.41
+        }
+    }
+}
