@@ -66,7 +66,7 @@ def calculateCarbohydrates(amount):
 def calculateScore(
     calories, sugar, saturatedFat, totalFat, sodium, protein, fiber, carbohydrates
 ):
-    return (
+    raw_score = (
         calculateCalories(calories)
         + calculateSugar(sugar)
         + calculateFat(saturatedFat, totalFat)
@@ -76,6 +76,14 @@ def calculateScore(
         + calculateFiber(fiber)
         + calculateCarbohydrates(carbohydrates)
     )
+    norm_score = (1 - normalize(raw_score, -15, 40)) * 100 # Normalize to range of 0 to 100.
+    return norm_score
 
+def normalize(raw_score, min_score, max_score):
+    """
+    Normalize raw score to the range from 0 to 1.
+    """
+    norm_score = (raw_score - min_score) / (max_score - min_score)
+    return norm_score
 
 # print(calculateScore(1590, 22.4, 0.6, 100, 0.22, 8.5, 8.6, 0))

@@ -82,49 +82,60 @@ def login():
 def auth():
     return "JWT verified"
 
-
-@app.route("/recipes", methods=["POST", "GET"])
-def addRecipe():
+@app.route('/recipes/<recipeid>', methods=['POST', "GET"])
+def addRecipe(recipeid):
     if request.method == "POST":
+        if recipeid == "new":
+            data = request.get_json()
+            # print(data["id"], data["ingredients"], data["description"])
 
-        data = request.get_json()
-        # print(data["id"], data["ingredients"], data["description"])
-
-        totalCalories = 0
-        totalSugar = 0
-        totalSaturatedFat = 0
-        totalFat = 0
-        totalSodium = 0
-        totalProtein = 0
-        totalFiber = 0
-        totalCarb = 0
-        for ingredient in data["ingredients"]:
-            totalCalories += ingredient["nutrition"]["kcal"]["amount"]
-            totalSugar += ingredient["nutrition"]["sugars"]["amount"]
-            totalSaturatedFat += ingredient["nutrition"]["saturates"]["amount"]
-            totalFat += ingredient["nutrition"]["fat"]["amount"]
-            totalSodium += ingredient["nutrition"]["sodium"]["amount"]
-            totalProtein += ingredient["nutrition"]["protein"]["amount"]
-            totalFiber += ingredient["nutrition"]["fibre"]["amount"]
-            totalCarb += ingredient["nutrition"]["carbs"]["amount"]
-        nutritionScore = calculateScore(
-            totalCalories,
-            totalSugar,
-            totalSaturatedFat,
-            totalFat,
-            totalSodium,
-            totalProtein,
-            totalFiber,
-            totalCarb,
+            totalCalories = 0
+            totalSugar = 0
+            totalSaturatedFat = 0
+            totalFat = 0
+            totalSodium = 0
+            totalProtein = 0
+            totalFiber = 0
+            totalCarb = 0
+            for ingredient in data["ingredients"]:
+                totalCalories += ingredient["nutrition"]["kcal"]["amount"]
+                totalSugar += ingredient["nutrition"].get("sugars", {}).get("amount",0)
+                totalSaturatedFat += ingredient["nutrition"]["saturates"]["amount"]
+                totalFat += ingredient["nutrition"]["fat"]["amount"]
+                totalSodium += ingredient["nutrition"]["sodium"]["amount"]
+                totalProtein += ingredient["nutrition"]["protein"]["amount"]
+                totalFiber += ingredient["nutrition"]["fibre"]["amount"]
+                totalCarb += ingredient["nutrition"]["carbs"]["amount"]
+            nutritionScore = calculateScore(
+                totalCalories,
+                totalSugar,
+                totalSaturatedFat,
+                totalFat,
+                totalSodium,
+                totalProtein,
+                totalFiber,
+                totalCarb,
+            )
+            # return response
+            # print(data)
+            response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
+            if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+                return {"msg": "Add food successful", "nutritionScore": nutritionScore}
+            return {"msg": "error occurred", "response": response}
+    elif request.method == "GET":
+        getResponse = dynamodb.getAllRecipes()
+        print(getResponse)
+        print(getResponse["Count"])
+        for recipe in getResponse["Items"]:
+            if str(recipe["id"]) == str(recipeid):
+                return recipe
+        return make_response(
+            "Recipe not found",
+            404,
         )
-        # return response
-        # print(data)
-        response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
-        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            return {"msg": "Add food successful", "nutritionScore": nutritionScore}
-        return {"msg": "error occurred", "response": response}
-        # return {"msg": data}
-    # else:
+
+@app.route("/recipes", methods=["GET"])
+def getAllRecipes():
     getResponse = dynamodb.getAllRecipes()
     return getResponse
 
