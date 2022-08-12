@@ -84,4 +84,5 @@ def normalize(raw_score, min_score, max_score):
     """
     norm_score = (raw_score - min_score) / (max_score - min_score)
     return norm_score
+
 # print(calculateScore(1590, 22.4, 0.6, 100, 0.22, 8.5, 8.6, 0))
