@@ -83,10 +83,12 @@ def auth():
     return "JWT verified"
 
 
-@app.route("/recipes", methods=["POST", "GET"])
-def add_recipe():
+@app.route('/recipes/<recipeid>', methods=['POST', "GET"])
+def add_recipe(recipeid):
     if request.method == "POST":
-
+        if recipeid == "new":
+            data = request.get_json()
+            # print(data["id"], data["ingredients"], data["description"])
         data = request.get_json()
         # print(data["id"], data["ingredients"], data["description"])
 
@@ -98,7 +100,7 @@ def add_recipe():
         totalProtein = 0
         totalFiber = 0
         totalCarb = 0
-        for ingredient in data["ingredients"]["nutritionTable"]:
+        for ingredient in data["ingredients"]["nutrition"]:
             # Some ingredient may do not exist so double get will return 0 in that case.
             totalCalories += ingredient.get("kcal", {}).get("amount", 0)
             totalSugar += ingredient.get("sugars",{}).get("amount",0)
@@ -108,6 +110,7 @@ def add_recipe():
             totalProtein += ingredient.get("protein",{}).get("amount",0)
             totalFiber += ingredient.get("fibre",{}).get("amount",0)
             totalCarb += ingredient.get("carbs",{}).get("amount",0)
+
         nutritionScore = calculate_score(
             totalCalories,
             totalSugar,
@@ -116,16 +119,27 @@ def add_recipe():
             totalSodium,
             totalProtein,
             totalFiber,
-            totalCarb,
-        )
-        # return response
-        # print(data)
+            totalCarb,)
+            # return response
+            # print(data)
         response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return {"msg": "Add food successful", "nutritionScore": nutritionScore}
         return {"msg": "error occurred", "response": response}
-        # return {"msg": data}
-    # else:
+    elif request.method == "GET":
+        getResponse = dynamodb.getAllRecipes()
+        print(getResponse)
+        print(getResponse["Count"])
+        for recipe in getResponse["Items"]:
+            if str(recipe["id"]) == str(recipeid):
+                return recipe
+        return make_response(
+            "Recipe not found",
+            404,
+        )
+
+@app.route("/recipes", methods=["GET"])
+def get_all_recipes():
     getResponse = dynamodb.getAllRecipes()
     return getResponse
 
