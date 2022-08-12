@@ -100,7 +100,7 @@ def add_recipe(recipeid):
         totalProtein = 0
         totalFiber = 0
         totalCarb = 0
-        for ingredient in data["ingredients"]["nutrition"]:
+        for ingredient in data["ingredients"]["nutritionTable"]:
             # Some ingredient may do not exist so double get will return 0 in that case.
             totalCalories += ingredient.get("kcal", {}).get("amount", 0)
             totalSugar += ingredient.get("sugars",{}).get("amount",0)
