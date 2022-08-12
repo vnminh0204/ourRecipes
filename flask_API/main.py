@@ -2,7 +2,7 @@ from decimal import Decimal
 from flask import Flask, request, jsonify, session, make_response
 import os
 import dynamoDB.controller as dynamodb
-from lib.nutritionCalculator import calculateScore
+from lib.nutritionCalculator import calculate_score
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
@@ -84,7 +84,7 @@ def auth():
 
 
 @app.route("/recipes", methods=["POST", "GET"])
-def addRecipe():
+def add_recipe():
     if request.method == "POST":
 
         data = request.get_json()
@@ -98,16 +98,17 @@ def addRecipe():
         totalProtein = 0
         totalFiber = 0
         totalCarb = 0
-        for ingredient in data["ingredients"]:
-            totalCalories += ingredient["nutrition"]["kcal"]["amount"]
-            totalSugar += ingredient["nutrition"]["sugars"]["amount"]
-            totalSaturatedFat += ingredient["nutrition"]["saturates"]["amount"]
-            totalFat += ingredient["nutrition"]["fat"]["amount"]
-            totalSodium += ingredient["nutrition"]["sodium"]["amount"]
-            totalProtein += ingredient["nutrition"]["protein"]["amount"]
-            totalFiber += ingredient["nutrition"]["fibre"]["amount"]
-            totalCarb += ingredient["nutrition"]["carbs"]["amount"]
-        nutritionScore = calculateScore(
+        for ingredient in data["ingredients"]["nutrition"]:
+            # Some ingredient may do not exist so double get will return 0 in that case.
+            totalCalories += ingredient.get("kcal", {}).get("amount", 0)
+            totalSugar += ingredient.get("sugars",{}).get("amount",0)
+            totalSaturatedFat += ingredient.get("saturates",{}).get("amount",0)
+            totalFat += ingredient.get("fat",{}).get("amount",0)
+            totalSodium += ingredient.get("sodium",{}).get("amount",0)
+            totalProtein += ingredient.get("protein",{}).get("amount",0)
+            totalFiber += ingredient.get("fibre",{}).get("amount",0)
+            totalCarb += ingredient.get("carbs",{}).get("amount",0)
+        nutritionScore = calculate_score(
             totalCalories,
             totalSugar,
             totalSaturatedFat,
