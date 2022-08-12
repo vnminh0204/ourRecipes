@@ -1,11 +1,11 @@
 from decimal import Decimal
-from urllib import response
-from flask import Flask, request, jsonify
-from flask_sqlalchemy import SQLAlchemy
-from flask_marshmallow import Marshmallow
+from flask import Flask, request, jsonify, session, make_response
 import os
 import dynamoDB.controller as dynamodb
 from lib.nutritionCalculator import calculateScore
+import jwt
+from datetime import datetime, timedelta
+from functools import wraps
 
 # import json
 # from decimal import Decimal
@@ -13,28 +13,27 @@ from lib.nutritionCalculator import calculateScore
 # Init app
 app = Flask(__name__)
 
-# Models
-class Ingredient:
-    def __init__(self, name, amount):
-        self.name = name
-        self.amount = amount
+app.config["SECRET_KEY"] = "c68df6752f4e460e90859655e2b77db3"
 
 
-# i1 = Ingredient("beef", "200g")
-# print(i1.name, i1.amount)
+def token_required(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        token = None
+        if "x-access-token" in request.headers:
+            token = request.headers["x-access-token"]
 
-# i2 = Ingredient("beef", "200g")
-# print(i2.name, i2.amount)
+        if not token:
+            return jsonify({"message": "Token is missing!"}), 401
 
+        try:
+            data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
+        except:
+            return {"msg": "Token is invalid", "token": token}, 401
 
-class Food:
-    def __init__(self, ingredients, description):
-        self.ingredients = ingredients
-        self.description = description
+        return f(*args, **kwargs)
 
-
-# f1 = Food([i1, i2], "cx")
-# print(f1.ingredients, f1.description)
+    return decorated
 
 
 @app.route("/", methods=["GET"])
@@ -48,79 +47,40 @@ def root_route():
     return "Table created"
 
 
-@app.route("/food", methods=["POST", "GET"])
-def add_food():
-    if request.method == "POST":
-
-        data = request.get_json()
-        print(data["id"], data["ingredients"], data["description"])
-        response = dynamodb.write_to_foodList(
-            data["id"], data["ingredients"], data["description"]
-        )
-        # response = dynamodb.write_to_foodList(
-        #     2,
-        #     [{"name": "beef", "amount": "100g"}, {"name": "kdal", "amount": "200g"}],
-        #     "dascxz",
-        # )
-
-        # return response
-        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-            return {
-                "msg": "Add food successful",
-                # "nutritionScore": Decimal()
-            }
-        return {"msg": "error occurred", "response": response}
-    # else:
-    return {"msg": "GET REQUEST, RENDER NAOTHER PAGE"}
+@app.route("/home")
+def home():
+    if not session.get("logged_in"):
+        return {"msg": "Not yet loggedin, handle"}
+    else:
+        return {"msg": "Logged in, handle"}
 
 
-@app.route("/food/<int:id>")
-def getFood(id):
-    try:
-        response = dynamodb.get_food_from_foodList(id)
-        print(response)
-        print("000000000000000")
-    except Exception:
-        return {"msg": "Some error occured"}
-
-    # if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-
-    #     if "Item" in response:
-    #         return {"Item": response["Item"]}
-
-    #     return {"msg": "Item not found!"}
-
-    return {"msg": "Some error occured", "response": response}
-
-
-@app.route("/food/<int:id>", methods=["DELETE"])
-def deleteFood(id):
-
-    response = dynamodb.delete_food_from_db(id)
-
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {
-            "msg": "Deleted successfully",
-        }
-
-    return {"msg": "Some error occcured", "response": response}
-
-
-@app.route("/food/<int:id>", methods=["PUT"])
-def updateFood(id):
-
+@app.route("/login", methods=["POST"])
+def login():
     data = request.get_json()
+    # TODO: check login credential with db
+    if data["username"] == "ad" and data["password"] == "123":
+        session["logged_in"] = True
+        token = jwt.encode(
+            {
+                "user": data["username"],
+                "expiration": str(datetime.utcnow() + timedelta(seconds=120)),
+            },
+            app.config["SECRET_KEY"],
+        )
+        return jsonify({"token": token})
+    else:
+        return make_response(
+            "Unable to verify",
+            403,
+            {"WWW-Authenticate": 'Basic realm: "Authentication Failed "'},
+        )
 
-    response = dynamodb.update_food(id, data)
 
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {
-            "msg": "Updated successfully",
-            "ModifiedAttributes": response["Attributes"],
-            "response": response["ResponseMetadata"],
-        }
-
-    return {"msg": "Some error occured", "response": response}
+@app.route("/auth")
+@token_required
+def auth():
+    return "JWT verified"
 
 
 @app.route("/recipes", methods=["POST", "GET"])
