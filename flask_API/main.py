@@ -2,7 +2,7 @@ from decimal import Decimal
 from flask import Flask, request, jsonify, session, make_response
 import os
 import dynamoDB.controller as dynamodb
-from lib.nutritionCalculator import calculateScore
+from lib.nutritionCalculator import calculate_score
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
@@ -88,40 +88,43 @@ def addRecipe(recipeid):
         if recipeid == "new":
             data = request.get_json()
             # print(data["id"], data["ingredients"], data["description"])
+        data = request.get_json()
+        # print(data["id"], data["ingredients"], data["description"])
 
-            totalCalories = 0
-            totalSugar = 0
-            totalSaturatedFat = 0
-            totalFat = 0
-            totalSodium = 0
-            totalProtein = 0
-            totalFiber = 0
-            totalCarb = 0
-            for ingredient in data["ingredients"]:
-                totalCalories += ingredient["nutrition"]["kcal"]["amount"]
-                totalSugar += ingredient["nutrition"].get("sugars", {}).get("amount",0)
-                totalSaturatedFat += ingredient["nutrition"]["saturates"]["amount"]
-                totalFat += ingredient["nutrition"]["fat"]["amount"]
-                totalSodium += ingredient["nutrition"]["sodium"]["amount"]
-                totalProtein += ingredient["nutrition"]["protein"]["amount"]
-                totalFiber += ingredient["nutrition"]["fibre"]["amount"]
-                totalCarb += ingredient["nutrition"]["carbs"]["amount"]
-            nutritionScore = calculateScore(
-                totalCalories,
-                totalSugar,
-                totalSaturatedFat,
-                totalFat,
-                totalSodium,
-                totalProtein,
-                totalFiber,
-                totalCarb,
-            )
+        totalCalories = 0
+        totalSugar = 0
+        totalSaturatedFat = 0
+        totalFat = 0
+        totalSodium = 0
+        totalProtein = 0
+        totalFiber = 0
+        totalCarb = 0
+        for ingredient in data["ingredients"]["nutrition"]:
+            # Some ingredient may do not exist so double get will return 0 in that case.
+            totalCalories += ingredient.get("kcal", {}).get("amount", 0)
+            totalSugar += ingredient.get("sugars",{}).get("amount",0)
+            totalSaturatedFat += ingredient.get("saturates",{}).get("amount",0)
+            totalFat += ingredient.get("fat",{}).get("amount",0)
+            totalSodium += ingredient.get("sodium",{}).get("amount",0)
+            totalProtein += ingredient.get("protein",{}).get("amount",0)
+            totalFiber += ingredient.get("fibre",{}).get("amount",0)
+            totalCarb += ingredient.get("carbs",{}).get("amount",0)
+
+        nutritionScore = calculate_score(
+            totalCalories,
+            totalSugar,
+            totalSaturatedFat,
+            totalFat,
+            totalSodium,
+            totalProtein,
+            totalFiber,
+            totalCarb,)
             # return response
             # print(data)
-            response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
-            if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-                return {"msg": "Add food successful", "nutritionScore": nutritionScore}
-            return {"msg": "error occurred", "response": response}
+        response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
+        if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
+            return {"msg": "Add food successful", "nutritionScore": nutritionScore}
+        return {"msg": "error occurred", "response": response}
     elif request.method == "GET":
         getResponse = dynamodb.getAllRecipes()
         print(getResponse)
