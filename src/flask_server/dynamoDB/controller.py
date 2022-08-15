@@ -86,6 +86,30 @@ def create_users_table():
     return table
 
 
+def create_ingredients_table():
+    # try:
+    table = resource.create_table(
+        TableName="Ingredients",  # Name of the table
+        KeySchema=[
+            {
+                "AttributeName": "id",
+                "KeyType": "HASH",  # RANGE = sort key, HASH = partition key
+            }
+        ],
+        AttributeDefinitions=[
+            {
+                "AttributeName": "id",  # Name of the attribute
+                "AttributeType": "N",  # N = Number (B= Binary, S = String)
+            }
+        ],
+        ProvisionedThroughput={"ReadCapacityUnits": 10, "WriteCapacityUnits": 10},
+    )
+    # except resource.exceptions.ResourceInUseException:
+    #     # return "Table already exists"
+    #     pass
+    return table
+
+
 # create_table_movie()
 
 # create_table_foodList()
@@ -95,6 +119,10 @@ RecipesTable = resource.Table("Recipes")
 
 # create_users_table()
 users_table = resource.Table("Users")
+
+# create_ingredients_table()
+
+ingredients_table = resource.Table("Ingredients")
 
 
 def addRecipe(data, nutriScore):
@@ -194,3 +222,34 @@ def verify_user(username, plain_text_password):
         return {"uid": item["user_id"], "data": item["data"]}, True
     # print(response)
     return {"Wrong password"}, False
+
+
+def add_ingredient(id, name, data):
+    data = json.loads(json.dumps(data), parse_float=Decimal)
+    response = RecipesTable.put_item(
+        Item={
+            "id": int(id),
+            "name": name,
+            "nutritions": data,
+        }
+    )
+
+    # print(response)
+    return response
+
+
+def get_ingredient(id):
+    response = ingredients_table.query(KeyConditionExpression=Key("id").eq(id))
+    if len(response["Items"]) < 1:
+        # return {"Username not found"}, False
+        # not found, call spoonacular api to get infor and then add_ingredient
+        # get_100g_ingredient_nutritions_from_spoonacular(id)
+        # return ingredient
+        pass
+    # if found:
+    item = response["Items"][0]
+    return {"id": item["id"], "name": item["name"], "nutritions": item["nutritions"]}
+
+
+def partial_name_query(substring):
+    pass
