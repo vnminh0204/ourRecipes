@@ -133,7 +133,7 @@ const Recipes = ({ toast }) => {
 
       if (searchQuery) {
         filteredrecipes = filteredrecipes.filter((r) =>
-          r.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+          r.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
       //order we can change [] to have more criterias to sort
