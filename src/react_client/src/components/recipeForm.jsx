@@ -4,7 +4,7 @@ import IngredientsSearch from "./ingredientsSearch";
 import NutritionTable from "./nutritionTable";
 import IngredientsList from "./ingredientsList";
 import CookingMethod from "./cookingMethod";
-
+import config from "../config.json";
 import Title from "./title";
 
 const RecipeForm = ({ toast }) => {
@@ -31,26 +31,136 @@ const RecipeForm = ({ toast }) => {
   const [editCookingMethod, setEditCookingMethod] = useState(true);
 
   useEffect(() => {
+    const updateNutritionTable = () => {
+      const newNutritionTable = {
+        kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
+        fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+        sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
+      };
+      for (const ingredient of ingredients) {
+        if (ingredient.nutrition) {
+          if (ingredient.nutrition.kcal) {
+            newNutritionTable.kcal.amount += parseInt(
+              ingredient.nutrition.kcal.amount
+            );
+            newNutritionTable.kcal.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.kcal.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.fat) {
+            newNutritionTable.fat.amount += parseInt(
+              ingredient.nutrition.fat.amount
+            );
+            newNutritionTable.fat.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.fat.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.saturates) {
+            newNutritionTable.saturates.amount += parseInt(
+              ingredient.nutrition.saturates.amount
+            );
+            newNutritionTable.saturates.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.saturates.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.carbs) {
+            newNutritionTable.carbs.amount += parseInt(
+              ingredient.nutrition.carbs.amount
+            );
+            newNutritionTable.carbs.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.carbs.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.sugars) {
+            newNutritionTable.sugars.amount += parseInt(
+              ingredient.nutrition.sugars.amount
+            );
+            newNutritionTable.sugars.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.sugars.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.fibre) {
+            newNutritionTable.fibre.amount += parseInt(
+              ingredient.nutrition.fibre.amount
+            );
+            newNutritionTable.fibre.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.fibre.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.protein.amount) {
+            newNutritionTable.protein.amount += parseInt(
+              ingredient.nutrition.protein.amount
+            );
+            newNutritionTable.protein.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.protein.percentOfDailyNeeds
+            );
+          }
+          if (ingredient.nutrition.sodium) {
+            newNutritionTable.sodium.amount += parseInt(
+              ingredient.nutrition.sodium.amount
+            );
+            newNutritionTable.sodium.percentOfDailyNeeds += parseInt(
+              ingredient.nutrition.sodium.percentOfDailyNeeds
+            );
+          }
+        }
+      }
+
+      Object.keys(newNutritionTable).forEach(function (key) {
+        newNutritionTable[key].amount =
+          Math.round((newNutritionTable[key].amount * 100) / numServings) / 100;
+        newNutritionTable[key].percentOfDailyNeeds =
+          Math.round(
+            (newNutritionTable[key].percentOfDailyNeeds * 100) / numServings
+          ) / 100;
+      });
+      setNutritionTable(newNutritionTable);
+    };
     updateNutritionTable();
   }, [numServings, ingredients]);
 
   useEffect(() => {
-    if (recipeID !== "new") {
-      const apiEndpoint = "http://127.0.0.1:5000" + "/recipes/" + recipeID;
-      fetch(apiEndpoint)
-        .then((response) => response.json())
-        .then((data) => {
-          setEditTile(false);
-          setEditCookingMethod(false);
-          setCookingMethod(data.data.cookingMethod);
-          setNumServings(data.data.numServings);
-          setIngredients(data.data.ingredients);
-          setTitle(data.data.title);
-          setMealType(data.data.mealType);
-          setNutritionTable(data.data.nutritionTable);
-        });
+    const fetchData = async () => {
+      if (recipeID !== "new") {
+        const apiEndpoint = config.apiEndpoint + "/recipes/" + recipeID;
+        await fetch(apiEndpoint)
+          .then((response) => {
+            handleExpectedError(response);
+            return response.json();
+          })
+          .then((data) => {
+            // const data = await response.json();
+            console.log(data);
+            setEditTile(false);
+            setEditCookingMethod(false);
+            setCookingMethod(data.data.cookingMethod);
+            setNumServings(data.data.numServings);
+            setIngredients(data.data.ingredients);
+            setTitle(data.data.title);
+            setMealType(data.data.mealType);
+            setNutritionTable(data.data.nutritionTable);
+          })
+          .catch((error) => {
+            toast.error(error.message);
+            return;
+          });
+      }
+    };
+    fetchData();
+  }, [recipeID, toast]);
+
+  const handleExpectedError = (response) => {
+    if (!response.ok) {
+      throw new Error("Server error: Error code " + response.status + "!");
     }
-  }, []);
+
+    return response;
+  };
 
   const addItem = (newIngredient) => {
     // const { name, id, possibleUnits } = newIngredient;
@@ -65,97 +175,6 @@ const RecipeForm = ({ toast }) => {
       (element) => element.id !== ingredient.id
     );
     setIngredients(newIngredients);
-  };
-
-  const updateNutritionTable = () => {
-    const newNutritionTable = {
-      kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
-      fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
-      sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
-    };
-    for (const ingredient of ingredients) {
-      if (ingredient.nutrition) {
-        if (ingredient.nutrition.kcal) {
-          newNutritionTable.kcal.amount += parseInt(
-            ingredient.nutrition.kcal.amount
-          );
-          newNutritionTable.kcal.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.kcal.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.fat) {
-          newNutritionTable.fat.amount += parseInt(
-            ingredient.nutrition.fat.amount
-          );
-          newNutritionTable.fat.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.fat.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.saturates) {
-          newNutritionTable.saturates.amount += parseInt(
-            ingredient.nutrition.saturates.amount
-          );
-          newNutritionTable.saturates.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.saturates.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.carbs) {
-          newNutritionTable.carbs.amount += parseInt(
-            ingredient.nutrition.carbs.amount
-          );
-          newNutritionTable.carbs.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.carbs.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.sugars) {
-          newNutritionTable.sugars.amount += parseInt(
-            ingredient.nutrition.sugars.amount
-          );
-          newNutritionTable.sugars.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.sugars.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.fibre) {
-          newNutritionTable.fibre.amount += parseInt(
-            ingredient.nutrition.fibre.amount
-          );
-          newNutritionTable.fibre.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.fibre.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.protein.amount) {
-          newNutritionTable.protein.amount += parseInt(
-            ingredient.nutrition.protein.amount
-          );
-          newNutritionTable.protein.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.protein.percentOfDailyNeeds
-          );
-        }
-        if (ingredient.nutrition.sodium) {
-          newNutritionTable.sodium.amount += parseInt(
-            ingredient.nutrition.sodium.amount
-          );
-          newNutritionTable.sodium.percentOfDailyNeeds += parseInt(
-            ingredient.nutrition.sodium.percentOfDailyNeeds
-          );
-        }
-      }
-    }
-
-    Object.keys(newNutritionTable).forEach(function (key) {
-      newNutritionTable[key].amount =
-        Math.round((newNutritionTable[key].amount * 100) / numServings) / 100;
-      newNutritionTable[key].percentOfDailyNeeds =
-        Math.round(
-          (newNutritionTable[key].percentOfDailyNeeds * 100) / numServings
-        ) / 100;
-    });
-    setNutritionTable(newNutritionTable);
   };
 
   const findNutritionObject = (data, nutritionName) => {
@@ -183,43 +202,52 @@ const RecipeForm = ({ toast }) => {
       return;
     }
     const apiEndpoint =
-      "https://api.spoonacular.com/food/ingredients/" +
+      config.spoonacularAPIEndpoint +
+      "/food/ingredients/" +
       ingredient.id +
-      "/information?apiKey=65cdf0d8be2f4777b318c3e82cec2245" +
+      "/information?apiKey=" +
+      config.spoonacularAPIKey +
       "&amount=" +
       ingredient.amount +
       "&unit=" +
       ingredient.unit;
 
-    const response = await fetch(apiEndpoint);
-    const data = await response.json();
-    const kcal = findNutritionObject(data, "Calories");
-    const fat = findNutritionObject(data, "Fat");
-    const saturates = findNutritionObject(data, "Saturated Fat");
-    const carbs = findNutritionObject(data, "Net Carbohydrates");
-    const sugars = findNutritionObject(data, "Sugar");
-    const fibre = findNutritionObject(data, "Fiber");
-    const protein = findNutritionObject(data, "Protein");
-    const sodium = findNutritionObject(data, "Sodium");
+    await fetch(apiEndpoint)
+      .then((response) => {
+        handleExpectedError(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        const kcal = findNutritionObject(data, "Calories");
+        const fat = findNutritionObject(data, "Fat");
+        const saturates = findNutritionObject(data, "Saturated Fat");
+        const carbs = findNutritionObject(data, "Net Carbohydrates");
+        const sugars = findNutritionObject(data, "Sugar");
+        const fibre = findNutritionObject(data, "Fiber");
+        const protein = findNutritionObject(data, "Protein");
+        const sodium = findNutritionObject(data, "Sodium");
 
-    const nutrition = {
-      kcal: kcal,
-      fat: fat,
-      saturates: saturates,
-      carbs: carbs,
-      sugars: sugars,
-      fibre: fibre,
-      protein: protein,
-      sodium: sodium,
-    };
-    const index = ingredients.indexOf(ingredient);
-    const newIngredients = [...ingredients];
-    ingredient.nutrition = nutrition;
-    ingredient.edit = false;
-    newIngredients[index] = ingredient;
-    setIngredients(newIngredients);
-
-    updateNutritionTable();
+        const nutrition = {
+          kcal: kcal,
+          fat: fat,
+          saturates: saturates,
+          carbs: carbs,
+          sugars: sugars,
+          fibre: fibre,
+          protein: protein,
+          sodium: sodium,
+        };
+        const index = ingredients.indexOf(ingredient);
+        const newIngredients = [...ingredients];
+        ingredient.nutrition = nutrition;
+        ingredient.edit = false;
+        newIngredients[index] = ingredient;
+        setIngredients(newIngredients);
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
 
   const onSubmit = async () => {
@@ -261,13 +289,22 @@ const RecipeForm = ({ toast }) => {
       body: JSON.stringify(obj),
     };
 
-    const apiEndpoint = "http://127.0.0.1:5000/recipes/" + recipeID;
+    const apiEndpoint = config.apiEndpoint + "/recipes/" + recipeID;
 
-    const response = await fetch(apiEndpoint, requestOptions);
-    const data = await response.json();
-    console.log(data);
-    toast.success("Your recipe is submitted");
-    //navigate("/recipes");
+    await fetch(apiEndpoint, requestOptions)
+      .then((response) => {
+        handleExpectedError(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        toast.success("Your recipe is submitted");
+        navigate("/recipes");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        return;
+      });
   };
 
   return (
