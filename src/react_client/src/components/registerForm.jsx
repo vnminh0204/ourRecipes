@@ -2,9 +2,10 @@ import React from "react";
 import Joi from "joi-browser";
 import Form from "./common/form";
 import { useState } from "react";
-// import config from "../config.json";
+import { useNavigate } from "react-router-dom";
+import { register } from "../services/auth";
 
-const RegisterForm = () => {
+const RegisterForm = ({ toast }) => {
   const buttons = [
     {
       buttonType: "Input",
@@ -33,15 +34,25 @@ const RegisterForm = () => {
     },
   ];
   const schema = {
-    username: Joi.string().required().email().label("Username"),
+    username: Joi.string().required().label("Username"),
     password: Joi.string().required().min(5).label("Password"),
     name: Joi.string().required().label("Name"),
   };
 
+  const navigate = useNavigate();
+
   const initialData = { username: "", password: "", name: "" };
   const [data, setData] = useState(initialData);
-  const doSubmit = () => {
-    // Call the server
+
+  const doSubmit = async () => {
+    const status = await register(data.username, data.password, data.name);
+    if (status.length === 0) {
+      toast.success("Register successfully!");
+      navigate("/login", { replace: true });
+    } else {
+      toast.error(status);
+    }
+
     console.log("Submitted");
   };
 
