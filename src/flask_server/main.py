@@ -208,8 +208,8 @@ def update_recipe(recipeid):
 def delete_recipe(recipeid):
     response = dynamodb.delete_recipe(recipeid)
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Delete successful", "Deleted ID": recipeid}
-    return {"msg": "error occurred", "response": response}
+        return {"msg": "Delete successful", "Deleted ID": recipeid, "error": "false"}
+    return {"msg": "Error occurs", "response": response, "error": "true"}
 
 
 @app.route("/recipes", methods=["GET"])
