@@ -65,10 +65,13 @@ def register():
     username = data["username"]
     password = data["password"]
     data = data["data"]
+    print(username)
+    print(password)
+    print(data)
     response = dynamodb.add_user(username=username, password=password, data=data)
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Add user successful"}
-    return {"msg": "error occurred", "response": response}
+        return {"msg": "Add user successful", "error": "false"}
+    return {"msg": "error occurred", "response": response, "error": "true"}
 
 
 @app.route("/login", methods=["POST"])
@@ -80,16 +83,20 @@ def login():
     data = request.get_json()
     # TODO: check login credential with db
     response, result = dynamodb.verify_user(data["username"], data["password"])
+    print(response)
+    print(result)
     if result:
         session["logged_in"] = True
         token = jwt.encode(
             {
-                "user": data["username"],
-                "expiration": str(datetime.utcnow() + timedelta(seconds=120)),
+                "username": data["username"],
+                "id": response["uid"],
+                "name": response["data"]["name"],
+                "iat": str(datetime.utcnow() + timedelta(seconds=120)),
             },
             app.config["SECRET_KEY"],
         )
-        return jsonify({"token": token, "data": response})
+        return jsonify({"token": token, "data": response, "error": "false"})
     else:
         return make_response(
             "Unable to verify",
