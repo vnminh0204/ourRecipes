@@ -7,9 +7,9 @@ import { paginate } from "../utils/paginate";
 import SearchBox from "./common/searchBox";
 import _ from "lodash";
 import { useState, useEffect } from "react";
-import { getRecipes } from "../services/fakeRecipeService";
+import config from "../config.json";
 
-const Recipes = () => {
+const Recipes = ({ toast }) => {
   const [recipes, setRecipes] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize] = useState(4);
@@ -24,35 +24,78 @@ const Recipes = () => {
     { name: "Snack" },
   ];
 
-  //replace componentDidMount
-  useEffect(() => {
-    const promise = getAllRecipes();
-    promise.then((result) => {setRecipes(result);});
-    
-  }, []);
-
-  const getAllRecipes = async () => {
-    //get request
-    const apiEndpoint = "http://127.0.0.1:5000" + "/recipes";
-
-    const response = await fetch(apiEndpoint);
-    const data = await response.json();
-    var recipes = new Array(data.Count);
-    var i = 0;
-    for (const item of data.Items) {
-      //TODO change author
-      const recipe = {...item.data, "date": item.date, "id" : item.id, "nutriScore" : item.nutriScore, "author": "Minh"};
-      // console.log(recipe);
-      recipes[i] = recipe;
-      i++;
+  const handleExpectedError = (response) => {
+    if (!response.ok) {
+      throw new Error("Server error: Error code " + response.status + "!");
     }
-    console.log(recipes);
-    return recipes;
+
+    return response;
   };
 
-  const handleDelete = (recipe) => {
-    const newrecipes = recipes.filter((r) => r._id !== recipe._id);
-    setRecipes(newrecipes);
+  //replace componentDidMount
+  useEffect(() => {
+    const getAllRecipes = async () => {
+      //get request
+      const apiEndpoint = config.apiEndpoint + "/recipes";
+      await fetch(apiEndpoint)
+        .then((response) => {
+          handleExpectedError(response);
+          return response.json();
+        })
+        .then((data) => {
+          var recipes = new Array(data.Count);
+          var i = 0;
+          for (const item of data.Items) {
+            //TODO change author
+            const recipe = {
+              ...item.data,
+              date: item.date,
+              id: item.id,
+              nutriScore: item.nutriScore,
+              author: "Minh",
+            };
+            // console.log(recipe);
+            recipes[i] = recipe;
+            i++;
+          }
+          setRecipes(recipes);
+        })
+        .catch((error) => {
+          toast.error(error.message);
+          return;
+        });
+    };
+    getAllRecipes();
+  }, [toast]);
+
+  const handleDelete = async (recipe) => {
+    const originnalRecipes = recipes;
+    console.log("DELETE");
+    const newRecipes = recipes.filter((r) => r.id !== recipe.id);
+    console.log(newRecipes);
+    setRecipes(newRecipes);
+
+    const requestOptions = {
+      method: "DELETE",
+    };
+
+    await fetch(config.apiEndpoint + "/recipes/" + recipe.id, requestOptions)
+      .then(async (response) => {
+        handleExpectedError(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.error === "false") {
+          toast.success("Recipe is deleted");
+        } else {
+          toast.error("Recipe cannot be removed in database");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+        setRecipes(originnalRecipes);
+      });
   };
 
   const handleLike = (recipe) => {
@@ -78,7 +121,7 @@ const Recipes = () => {
 
   const getPagedData = () => {
     //filter
-    
+
     if (recipes) {
       // TODO
       var filteredrecipes =
@@ -90,7 +133,7 @@ const Recipes = () => {
 
       if (searchQuery) {
         filteredrecipes = filteredrecipes.filter((r) =>
-          r.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+          r.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
       //order we can change [] to have more criterias to sort

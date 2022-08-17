@@ -1,9 +1,17 @@
 import React, { useState } from "react";
 import IngredientsSearchList from "./ingredientsSearchList";
+import config from "../config.json";
 
 const IngredientsSearch = ({ addItem, toast }) => {
   const [name, setName] = useState("");
   const [list, setList] = useState([]);
+
+  const handleExpectedError = (response) => {
+    if (!response.ok) {
+      throw new Error("Server error: Error code " + response.status + "!");
+    }
+    return response;
+  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -13,25 +21,37 @@ const IngredientsSearch = ({ addItem, toast }) => {
       setList([]);
 
       const apiEndpoint =
-        "https://api.spoonacular.com/food/ingredients/autocomplete?apiKey=65cdf0d8be2f4777b318c3e82cec2245&query=" +
+        config.spoonacularAPIEndpoint +
+        "/food/ingredients/autocomplete?apiKey=" +
+        config.spoonacularAPIKey +
+        "&query=" +
         name +
-        "&number=30&metaInformation=true";
+        "&number=30" +
+        "&metaInformation=true";
 
-      const response = await fetch(apiEndpoint);
-      const data = await response.json();
-      console.log(data);
-      if (data.length === 0) {
-        toast.error("No matched ingredients found");
-      } else {
-        toast.success("Here is top matched ingredients");
-      }
+      await fetch(apiEndpoint)
+        .then((response) => {
+          handleExpectedError(response);
+          return response.json();
+        })
+        .then((data) => {
+          // console.log(data);
+          if (data.length === 0) {
+            toast.error("No matched ingredients found");
+          } else {
+            toast.success("Here is top matched ingredients");
+          }
 
-      const list = data.map((item) => {
-        const { name, id, possibleUnits } = item;
-        return { name, id, possibleUnits };
-      });
-      setList(list);
-      setName("");
+          const list = data.map((item) => {
+            const { name, id, possibleUnits } = item;
+            return { name, id, possibleUnits };
+          });
+          setList(list);
+          setName("");
+        })
+        .catch((error) => {
+          toast.error(error.message);
+        });
     }
   };
 

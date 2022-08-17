@@ -189,6 +189,7 @@ def getAllRecipes():
         print(response["LastEvaluatedKey"])
         response = RecipesTable.scan(ExclusiveStartKey=response["LastEvaluatedKey"])
         data.extend(response["Items"])
+        data = json.loads(json.dumps(data), parse_float=float)
     return response
 
 

@@ -4,7 +4,7 @@ import Customer from "./components/customer";
 import MealPlanner from "./components/planner";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes} from "react-router-dom";
 import RegisterForm from "./components/registerForm";
 import NavBar from "./components/navBar";
 import RecipeForm from "./components/recipeForm";
@@ -27,8 +27,8 @@ const App = () => {
           <Route path="/recipes" element={<Recipes toast={toast}/>} />
           <Route path="/customer" element={<Customer toast={toast}/>} />
           <Route path="/planner" element={<MealPlanner toast={toast}/>} />
-          <Route path="/" element={<Recipes />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<Recipes toast={toast}/>} />
+          <Route path="*" element={<NotFound toast={toast}/>} />
         </Routes>
       </main>
 

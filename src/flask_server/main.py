@@ -30,8 +30,7 @@ def token_required(f):
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
         except:
-            return {"msg": "Token is invalid", "token": token}, 401
-
+            return {"msg": "Token is invalid", "token": str(token)}, 401
         return f(*args, **kwargs)
 
     return decorated
@@ -209,8 +208,8 @@ def update_recipe(recipeid):
 def delete_recipe(recipeid):
     response = dynamodb.delete_recipe(recipeid)
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Delete successful", "Deleted ID": recipeid}
-    return {"msg": "error occurred", "response": response}
+        return {"msg": "Delete successful", "Deleted ID": recipeid, "error": "false"}
+    return {"msg": "Error occurs", "response": response, "error": "true"}
 
 
 @app.route("/recipes", methods=["GET"])
