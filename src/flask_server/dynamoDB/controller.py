@@ -211,6 +211,7 @@ def add_user(username, password, data):
 
 
 def verify_user(username, plain_text_password):
+    # What happens when there are two users with the same username?
     response = users_table.query(KeyConditionExpression=Key("username").eq(username))
     if len(response["Items"]) < 1:
         return {"Username not found"}, False
