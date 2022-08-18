@@ -69,9 +69,11 @@ def register():
     print(password)
     print(data)
     response = dynamodb.add_user(username=username, password=password, data=data)
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Add user successful", "error": "false"}
-    return {"msg": "error occurred", "response": response, "error": "true"}
+    if response["code"] == 200:
+        return make_response("Add user successful", 200)
+    elif response["code"] == 409:
+        return make_response("Username already exists", 409)
+    return make_response("Internal server error occurred", 500)
 
 
 @app.route("/login", methods=["POST"])
