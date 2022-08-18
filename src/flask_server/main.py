@@ -25,12 +25,12 @@ def token_required(f):
             token = request.headers["x-access-token"]
 
         if not token:
-            return jsonify({"message": "Token is missing!"}), 401
+            return jsonify({"message": "Token is missing!", "error_code": 401}), 401
 
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
-        except:
-            return {"msg": "Token is invalid", "token": str(token)}, 401
+        except Exception as e:
+            return {"msg": str(e), "token": str(token)}, 401
         return f(*args, **kwargs)
 
     return decorated
@@ -92,7 +92,7 @@ def login():
                 "username": data["username"],
                 "id": response["uid"],
                 "name": response["data"]["name"],
-                "iat": str(datetime.utcnow() + timedelta(seconds=120)),
+                "exp": datetime.utcnow() + timedelta(seconds=120),
             },
             app.config["SECRET_KEY"],
         )
@@ -115,7 +115,8 @@ def auth():
     return "JWT verified"
 
 
-@app.route("/recipes/<recipeid>", methods=["POST", "GET"])
+@app.route("/recipes/<recipeid>", methods=["POST"])
+@token_required
 def addRecipe(recipeid):
     if request.method == "POST":
         if recipeid == "new":
@@ -173,7 +174,13 @@ def addRecipe(recipeid):
         )
 
 
+@app.route("/recipes/<recipeid>", methods=["GET"])
+def get_recipe(recipeid):
+    return dynamodb.get_specific_recipe(recipeid)
+
+
 @app.route("/recipes/<recipeid>", methods=["PUT"])
+@token_required
 def update_recipe(recipeid):
     data = request.get_json()
     totalCalories = 0
@@ -212,6 +219,7 @@ def update_recipe(recipeid):
 
 
 @app.route("/recipes/<recipeid>", methods=["DELETE"])
+@token_required
 def delete_recipe(recipeid):
     response = dynamodb.delete_recipe(recipeid)
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
