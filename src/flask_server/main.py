@@ -98,10 +98,12 @@ def login():
             },
             app.config["SECRET_KEY"],
         )
-        return jsonify({"token": token, "data": response, "error": "false"})
+        return make_response(
+            jsonify({"token": token, "data": response, "error": "false"}), 200
+        )
     else:
         return make_response(
-            "Unable to verify",
+            "Unable to verify, authentication failed",
             403,
             {"WWW-Authenticate": 'Basic realm: "Authentication Failed "'},
         )
