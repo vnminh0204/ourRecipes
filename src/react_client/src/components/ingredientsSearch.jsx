@@ -19,7 +19,6 @@ const IngredientsSearch = ({ addItem, toast }) => {
       toast.error("Please enter value");
     } else {
       setList([]);
-
       const apiEndpoint =
         config.spoonacularAPIEndpoint +
         "/food/ingredients/autocomplete?apiKey=" +
@@ -28,7 +27,7 @@ const IngredientsSearch = ({ addItem, toast }) => {
         name +
         "&number=30" +
         "&metaInformation=true";
-
+      console.log(apiEndpoint);
       await fetch(apiEndpoint)
         .then((response) => {
           handleExpectedError(response);
