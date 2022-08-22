@@ -10,7 +10,7 @@ import Title from "./title";
 const RecipeForm = ({ toast }) => {
   const { id: recipeID } = useParams();
   const navigate = useNavigate();
-
+  const [editMode, setEditMode] = useState(true);
   const [ingredients, setIngredients] = useState([]);
   const [cookingMethod, setCookingMethod] = useState("");
   const [title, setTitle] = useState("");
@@ -127,6 +127,7 @@ const RecipeForm = ({ toast }) => {
   useEffect(() => {
     const fetchData = async () => {
       if (recipeID !== "new") {
+        setEditMode(false);
         const apiEndpoint = config.apiEndpoint + "/recipes/" + recipeID;
         await fetch(apiEndpoint)
           .then((response) => {
@@ -298,7 +299,7 @@ const RecipeForm = ({ toast }) => {
       })
       .then((data) => {
         console.log(data);
-        
+
         toast.success("Your recipe is submitted");
         navigate("/recipes");
       })
@@ -311,7 +312,7 @@ const RecipeForm = ({ toast }) => {
   return (
     <React.Fragment>
       <div className="row">
-        <div className="col-9">
+        <div className="col">
           <div className="row title-row">
             <Title
               title={title}
@@ -346,14 +347,18 @@ const RecipeForm = ({ toast }) => {
                 setEditCookingMethod={setEditCookingMethod}
               />
             </div>
-            <button onClick={() => onSubmit()} className="btn btn-primary">
-              Submit
-            </button>
+            {editMode && (
+              <button onClick={() => onSubmit()} className="btn btn-primary">
+                Submit
+              </button>
+            )}
           </div>
         </div>
-        <div className="col-2 justify-content-end">
-          <IngredientsSearch addItem={addItem} toast={toast} />
-        </div>
+        {editMode && (
+          <div className="col-2 justify-content-end">
+            <IngredientsSearch addItem={addItem} toast={toast} />
+          </div>
+        )}
       </div>
     </React.Fragment>
   );

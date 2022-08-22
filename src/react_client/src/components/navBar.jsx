@@ -6,12 +6,12 @@ import logo from "./logo.png";
 const NavBar = ({ user }) => {
   const [show, setShow] = useState(false);
   return (
-    <nav className="my-navbar">
-      <Link className="navbar-brand my-brand" to="/">
-        <img src={logo} width="140" height="70" alt="OurRecipes" />
-      </Link>
-      <ul className="nav-links">
-        <div className="my-menu">
+    <nav>
+      <div className="my-navbar">
+        <Link className="navbar-brand my-brand" to="/">
+          <img src={logo} width="120" height="60" alt="OurRecipes" />
+        </Link>
+        <ul className="my-menu">
           <li>
             <NavLink className="my-nav-item nav-item" to="/recipes">
               RECIPES
@@ -57,8 +57,8 @@ const NavBar = ({ user }) => {
               </ul>
             </li>
           )}
-        </div>
-      </ul>
+        </ul>
+      </div>
     </nav>
     // <nav className="navbar navbar-expand-lg my-navbar">
 
