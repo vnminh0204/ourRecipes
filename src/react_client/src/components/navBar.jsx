@@ -8,30 +8,30 @@ const NavBar = ({ user }) => {
   return (
     <nav className="my-navbar">
       <Link className="navbar-brand my-brand" to="/">
-        <img src={logo} width="70" height="50" alt="OurRecipes" />
+        <img src={logo} width="140" height="70" alt="OurRecipes" />
       </Link>
       <ul className="nav-links">
         <div className="my-menu">
           <li>
-            <NavLink className="nav-item nav-link" to="/recipes">
-              Recipes
+            <NavLink className="my-nav-item nav-item nav-link" to="/recipes">
+              RECIPES
             </NavLink>
           </li>
           <li>
-            <NavLink className="nav-item nav-link" to="/planner">
-              Planner
+            <NavLink className="my-nav-item nav-item nav-link" to="/planner">
+              PLANNER
             </NavLink>
           </li>
           {Object.keys(user).length === 0 && (
             <React.Fragment>
               <li>
-                <NavLink className="nav-item nav-link" to="/login">
-                  Login
+                <NavLink className="my-nav-item nav-item nav-link" to="/login">
+                  LOGIN
                 </NavLink>
               </li>
               <li>
-                <NavLink className="nav-item nav-link" to="/register">
-                  Register
+                <NavLink className="my-nav-item nav-item nav-link" to="/register">
+                  REGISTER
                 </NavLink>
               </li>
             </React.Fragment>
@@ -45,12 +45,12 @@ const NavBar = ({ user }) => {
               </NavLink>
               <ul className="my-dropdown">
                 <li>
-                  <NavLink className="nav-item nav-link" to="/register">
+                  <NavLink className="my-nav-item nav-item nav-link" to="/register">
                     Profile
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="nav-item nav-link" to="/register">
+                  <NavLink className="my-nav-item nav-item nav-link" to="/register">
                     Logout
                   </NavLink>
                 </li>

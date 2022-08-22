@@ -55,12 +55,15 @@ Variables
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 20px;
-  background-color: teal;
-  color: #fff;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background-color: #f5f7fa;
+  margin-bottom: 20px;
  }
 .nav-links a {
-  color: #fff;
+  color: #54bb5b;
+  display: inline-block;
+  font-size: 20px;
 }
  /* LOGO */
  .logo {
@@ -71,6 +74,9 @@ Variables
   display: flex;
   gap: 1em;
   font-size: 18px;
+ }
+ .my-nav-item {
+  color: #54bb5b;
  }
  .my-menu li:hover {
   background-color: #4c9e9e;
@@ -113,7 +119,7 @@ Variables
   left: auto;
  }
 .my-brand{
-  padding-left: 25px;
+  padding-left: 40px;
 }
 /* .my-navbar{
   background: #f5f7fa;
