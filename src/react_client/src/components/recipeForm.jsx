@@ -298,6 +298,7 @@ const RecipeForm = ({ toast }) => {
       })
       .then((data) => {
         console.log(data);
+        
         toast.success("Your recipe is submitted");
         navigate("/recipes");
       })

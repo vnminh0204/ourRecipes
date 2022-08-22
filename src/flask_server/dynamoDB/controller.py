@@ -199,16 +199,19 @@ def add_user(username, password, data):
     salt = bcrypt.gensalt()
     pw = password.encode("utf-8")
     hashed_pass = bcrypt.hashpw(pw, salt)
-    print(hashed_pass)
-    response = users_table.put_item(
-        Item={
-            "user_id": uid,
-            "username": username,
-            "password": hashed_pass,
-            "data": data,
-        }
-    )
-    return response
+    try:
+        response = users_table.put_item(
+            Item={
+                "user_id": uid,
+                "username": username,
+                "password": hashed_pass,
+                "data": data,
+            },
+            ConditionExpression="attribute_not_exists(username)",
+        )
+    except Exception as e:
+        return {"msg": "Username already taken", "code": 409}
+    return {"msg": "User created successfully", "code": 200}
 
 
 def verify_user(username, plain_text_password):

@@ -75,34 +75,22 @@ const Recipes = ({ toast }) => {
     console.log(newRecipes);
     setRecipes(newRecipes);
 
-    const obj = recipe;
-
     const requestOptions = {
       method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(obj),
     };
 
-    await fetch(config.apiEndpoint + "/", requestOptions)
+    await fetch(config.apiEndpoint + "/recipes/" + recipe.id, requestOptions)
       .then(async (response) => {
         handleExpectedError(response);
-        const data = await response.json();
-        var recipes = new Array(data.Count);
-        var i = 0;
-        for (const item of data.Items) {
-          //TODO change author
-          const recipe = {
-            ...item.data,
-            date: item.date,
-            id: item.id,
-            nutriScore: item.nutriScore,
-            author: "Minh",
-          };
-          // console.log(recipe);
-          recipes[i] = recipe;
-          i++;
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.error === "false") {
+          toast.success("Recipe is deleted");
+        } else {
+          toast.error("Recipe cannot be removed in database");
         }
-        setRecipes(recipes);
       })
       .catch((error) => {
         toast.error(error.message);
@@ -145,7 +133,7 @@ const Recipes = ({ toast }) => {
 
       if (searchQuery) {
         filteredrecipes = filteredrecipes.filter((r) =>
-          r.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+          r.title.toLowerCase().includes(searchQuery.toLowerCase())
         );
       }
       //order we can change [] to have more criterias to sort

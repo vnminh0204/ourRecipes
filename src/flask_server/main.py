@@ -25,12 +25,12 @@ def token_required(f):
             token = request.headers["x-access-token"]
 
         if not token:
-            return jsonify({"message": "Token is missing!"}), 401
+            return jsonify({"message": "Token is missing!", "error_code": 401}), 401
 
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
-        except:
-            return {"msg": "Token is invalid", "token": str(token)}, 401
+        except Exception as e:
+            return {"msg": str(e), "token": str(token)}, 401
         return f(*args, **kwargs)
 
     return decorated
@@ -65,10 +65,15 @@ def register():
     username = data["username"]
     password = data["password"]
     data = data["data"]
+    print(username)
+    print(password)
+    print(data)
     response = dynamodb.add_user(username=username, password=password, data=data)
-    if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Add user successful"}
-    return {"msg": "error occurred", "response": response}
+    if response["code"] == 200:
+        return make_response("Add user successful", 200)
+    elif response["code"] == 409:
+        return make_response("Username already exists", 409)
+    return make_response("Internal server error occurred", 500)
 
 
 @app.route("/login", methods=["POST"])
@@ -80,19 +85,25 @@ def login():
     data = request.get_json()
     # TODO: check login credential with db
     response, result = dynamodb.verify_user(data["username"], data["password"])
+    print(response)
+    print(result)
     if result:
         session["logged_in"] = True
         token = jwt.encode(
             {
-                "user": data["username"],
-                "expiration": str(datetime.utcnow() + timedelta(seconds=120)),
+                "username": data["username"],
+                "id": response["uid"],
+                "name": response["data"]["name"],
+                "exp": datetime.utcnow() + timedelta(seconds=120),
             },
             app.config["SECRET_KEY"],
         )
-        return jsonify({"token": token, "data": response})
+        return make_response(
+            jsonify({"token": token, "data": response, "error": "false"}), 200
+        )
     else:
         return make_response(
-            "Unable to verify",
+            "Unable to verify, authentication failed",
             403,
             {"WWW-Authenticate": 'Basic realm: "Authentication Failed "'},
         )
@@ -108,7 +119,8 @@ def auth():
     return "JWT verified"
 
 
-@app.route("/recipes/<recipeid>", methods=["POST", "GET"])
+@app.route("/recipes/<recipeid>", methods=["POST"])
+@token_required
 def addRecipe(recipeid):
     if request.method == "POST":
         if recipeid == "new":
@@ -166,7 +178,13 @@ def addRecipe(recipeid):
         )
 
 
+@app.route("/recipes/<recipeid>", methods=["GET"])
+def get_recipe(recipeid):
+    return dynamodb.get_specific_recipe(recipeid)
+
+
 @app.route("/recipes/<recipeid>", methods=["PUT"])
+@token_required
 def update_recipe(recipeid):
     data = request.get_json()
     totalCalories = 0
@@ -205,11 +223,12 @@ def update_recipe(recipeid):
 
 
 @app.route("/recipes/<recipeid>", methods=["DELETE"])
+@token_required
 def delete_recipe(recipeid):
     response = dynamodb.delete_recipe(recipeid)
     if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
-        return {"msg": "Delete successful", "Deleted ID": recipeid}
-    return {"msg": "error occurred", "response": response}
+        return {"msg": "Delete successful", "Deleted ID": recipeid, "error": "false"}
+    return {"msg": "Error occurs", "response": response, "error": "true"}
 
 
 @app.route("/recipes", methods=["GET"])
