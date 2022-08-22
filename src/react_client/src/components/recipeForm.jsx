@@ -355,7 +355,7 @@ const RecipeForm = ({ toast }) => {
           </div>
         </div>
         {editMode && (
-          <div className="col-2 justify-content-end">
+          <div className="col-md-3 justify-content-end">
             <IngredientsSearch addItem={addItem} toast={toast} />
           </div>
         )}
