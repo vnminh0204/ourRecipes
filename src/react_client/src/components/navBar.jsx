@@ -13,24 +13,24 @@ const NavBar = ({ user }) => {
       <ul className="nav-links">
         <div className="my-menu">
           <li>
-            <NavLink className="my-nav-item nav-item nav-link" to="/recipes">
+            <NavLink className="my-nav-item nav-item" to="/recipes">
               RECIPES
             </NavLink>
           </li>
           <li>
-            <NavLink className="my-nav-item nav-item nav-link" to="/planner">
+            <NavLink className="my-nav-item nav-item" to="/planner">
               PLANNER
             </NavLink>
           </li>
           {Object.keys(user).length === 0 && (
             <React.Fragment>
               <li>
-                <NavLink className="my-nav-item nav-item nav-link" to="/login">
+                <NavLink className="my-nav-item nav-item" to="/login">
                   LOGIN
                 </NavLink>
               </li>
               <li>
-                <NavLink className="my-nav-item nav-item nav-link" to="/register">
+                <NavLink className="my-nav-item nav-item" to="/register">
                   REGISTER
                 </NavLink>
               </li>
@@ -38,19 +38,19 @@ const NavBar = ({ user }) => {
           )}
           {Object.keys(user).length !== 0 && (
             <li className="my-user">
-              <NavLink className="nav-item nav-link my-user" to="#">
+              <NavLink className="my-nav-item nav-item my-user" to="#">
                 <FiUser size={22} />
                 {user.name}
                 <FiChevronDown size={22} />
               </NavLink>
               <ul className="my-dropdown">
                 <li>
-                  <NavLink className="my-nav-item nav-item nav-link" to="/register">
+                  <NavLink className="my-dropdown-item nav-item" to="/register">
                     Profile
                   </NavLink>
                 </li>
                 <li>
-                  <NavLink className="my-nav-item nav-item nav-link" to="/register">
+                  <NavLink className="my-dropdown-item nav-item" to="/register">
                     Logout
                   </NavLink>
                 </li>

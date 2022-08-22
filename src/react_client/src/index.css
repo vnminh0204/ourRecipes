@@ -60,10 +60,34 @@ Variables
   background-color: #f5f7fa;
   margin-bottom: 20px;
  }
-.nav-links a {
+.my-nav-item {
   color: #54bb5b;
   display: inline-block;
   font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 1px;
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  text-decoration: none;
+}
+.my-nav-item:hover {
+  color: white;
+}
+.my-dropdown-item {
+  color: white;
+  display: inline-block;
+  font-size: 20px;
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 1px;
+  font-family: 'Source Sans Pro', sans-serif;
+  display: block;
+  text-decoration: none;
+  
+}
+.my-dropdown-item:hover {
+  color: white;
 }
  /* LOGO */
  .logo {
@@ -79,9 +103,9 @@ Variables
   color: #54bb5b;
  }
  .my-menu li:hover {
-  background-color: #4c9e9e;
   border-radius: 5px;
   transition: 0.3s ease;
+  background-color: #54bb5b;
  }
  .my-menu li {
   padding: 5px 14px;
@@ -91,9 +115,10 @@ Variables
  .my-user {
   position: relative; 
   display: flex;
+  justify-content: space-between;
  }
  .my-dropdown {
-  background-color: rgb(1, 139, 139);
+  background-color: #54bb5b;
   padding: 1em 0;
   position: absolute; /*WITH RESPECT TO PARENT*/
   display: none;
@@ -111,7 +136,7 @@ Variables
   list-style: none;
  }
  .my-dropdown li:hover {
-  background-color: #4c9e9e;
+  background-color:rgba(255,255,255,.2);
  }
  .my-user:hover .my-dropdown {
   display: block;
@@ -121,9 +146,6 @@ Variables
 .my-brand{
   padding-left: 40px;
 }
-/* .my-navbar{
-  background: #f5f7fa;
-} */
 /* END NAV */
 .btn {
   text-transform: uppercase;
