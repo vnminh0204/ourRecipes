@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Recipes from "./components/recipes";
 import Customer from "./components/customer";
 import MealPlanner from "./components/planner";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/loginForm";
-import { Route, Routes} from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import RegisterForm from "./components/registerForm";
 import NavBar from "./components/navBar";
 import RecipeForm from "./components/recipeForm";
@@ -12,26 +12,54 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { toast } from "react-toastify";
 import "./App.css";
+import jwt_decode from "jwt-decode";
 
 const App = () => {
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    try {
+      const jwt = localStorage.getItem("token");
+      const user = jwt_decode(jwt);
+      setUser(user);
+    } catch (error) {}
+  }, []);
+  console.log(user);
   return (
     <React.Fragment>
       <ToastContainer />
-      <NavBar />
+      <NavBar user={user}/>
       <main className="container">
         <Routes>
-          <Route path="/login" element={<LoginForm toast={toast} />} />
-          <Route path="/register" element={<RegisterForm toast={toast} />} />
+          <Route
+            path="/login"
+            element={<LoginForm toast={toast} user={user} />}
+          />
+          <Route
+            path="/register"
+            element={<RegisterForm toast={toast} user={user} />}
+          />
           {/* <Route path="/recipes/:id" element={<MovieForm />} /> */}
-          <Route path="/recipes/:id" element={<RecipeForm toast={toast}/>} />
-          <Route path="/recipes" element={<Recipes toast={toast}/>} />
-          <Route path="/customer" element={<Customer toast={toast}/>} />
-          <Route path="/planner" element={<MealPlanner toast={toast}/>} />
-          <Route path="/" element={<Recipes toast={toast}/>} />
-          <Route path="*" element={<NotFound toast={toast}/>} />
+          <Route
+            path="/recipes/:id"
+            element={<RecipeForm toast={toast} user={user} />}
+          />
+          <Route
+            path="/recipes"
+            element={<Recipes toast={toast} user={user} />}
+          />
+          <Route
+            path="/customer"
+            element={<Customer toast={toast} user={user} />}
+          />
+          <Route
+            path="/planner"
+            element={<MealPlanner toast={toast} user={user} />}
+          />
+          <Route path="/" element={<Recipes toast={toast} />} user={user} />
+          <Route path="*" element={<NotFound toast={toast} />} user={user} />
         </Routes>
       </main>
-
     </React.Fragment>
   );
 };

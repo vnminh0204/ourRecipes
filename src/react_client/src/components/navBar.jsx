@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { FiUser, FiChevronDown } from "react-icons/fi";
 import logo from "./logo.png";
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   const [show, setShow] = useState(false);
   return (
     <nav className="my-navbar">
@@ -21,36 +22,41 @@ const NavBar = () => {
               Planner
             </NavLink>
           </li>
-          <li>
-            <NavLink className="nav-item nav-link" to="/login">
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-item nav-link" to="/register">
-              Register
-            </NavLink>
-          </li>
-          <li className="my-services">
-            <a href="/">Services</a>
-            <ul className="my-dropdown">
+          {Object.keys(user).length === 0 && (
+            <React.Fragment>
               <li>
-                <a href="/">Dropdown 1 </a>
+                <NavLink className="nav-item nav-link" to="/login">
+                  Login
+                </NavLink>
               </li>
               <li>
-                <a href="/">Dropdown 2</a>
+                <NavLink className="nav-item nav-link" to="/register">
+                  Register
+                </NavLink>
               </li>
-              <li>
-                <a href="/">Dropdown 2</a>
-              </li>
-              <li>
-                <a href="/">Dropdown 3</a>
-              </li>
-              <li>
-                <a href="/">Dropdown 4</a>
-              </li>
-            </ul>
-          </li>
+            </React.Fragment>
+          )}
+          {Object.keys(user).length !== 0 && (
+            <li className="my-user">
+              <NavLink className="nav-item nav-link my-user" to="#">
+                <FiUser size={22} />
+                {user.name}
+                <FiChevronDown size={22} />
+              </NavLink>
+              <ul className="my-dropdown">
+                <li>
+                  <NavLink className="nav-item nav-link" to="/register">
+                    Profile
+                  </NavLink>
+                </li>
+                <li>
+                  <NavLink className="nav-item nav-link" to="/register">
+                    Logout
+                  </NavLink>
+                </li>
+              </ul>
+            </li>
+          )}
         </div>
       </ul>
     </nav>

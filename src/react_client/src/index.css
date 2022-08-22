@@ -82,8 +82,9 @@ Variables
   list-style: none;
  }
  /* DROPDOWN MENU */
- .my-services {
+ .my-user {
   position: relative; 
+  display: flex;
  }
  .my-dropdown {
   background-color: rgb(1, 139, 139);
@@ -106,7 +107,7 @@ Variables
  .my-dropdown li:hover {
   background-color: #4c9e9e;
  }
- .my-services:hover .my-dropdown {
+ .my-user:hover .my-dropdown {
   display: block;
   right: 0;
   left: auto;
