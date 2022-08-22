@@ -29,7 +29,7 @@ const App = () => {
     <React.Fragment>
       <ToastContainer />
       <NavBar user={user}/>
-      <main className="container">
+      <main className="my-container">
         <Routes>
           <Route
             path="/login"

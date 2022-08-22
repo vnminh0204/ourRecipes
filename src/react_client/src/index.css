@@ -49,6 +49,10 @@ Variables
   --max-width: 1170px;
   --fixed-width: 620px;
 }
+.my-container {
+  margin-left: 30px;
+  margin-right: 30px;
+}
 /* START NAV */
 /* NAVBAR STYLING STARTS */
 .my-navbar {
@@ -205,9 +209,9 @@ Variables
 }
 .recipes-row{
   background-color: #f0f0f0;
+  margin-bottom: 25px;
 }
 .section-ingredients {
-  max-width: auto;
   padding: 2rem;
 }
 .body-copy-extra-small{
@@ -390,6 +394,8 @@ Variables
   font-size: 15px;
   display: inline-block;
   outline: none;
+  max-width: 45px;
+  margin-right: 5px;
   /* border:none; */
 }
 .input-unit{
@@ -408,8 +414,7 @@ Variables
   justify-content: space-between;
 }
 .ingredient-item2:hover {
-  color: var(--clr-yellow-dark);
-  background: var(--clr-yellow-dark);
+  background: #84BE6A;
 }
 
 .ingredient-item {
