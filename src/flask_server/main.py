@@ -3,6 +3,7 @@ from urllib import response
 from flask import Flask, request, jsonify, session, make_response
 import os
 import dynamoDB.controller as dynamodb
+import dynamoDB.tokenBlacklisting as token_blacklisting
 from lib.nutritionCalculator import calculate_score
 import jwt
 from datetime import datetime, timedelta
@@ -27,10 +28,13 @@ def token_required(f):
         if not token:
             return jsonify({"message": "Token is missing!", "error_code": 401}), 401
 
+        if not token_blacklisting.check_token_validity(token):
+            return {"message": "Token is invalid", "error_code": 401}, 401
+
         try:
             data = jwt.decode(token, app.config["SECRET_KEY"], algorithms=["HS256"])
         except Exception as e:
-            return {"msg": str(e), "token": str(token)}, 401
+            return {"message": str(e), "token": str(token)}, 401
         return f(*args, **kwargs)
 
     return decorated
@@ -109,6 +113,16 @@ def login():
         )
 
 
+@app.route("/logout", methods=['POST'])
+@token_required
+def logout():
+    token = request.headers["x-access-token"]
+    response, code = token_blacklisting.invalidate_token(str(token))
+    if code == 500:
+        return make_response({"message": response, "status": "fail"}, 500)
+    session['logged_in'] = False
+    return make_response({"message": response, "status": "success"}, 200)
+        
 @app.route("/auth")
 @token_required
 def auth():
