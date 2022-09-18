@@ -1,0 +1,20 @@
+{
+  "TableName": "Recipes",
+  "KeySchema": [
+    {
+      "KeyType": "HASH",
+      "AttributeName": "id"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "id",
+      "AttributeType": "N"
+    }
+  ],
+  "BillingMode": "PROVISIONED",
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 10,
+    "WriteCapacityUnits": 10
+  }
+}

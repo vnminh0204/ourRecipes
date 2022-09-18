@@ -1,0 +1,14 @@
+{
+    Id: number,
+    title: string,
+    kcal: float,
+    sodium: float,
+    sugars: float,
+    carbs: float,
+    protein: float,
+    fat: float,
+    saturates: float,
+    fibre: float,
+    nutriScore: float,
+}
+notes: everything needs to be in g, except kcal.
