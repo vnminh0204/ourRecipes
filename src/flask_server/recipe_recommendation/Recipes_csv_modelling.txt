@@ -1,6 +1,8 @@
-{
+recipe_model = {
     Id: number,
     title: string,
+    nutriScore: float,
+    mealType: string,
     kcal: float,
     sodium: float,
     sugars: float,
@@ -9,6 +11,5 @@
     fat: float,
     saturates: float,
     fibre: float,
-    nutriScore: float,
 }
 notes: everything needs to be in g, except kcal.
