@@ -4,9 +4,7 @@ pred_result = [["id": String, "title": String, "nutriScore": float, recipe_vecto
     "Monday": {
         "Breakfast": pred_result, 
         "Dinner": pred_result, 
-        "Lunch": None, 
-        "Snack": None
     },
     "Tuesday": ...
 }
-Note: None means the recipe has already been chosen by users. There is no need to use ml for that meal.
+Note: "Lunch" and "Snack" have already been chosen by users. There is no need to use ml for that meal.
