@@ -3,9 +3,7 @@ recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float
     "Monday": {
         "Breakfast": recipe_vector, 
         "Dinner": recipe_vector, 
-        "Lunch": None, 
-        "Snack": None
     },
     "Tuesday": ...
 }
-Note: None means the recipe has already been chosen by users. There is no need to use ml for that meal.
+Note: "Lunch" and "Snack" have already been chosen by users. There is no need to reccommend them.
