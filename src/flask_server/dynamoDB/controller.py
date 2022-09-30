@@ -6,18 +6,16 @@ from datetime import datetime
 from decimal import Decimal
 from boto3.dynamodb.conditions import Key, Attr
 
-import dynamoDB.config as config
-
-# import config
 import json
 import uuid
 import bcrypt
+import os
 
 # import config
 
-AWS_ACCESS_KEY_ID = config.AWS_ACCESS_KEY_ID
-AWS_SECRET_ACCESS_KEY = config.AWS_SECRET_ACCESS_KEY
-REGION_NAME = config.REGION_NAME
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+REGION_NAME = os.environ["REGION_NAME"]
 # AWS_SESSION_TOKEN     = config("AWS_SESSION_TOKEN")
 
 # client = client(
