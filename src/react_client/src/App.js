@@ -28,7 +28,7 @@ const App = () => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <NavBar user={user}/>
+      <NavBar user={user} setUser={setUser} />
       <main className="my-container">
         <Routes>
           <Route

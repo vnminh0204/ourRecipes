@@ -74,9 +74,13 @@ const Recipes = ({ toast }) => {
     const newRecipes = recipes.filter((r) => r.id !== recipe.id);
     console.log(newRecipes);
     setRecipes(newRecipes);
-
+    const jwt = localStorage.getItem("token");
     const requestOptions = {
       method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ "x-access-token": jwt }),
     };
 
     await fetch(config.apiEndpoint + "/recipes/" + recipe.id, requestOptions)
@@ -150,7 +154,16 @@ const Recipes = ({ toast }) => {
   };
 
   if (!recipes || recipes.length === 0)
-    return <p>There are no recipes in the database!</p>;
+    return (
+      <React.Fragment>
+        <p>There are no recipes in the database!</p>
+        <span className="float-right">
+          <Link to="/recipes/new" className="btn btn-primary">
+            New recipe
+          </Link>
+        </span>
+      </React.Fragment>
+    );
   const { totalCount, data: pageRecipes } = getPagedData();
 
   return (
