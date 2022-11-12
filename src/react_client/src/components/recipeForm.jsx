@@ -272,7 +272,7 @@ const RecipeForm = ({ toast }) => {
       toast.error("Every fields need to be saved before submitting");
       return;
     }
-
+    const jwt = localStorage.getItem("token");
     const obj = {
       ingredients,
       cookingMethod,
@@ -280,6 +280,7 @@ const RecipeForm = ({ toast }) => {
       numServings,
       mealType,
       nutritionTable,
+      "x-access-token": jwt,
     };
     console.log(obj);
     const requestOptions = {
