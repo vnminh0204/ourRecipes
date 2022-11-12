@@ -44,7 +44,7 @@ def token_required(f):
 def root_route():
     try:
         # dynamodb.create_table_foodList()
-        dynamodb.createRecipesTable()
+        dynamodb.create_recipes_table()
     except Exception:
         return "Table already exists"
         # pass
@@ -174,7 +174,7 @@ def addRecipe(recipeid):
         # return response
         # print(data)
         nutritionScore = str(round(nutritionScore, 2))
-        response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
+        response = dynamodb.add_recipe(data, nutriScore=nutritionScore)
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return {"msg": "Add food successful", "nutritionScore": nutritionScore}
         return {"msg": "error occurred", "response": response}
@@ -246,8 +246,8 @@ def delete_recipe(recipeid):
 
 
 @app.route("/recipes", methods=["GET"])
-def getAllRecipes():
-    getResponse = dynamodb.getAllRecipes()
+def get_all_recipes():
+    getResponse = dynamodb.get_all_recipes()
     return getResponse
 
 
