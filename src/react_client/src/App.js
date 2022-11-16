@@ -8,15 +8,16 @@ import { Route, Routes } from "react-router-dom";
 import RegisterForm from "./components/registerForm";
 import NavBar from "./components/navBar";
 import RecipeForm from "./components/recipeForm";
+import jwt_decode from "jwt-decode";
+import { Route, Routes } from "react-router-dom";
+import { toast } from "react-toastify";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { toast } from "react-toastify";
 import "./App.css";
 import jwt_decode from "jwt-decode";
 
 const App = () => {
   const [user, setUser] = useState({});
-
   useEffect(() => {
     try {
       const jwt = localStorage.getItem("token");
@@ -28,7 +29,7 @@ const App = () => {
   return (
     <React.Fragment>
       <ToastContainer />
-      <NavBar user={user}/>
+      <NavBar user={user} setUser={setUser} />
       <main className="my-container">
         <Routes>
           <Route

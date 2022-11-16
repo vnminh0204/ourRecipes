@@ -36,7 +36,7 @@ resource = resource(
 )
 
 
-def createRecipesTable():
+def create_recipes_table():
     # try:
     table = resource.create_table(
         TableName="Recipes",  # Name of the table
@@ -113,7 +113,7 @@ def create_ingredients_table():
 # create_table_foodList()
 # FoodListTable = resource.Table("Foods")
 
-RecipesTable = resource.Table("Recipes")
+recipes_table = resource.Table("Recipes")
 
 # create_users_table()
 users_table = resource.Table("Users")
@@ -123,14 +123,14 @@ users_table = resource.Table("Users")
 ingredients_table = resource.Table("Ingredients")
 
 
-def addRecipe(data, nutriScore):
+def add_recipe(data, nutriScore):
     data = json.loads(json.dumps(data), parse_float=Decimal)
     nutriScore = Decimal(nutriScore)
     hashedId = hash(data["cookingMethod"] + data["mealType"])
     now = datetime.now()
     stringifiedTime = now.strftime("%m/%d/%Y, %H:%M:%S")
 
-    response = RecipesTable.put_item(
+    response = recipes_table.put_item(
         Item={
             "id": hashedId,
             "data": data,
@@ -145,7 +145,7 @@ def addRecipe(data, nutriScore):
 
 def get_specific_recipe(id):
     id = int(id)
-    response = RecipesTable.get_item(Key={"id": id})
+    response = recipes_table.get_item(Key={"id": id})
     # return response
     if not ("Item" in response.keys()):
         return {"msg": "Recipe not found"}
@@ -159,7 +159,7 @@ def update_recipe(id, new_data, new_nutri_score):
     # return {"data": new_data, "new_nutri_score": new_nutri_score}
     now = datetime.now()
     stringifiedTime = now.strftime("%m/%d/%Y, %H:%M:%S")
-    response = RecipesTable.update_item(
+    response = recipes_table.update_item(
         Key={"id": int(id)},
         ConditionExpression="attribute_exists(id)",
         UpdateExpression="SET #d = :val1, #ns = :val2, #date = :val3",
@@ -176,16 +176,16 @@ def update_recipe(id, new_data, new_nutri_score):
 
 
 def delete_recipe(id):
-    response = RecipesTable.delete_item(Key={"id": int(id)})
+    response = recipes_table.delete_item(Key={"id": int(id)})
     return response
 
 
-def getAllRecipes():
-    response = RecipesTable.scan()
+def get_all_recipes():
+    response = recipes_table.scan()
     data = response["Items"]
     while "LastEvaluatedKey" in response:
         print(response["LastEvaluatedKey"])
-        response = RecipesTable.scan(ExclusiveStartKey=response["LastEvaluatedKey"])
+        response = recipes_table.scan(ExclusiveStartKey=response["LastEvaluatedKey"])
         data.extend(response["Items"])
         data = json.loads(json.dumps(data), parse_float=float)
     return response
@@ -213,6 +213,7 @@ def add_user(username, password, data):
 
 
 def verify_user(username, plain_text_password):
+    # What happens when there are two users with the same username?
     response = users_table.query(KeyConditionExpression=Key("username").eq(username))
     if len(response["Items"]) < 1:
         return {"Username not found"}, False
@@ -223,12 +224,12 @@ def verify_user(username, plain_text_password):
     if bcrypt.checkpw(plain_text_password.encode("utf-8"), hashed_pass.value):
         return {"uid": item["user_id"], "data": item["data"]}, True
     # print(response)
-    return {"Wrong password"}, False
+    return {"Wrong password"}, False # Note: the first one is a set, not a dict
 
 
 def add_ingredient(id, name, data):
     data = json.loads(json.dumps(data), parse_float=Decimal)
-    response = RecipesTable.put_item(
+    response = recipes_table.put_item(
         Item={
             "id": int(id),
             "name": name,

@@ -35,7 +35,7 @@ export async function register(username, password, name) {
       if (data.error === "false") {
         return;
       } else {
-        status = "Login error";
+        status = "Register error";
       }
     })
     .catch((error) => {
@@ -71,6 +71,7 @@ export async function login(username, password) {
       console.log(data);
       if (data.error === "false") {
         localStorage.setItem("token", data.token);
+        window.location = "/";
       } else {
         status = "Login error";
       }

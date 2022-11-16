@@ -22,8 +22,11 @@ def token_required(f):
     @wraps(f)
     def decorated(*args, **kwargs):
         token = None
-        if "x-access-token" in request.headers:
-            token = request.headers["x-access-token"]
+
+        # app.logger.info(request.get_json)
+
+        if "x-access-token" in request.get_json():
+            token = request.get_json()["x-access-token"]
 
         if not token:
             return jsonify({"message": "Token is missing!", "error_code": 401}), 401
@@ -44,7 +47,7 @@ def token_required(f):
 def root_route():
     try:
         # dynamodb.create_table_foodList()
-        dynamodb.createRecipesTable()
+        dynamodb.create_recipes_table()
     except Exception:
         return "Table already exists"
         # pass
@@ -74,10 +77,34 @@ def register():
     print(data)
     response = dynamodb.add_user(username=username, password=password, data=data)
     if response["code"] == 200:
-        return make_response("Add user successful", 200)
+        return make_response(
+            jsonify(
+                {
+                    "error": "false",
+                    "msg": "Add user successful",
+                }
+            ),
+            200,
+        )
     elif response["code"] == 409:
-        return make_response("Username already exists", 409)
-    return make_response("Internal server error occurred", 500)
+        return make_response(
+            jsonify(
+                {
+                    "error": "true",
+                    "msg": "Username already exists",
+                }
+            ),
+            409,
+        )
+    return make_response(
+        jsonify(
+            {
+                "error": "true",
+                "msg": "Internal server error occurred",
+            }
+        ),
+        500,
+    )
 
 
 @app.route("/login", methods=["POST"])
@@ -98,31 +125,47 @@ def login():
                 "username": data["username"],
                 "id": response["uid"],
                 "name": response["data"]["name"],
-                "exp": datetime.utcnow() + timedelta(seconds=120),
+                # "exp": datetime.utcnow() + timedelta(seconds=120),
             },
             app.config["SECRET_KEY"],
         )
         return make_response(
-            jsonify({"token": token, "data": response, "error": "false"}), 200
+            jsonify(
+                {
+                    "token": token,
+                    "data": response,
+                    "error": "false",
+                    "msg": "Login successfully",
+                }
+            ),
+            200,
         )
     else:
         return make_response(
-            "Unable to verify, authentication failed",
+            jsonify(
+                {
+                    "data": {
+                        "WWW-Authenticate": 'Basic realm: "Authentication Failed "'
+                    },
+                    "error": "true",
+                    "msg": "Unable to verify, authentication failed",
+                }
+            ),
             403,
-            {"WWW-Authenticate": 'Basic realm: "Authentication Failed "'},
         )
 
 
-@app.route("/logout", methods=['POST'])
+@app.route("/logout", methods=["POST"])
 @token_required
 def logout():
     token = request.headers["x-access-token"]
     response, code = token_blacklisting.invalidate_token(str(token))
     if code == 500:
         return make_response({"message": response, "status": "fail"}, 500)
-    session['logged_in'] = False
+    session["logged_in"] = False
     return make_response({"message": response, "status": "success"}, 200)
-        
+
+
 @app.route("/auth")
 @token_required
 def auth():
@@ -174,7 +217,7 @@ def addRecipe(recipeid):
         # return response
         # print(data)
         nutritionScore = str(round(nutritionScore, 2))
-        response = dynamodb.addRecipe(data, nutriScore=nutritionScore)
+        response = dynamodb.add_recipe(data, nutriScore=nutritionScore)
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return {"msg": "Add food successful", "nutritionScore": nutritionScore}
         return {"msg": "error occurred", "response": response}
@@ -246,8 +289,8 @@ def delete_recipe(recipeid):
 
 
 @app.route("/recipes", methods=["GET"])
-def getAllRecipes():
-    getResponse = dynamodb.getAllRecipes()
+def get_all_recipes():
+    getResponse = dynamodb.get_all_recipes()
     return getResponse
 
 
