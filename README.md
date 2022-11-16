@@ -2,15 +2,26 @@
 
 # Python package install
 
-First, activate virtual environment <br>
+Install pyenv by following: https://github.com/pyenv/pyenv#installation
+Install pipenv by typing: ```pip install pipenv```
 
-```conda create env -n our-recipe python=3.9```
+Navigate to the project folder and installing required packages.
 
-```conda activate our-recipe```
+```
+cd /path/to/ourRecipe
+pyenv install 3.9.15
+pyenv local 3.9.15
+pipenv install
+```
 
-Install flask_server package <br>
+After installing packages, the environment can be activated by typing:
+```
+pipenv shell
+```
 
-```pip install .```
+After updating code in flask_server, re-package flask_server:
 
-```pip install -r requirements.txt```
-
+```
+cd /path/to/ourRecipe
+pipenv install .
+```
