@@ -1,9 +1,9 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
+import Form from "../common/form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { register } from "../services/auth";
+import { register } from "../../services/auth";
 
 const RegisterForm = ({ toast }) => {
   const buttons = [

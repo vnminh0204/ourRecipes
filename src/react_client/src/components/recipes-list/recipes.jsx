@@ -1,7 +1,7 @@
 import React from "react";
 import ListGroup from "./common/listGroup";
 import Pagination from "./common/pagination";
-import RecipesTable from "./recipesTable";
+import RecipesTable from "./recipes-list/recipesTable";
 import { Link } from "react-router-dom";
 import { paginate } from "../utils/paginate";
 import SearchBox from "./common/searchBox";

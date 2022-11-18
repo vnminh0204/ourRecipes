@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
-import Select from "./common/select";
+import Select from "../common/select";
 const Title = ({
   title,
   setTitle,
