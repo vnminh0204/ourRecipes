@@ -1,0 +1,18 @@
+.section-ingredients {
+  padding: 2rem;
+}
+.recipe-heading {
+  letter-spacing: 1.5px;
+  color: var(--clr-heading);
+  text-decoration: underline;
+}
+.cooking-method {
+  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  font-weight: 400;
+  white-space: pre-line;
+}
+.textarea {
+  font-family: "Chronicle SSm A", serif;
+  font-size: 13px;
+}

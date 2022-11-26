@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
 import Select from "../common/select";
+import "./title.css";
+
 const Title = ({
   title,
   setTitle,
@@ -80,9 +82,9 @@ const Title = ({
               name="meal-type"
               label=""
               options={mealTypes}
+              className="meal-type-select"
               errors={{}}
               value={mealType}
-              className="input-meal-type"
               onChange={handleMealTypeChange}
             />
           </div>

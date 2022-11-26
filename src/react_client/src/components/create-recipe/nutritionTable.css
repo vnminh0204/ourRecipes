@@ -1,0 +1,61 @@
+.key-value-blocks__batch {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  border-spacing: flex;
+  justify-self: auto;
+}
+.key-value-blocks__item {
+  display: flex;
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-top: 10px;
+  flex-direction: column;
+  text-align: center;
+  word-break: break-all;
+  min-width: 63px;
+  line-height: 1.3125rem;
+  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  border-collapse: collapse;
+}
+.key-value-blocks__key {
+  line-height: 1.1;
+  display: flex;
+  font-weight: 600;
+  justify-content: center;
+  margin-right: 5px;
+  margin-top: 10px;
+  flex-direction: column;
+  text-align: center;
+  word-break: break-all;
+  min-width: 63px;
+  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  border-collapse: collapse;
+  word-wrap: anywhere;
+}
+.key-value-blocks__value {
+  padding: 0 5px 5px;
+  line-height: 1.1;
+  display: flex;
+  margin-right: 5px;
+  margin-top: 10px;
+  flex-direction: column;
+  text-align: center;
+  word-break: break-all;
+  min-width: 63px;
+  justify-content: center;
+  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  border-collapse: collapse;
+  word-wrap: anywhere;
+}
+.body-copy-extra-small {
+  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+  letter-spacing: normal;
+  color: #333;
+  font-weight: 400;
+  margin: 0;
+  text-transform: none;
+}

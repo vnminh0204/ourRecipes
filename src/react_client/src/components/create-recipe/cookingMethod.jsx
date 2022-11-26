@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
+import "./cookingMethod.css"
 
 const CookingMethod = ({
   cookingMethod,

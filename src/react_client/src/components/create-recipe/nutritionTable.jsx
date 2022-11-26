@@ -1,4 +1,5 @@
 import React from "react";
+import "./nutritionTable.css";
 
 const NutritionTable = ({nutritionTable}) => {
   return (

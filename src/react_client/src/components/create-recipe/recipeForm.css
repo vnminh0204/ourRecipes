@@ -1,0 +1,15 @@
+.title-row {
+  color: white;
+  text-align: center;
+  background: var(--clr-title);
+  padding: 2rem;
+}
+.nutrition-row {
+  max-width: auto;
+  background: var(--clr-nutrition);
+  padding: 2rem;
+}
+.recipes-row {
+  background-color: #f0f0f0;
+  margin-bottom: 25px;
+}

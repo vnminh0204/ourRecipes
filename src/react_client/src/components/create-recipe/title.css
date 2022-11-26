@@ -1,0 +1,52 @@
+.input-title {
+  height: 50px;
+  width: 50%;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+.meal-info-box {
+  width: 15%;
+  background-color: white;
+}
+.meal-info1 {
+  display: flex;
+  color: var(--clr-heading);
+  font-weight: 600;
+  letter-spacing: 1.5px;
+  margin: 0;
+  justify-content: center;
+}
+.meal-info2 {
+  display: flex;
+  color: black;
+  font-weight: 600;
+  margin: 0;
+  justify-content: center;
+}
+.input-amount {
+  max-height: 24px;
+  font-size: 15px;
+  display: inline-block;
+  outline: none;
+  max-width: 45px;
+  margin-right: 5px;
+  /* border:none; */
+}
+.meal-type-select {
+  max-width: auto;
+  font-size: 15px;
+  /* display: block; */
+  width: 100%;
+  /* padding: 0.375rem 0.75rem; */
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}

@@ -2,6 +2,7 @@ import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiUser, FiChevronDown } from "react-icons/fi";
 import logo from "./logo.png";
+import "./navBar.css";
 
 const NavBar = ({ user, setUser }) => {
 
@@ -51,7 +52,7 @@ const NavBar = ({ user, setUser }) => {
               </NavLink>
               <ul className="my-dropdown">
                 <li>
-                  <NavLink className="my-dropdown-item nav-item" to="/register">
+                  <NavLink className="my-dropdown-item nav-item" to="/customer">
                     Profile
                   </NavLink>
                 </li>
