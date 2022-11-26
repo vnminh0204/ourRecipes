@@ -217,7 +217,10 @@ def addRecipe(recipeid):
         # return response
         # print(data)
         nutritionScore = str(round(nutritionScore, 2))
-        response = dynamodb.add_recipe(data, nutriScore=nutritionScore)
+        user_data = jwt.decode(
+            data["x-access-token"], app.config["SECRET_KEY"], algorithms=["HS256"]
+        )
+        response = dynamodb.add_recipe(data, nutriScore=nutritionScore, author = user_data["name"])
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return {"msg": "Add food successful", "nutritionScore": nutritionScore}
         return {"msg": "error occurred", "response": response}

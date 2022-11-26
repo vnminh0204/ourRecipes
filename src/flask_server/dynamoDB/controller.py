@@ -123,7 +123,7 @@ users_table = resource.Table("Users")
 ingredients_table = resource.Table("Ingredients")
 
 
-def add_recipe(data, nutriScore):
+def add_recipe(data, nutriScore, author):
     data = json.loads(json.dumps(data), parse_float=Decimal)
     nutriScore = Decimal(nutriScore)
     hashedId = hash(data["cookingMethod"] + data["mealType"])
@@ -133,6 +133,7 @@ def add_recipe(data, nutriScore):
     response = recipes_table.put_item(
         Item={
             "id": hashedId,
+            "author": author,
             "data": data,
             "nutriScore": nutriScore,
             "date": stringifiedTime,
