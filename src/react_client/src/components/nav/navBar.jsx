@@ -1,16 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FiUser, FiChevronDown } from "react-icons/fi";
 import logo from "./logo.png";
 
 const NavBar = ({ user, setUser }) => {
-  const [show, setShow] = useState(false);
-
-  // const logOut = () => {
-  //   setUser({});
-  //   localStorage.removeItem("token");
-  //   window.location = "/";
-  // };
 
   const logOut = () => {
     setUser({});
