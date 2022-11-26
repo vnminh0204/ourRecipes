@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
-import Recipes from "./components/recipes";
+import Recipes from "./components/all-recipes/recipes";
 import Customer from "./components/customer";
 import MealPlanner from "./components/planner";
 import NotFound from "./components/notFound";
-import LoginForm from "./components/loginForm";
-import RegisterForm from "./components/registerForm";
+import LoginForm from "./components/login-register/loginForm";
+import RegisterForm from "./components/login-register/registerForm";
 import NavBar from "./components/navBar";
-import RecipeForm from "./components/recipeForm";
+import RecipeForm from "./components/create-recipe/recipeForm";
 import jwt_decode from "jwt-decode";
 import { Route, Routes } from "react-router-dom";
 import { toast } from "react-toastify";

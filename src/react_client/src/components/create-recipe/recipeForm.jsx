@@ -4,7 +4,7 @@ import IngredientsSearch from "./ingredientsSearch";
 import NutritionTable from "./nutritionTable";
 import IngredientsList from "./ingredientsList";
 import CookingMethod from "./cookingMethod";
-import config from "../config.json";
+import config from "../../config.json";
 import Title from "./title";
 
 const RecipeForm = ({ toast }) => {

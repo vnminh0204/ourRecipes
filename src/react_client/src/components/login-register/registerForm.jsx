@@ -1,12 +1,11 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
+import Form from "../common/form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/auth";
+import { register } from "../../services/auth";
 
-
-const LoginForm = ({ toast }) => {
+const RegisterForm = ({ toast }) => {
   const buttons = [
     {
       buttonType: "Input",
@@ -20,36 +19,46 @@ const LoginForm = ({ toast }) => {
       name: "password",
       label: "Password",
       type: "password",
-      placeholder: "Password",
+      placeholder: "Your Password",
+    },
+    {
+      buttonType: "Input",
+      name: "name",
+      label: "Name",
+      type: "text",
+      placeholder: "Your Name",
     },
     {
       buttonType: "Submit",
-      label: "Login",
+      label: "Register",
     },
   ];
   const schema = {
     username: Joi.string().required().label("Username"),
-    password: Joi.string().required().label("Password"),
+    password: Joi.string().required().min(5).label("Password"),
+    name: Joi.string().required().label("Name"),
   };
 
   const navigate = useNavigate();
 
-  const initialData = { username: "", password: "" };
+  const initialData = { username: "", password: "", name: "" };
   const [data, setData] = useState(initialData);
+
   const doSubmit = async () => {
-    const status = await login(data.username, data.password);
+    const status = await register(data.username, data.password, data.name);
     if (status.length === 0) {
-      toast.success("Login successfully!");
+      toast.success("Register successfully!");
+      navigate("/login", { replace: true });
     } else {
       toast.error(status);
     }
-    navigate("/recipes", { replace: true });
+
     console.log("Submitted");
   };
 
   return (
     <div>
-      <h1>Login</h1>
+      <h1>Register</h1>
       <Form
         doSubmit={doSubmit}
         buttons={buttons}
@@ -61,4 +70,4 @@ const LoginForm = ({ toast }) => {
   );
 };
 
-export default LoginForm;
+export default RegisterForm;

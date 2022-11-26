@@ -1,13 +1,13 @@
 import React from "react";
-import ListGroup from "./common/listGroup";
-import Pagination from "./common/pagination";
+import ListGroup from "../common/listGroup";
+import Pagination from "../common/pagination";
 import RecipesTable from "./recipesTable";
 import { Link } from "react-router-dom";
-import { paginate } from "../utils/paginate";
-import SearchBox from "./common/searchBox";
+import { paginate } from "../../utils/paginate";
+import SearchBox from "../common/searchBox";
 import _ from "lodash";
 import { useState, useEffect } from "react";
-import config from "../config.json";
+import config from "../../config.json";
 
 const Recipes = ({ toast }) => {
   const [recipes, setRecipes] = useState([]);
