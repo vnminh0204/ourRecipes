@@ -1,9 +1,10 @@
 import React from "react";
 import Joi from "joi-browser";
-import Form from "./common/form";
+import Form from "../common/form";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../services/auth";
+import { login } from "../../services/auth";
+
 
 
 const LoginForm = ({ toast }) => {

@@ -15,7 +15,7 @@ import os
 
 AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
 AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
-REGION_NAME = os.environ["REGION_NAME"]
+REGION_NAME = os.environ["AWS_DEFAULT_REGION"]
 # AWS_SESSION_TOKEN     = config("AWS_SESSION_TOKEN")
 
 # client = client(
@@ -224,7 +224,7 @@ def verify_user(username, plain_text_password):
     if bcrypt.checkpw(plain_text_password.encode("utf-8"), hashed_pass.value):
         return {"uid": item["user_id"], "data": item["data"]}, True
     # print(response)
-    return {"Wrong password"}, False # Note: the first one is a set, not a dict
+    return {"Wrong password"}, False  # Note: the first one is a set, not a dict
 
 
 def add_ingredient(id, name, data):

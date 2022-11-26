@@ -13,7 +13,7 @@ from functools import wraps
 # from decimal import Decimal
 
 # Init app
-app = Flask(__name__)
+app = Flask("ourRecipes")
 
 app.config["SECRET_KEY"] = "c68df6752f4e460e90859655e2b77db3"
 
@@ -294,6 +294,6 @@ def get_all_recipes():
     return getResponse
 
 
-# Run Server
+# Run development server
 if __name__ == "__main__":
     app.run(debug=True)
