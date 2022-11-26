@@ -45,15 +45,20 @@ const Recipes = ({ toast }) => {
         .then((data) => {
           var recipes = new Array(data.Count);
           var i = 0;
+          // console.log(data);
           for (const item of data.Items) {
+            console.log(item)
             //TODO change author
             const recipe = {
               ...item.data,
-              date: item.date,
+              date: (new Date(item.date)).toLocaleDateString("en-GB"),
               id: item.id,
               nutriScore: item.nutriScore,
-              author: "Minh",
+              author: item.author,
             };
+            // var dateF = ;
+            // console.log(dateF);
+            // console.log(dateF);
             // console.log(recipe);
             recipes[i] = recipe;
             i++;
@@ -127,7 +132,6 @@ const Recipes = ({ toast }) => {
     //filter
 
     if (recipes) {
-      // TODO
       var filteredrecipes =
         selectedFilterOption &&
         selectedFilterOption.name &&

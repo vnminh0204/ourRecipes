@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import IngredientsSearch from "./ingredientsSearch";
+import IngredientsSearch from "./search/ingredientsSearch";
 import NutritionTable from "./nutritionTable";
 import IngredientsList from "./ingredientsList";
-import CookingMethod from "./cookingMethod";
+import CookingMethod from "./cooking-method/cookingMethod";
 import Title from "./title";
 import config from "../../config.json";
 import "./recipeForm.css";
@@ -274,6 +274,7 @@ const RecipeForm = ({ toast }) => {
       return;
     }
     const jwt = localStorage.getItem("token");
+
     const obj = {
       ingredients,
       cookingMethod,

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import IngredientsSearchList from "./ingredientsSearchList";
 import "./search.css";
-import config from "../../config.json";
+import config from "../../../config.json";
 
 const IngredientsSearch = ({ addItem, toast }) => {
   const [name, setName] = useState("");

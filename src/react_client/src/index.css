@@ -94,30 +94,7 @@ Variables
   color: #155724;
   background: #d4edda;
 }
-.ingredient-search-form h3 {
-  color: var(--clr-primary-1);
-  margin-bottom: 1.5rem;
-  text-align: center;
-}
-.ingredient-search-form-control {
-  display: flex;
-  justify-content: center;
-}
-.ingredient {
-  padding: 0.25rem;
-  padding-left: 1rem;
-  background: var(--clr-grey-10);
-  border-top-left-radius: var(--radius);
-  border-bottom-left-radius: var(--radius);
-  border-color: transparent;
-  font-size: 1rem;
-  flex: 1 0 auto;
-  color: var(--clr-grey-5);
-}
-.ingredient::placeholder {
-  font-family: var(--ff-secondary);
-  color: var(--clr-grey-5);
-}
+
 .submit-btn {
   background: var(--clr-primary-8);
   border-color: transparent;

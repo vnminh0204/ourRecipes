@@ -12,6 +12,7 @@ const RecipesTable = (props) => {
         <Link to={`/recipes/${recipe.id}`}>{recipe.title}</Link>
       ),
     },
+    { path: "date", label: "Date" },
     { path: "mealType", label: "MealType" },
     { path: "author", label: "Author" },
     { path: "nutriScore", label: "Nutri-Score" },

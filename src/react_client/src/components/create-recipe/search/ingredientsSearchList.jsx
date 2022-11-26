@@ -1,6 +1,6 @@
 import React from "react";
 import { IoIosAddCircle } from "react-icons/io";
-import "./search.css"
+import "./search.css";
 
 const IngredientsSearchList = ({ data, addItem }) => {
   return (
