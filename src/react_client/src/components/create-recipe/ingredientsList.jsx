@@ -13,6 +13,7 @@ const IngredientsList = ({
   editItem,
   ingredients,
   setIngredients,
+  editMode,
 }) => {
 
   const handleUnitChange = ({ currentTarget: input }) => {
@@ -56,6 +57,17 @@ const IngredientsList = ({
   };
 
   const renderIngredient = (ingredient) => {
+    if (!editMode) {
+      return (<article
+        className="ingredient-item2"
+      >
+        <p className="ingredient-name">
+          {ingredient.amount} {ingredient.unit} {ingredient.name}
+        </p>
+      </article>)
+    }
+
+
     if (ingredient.edit === true) {
       return (
         <article className="ingredient-item2">

@@ -13,6 +13,7 @@ const Title = ({
   toast,
   editTitle,
   setEditTile,
+  editMode,
 }) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
   const handleTitleChange = ({ currentTarget: input }) => {
@@ -51,6 +52,20 @@ const Title = ({
   };
 
   const mealTypes = ["Breakfast", "Lunch", "Dinner", "Snack"];
+
+  if (!editMode) {
+    return (
+      <div>
+        <h1>{title}</h1>
+        <div className="meal-info-box">
+          <p className="meal-info1">MAKES </p>
+          <p className="meal-info2">{numServings} Servings</p>
+          <p className="meal-info1">TYPE </p>
+          <p className="meal-info2">{mealType}</p>
+        </div>
+      </div>
+    );
+  }
 
   if (editTitle) {
     return (

@@ -327,6 +327,7 @@ const RecipeForm = ({ toast }) => {
               toast={toast}
               editTitle={editTitle}
               setEditTile={setEditTile}
+              editMode={editMode}
             />
           </div>
           <div className="row nutrition-row">
@@ -340,6 +341,7 @@ const RecipeForm = ({ toast }) => {
                 editItem={editItem}
                 ingredients={ingredients}
                 setIngredients={setIngredients}
+                editMode = {editMode}
               />
             </div>
             <div className="col">
@@ -348,6 +350,7 @@ const RecipeForm = ({ toast }) => {
                 setCookingMethod={setCookingMethod}
                 editCookingMethod={editCookingMethod}
                 setEditCookingMethod={setEditCookingMethod}
+                editMode = {editMode}
               />
             </div>
             {editMode && (

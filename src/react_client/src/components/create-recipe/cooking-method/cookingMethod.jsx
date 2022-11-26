@@ -7,6 +7,7 @@ const CookingMethod = ({
   setCookingMethod,
   editCookingMethod,
   setEditCookingMethod,
+  editMode,
 }) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
   const changeEditState = () => {
@@ -24,6 +25,22 @@ const CookingMethod = ({
   const onMouseLeaveHandler = () => {
     setShowEditIcon(false);
   };
+
+  if (!editMode) {
+    return (
+      <section
+        className="section-ingredients"
+      >
+        <div className="row">
+          <h3 className="fs-5 recipe-heading w-50">METHOD</h3>
+        </div>
+
+        <div>
+          <p className="cooking-method">{cookingMethod}</p>
+        </div>
+      </section>
+    );
+  }
 
   if (editCookingMethod) {
     return (

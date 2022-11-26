@@ -45,21 +45,16 @@ const Recipes = ({ toast }) => {
         .then((data) => {
           var recipes = new Array(data.Count);
           var i = 0;
-          // console.log(data);
           for (const item of data.Items) {
-            console.log(item)
             //TODO change author
             const recipe = {
               ...item.data,
+              dateObject: (new Date(item.date)),
               date: (new Date(item.date)).toLocaleDateString("en-GB"),
               id: item.id,
               nutriScore: item.nutriScore,
               author: item.author,
             };
-            // var dateF = ;
-            // console.log(dateF);
-            // console.log(dateF);
-            // console.log(recipe);
             recipes[i] = recipe;
             i++;
           }
@@ -145,11 +140,21 @@ const Recipes = ({ toast }) => {
         );
       }
       //order we can change [] to have more criterias to sort
-      const sortedrecipes = _.orderBy(
-        filteredrecipes,
-        [sortColumn.path],
-        [sortColumn.order]
-      );
+      console.log(sortColumn);
+      var sortedrecipes;
+      if (sortColumn?.path === 'date'){
+        sortedrecipes = _.orderBy(
+          filteredrecipes,
+          ['dateObject'],
+          [sortColumn.order]
+        );
+      } else {
+        sortedrecipes = _.orderBy(
+          filteredrecipes,
+          [sortColumn.path],
+          [sortColumn.order]
+        );
+      }
 
       //paginate
       const pageRecipes = paginate(sortedrecipes, currentPage, pageSize);
