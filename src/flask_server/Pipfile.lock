@@ -1,12 +1,11 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "169fdd89083df9ba0c4e04ac2290b53d399bdd58efc521b955d1934aec0bbd59"
+            "sha256": "e545ffed845fcb44d50b9faefac4ab9ebe73bd347cc77000dafed590cb4f1cca"
         },
         "pipfile-spec": 6,
         "requires": {
-            "python_full_version": "3.9.15",
-            "python_version": "3.9"
+            "python_full_version": "3.9.15"
         },
         "sources": [
             {
@@ -768,11 +767,11 @@
         },
         "jupyter-server": {
             "hashes": [
-                "sha256:69cb954ef02c0ba1837787e34e4a1240c93c8eb590662fae1840778861957660",
-                "sha256:c01d0e84c22a14dd6b0e7d8ce4105b08a3426b46582668e28046a64c07311a4f"
+                "sha256:438496cac509709cc85e60172e5538ca45b4c8a0862bb97cd73e49f2ace419cb",
+                "sha256:f7f7a2f9d36f4150ad125afef0e20b1c76c8ff83eb5e39fb02d3b9df0f9b79ab"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==1.23.2"
+            "version": "==1.23.3"
         },
         "jupyterlab-pygments": {
             "hashes": [
@@ -1491,11 +1490,11 @@
         },
         "setuptools": {
             "hashes": [
-                "sha256:d0b9a8433464d5800cbe05094acf5c6d52a91bfac9b52bcfc4d41382be5d5d31",
-                "sha256:e197a19aa8ec9722928f2206f8de752def0e4c9fc6953527360d1c36d94ddb2f"
+                "sha256:57f6f22bde4e042978bcd50176fdb381d7c21a9efa4041202288d3737a0c6a54",
+                "sha256:a7620757bf984b58deaf32fc8a4577a9bbc0850cf92c20e1ce41c38c19e5fb75"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==65.5.1"
+            "version": "==65.6.3"
         },
         "six": {
             "hashes": [
@@ -2023,11 +2022,11 @@
         },
         "jupyter-server": {
             "hashes": [
-                "sha256:69cb954ef02c0ba1837787e34e4a1240c93c8eb590662fae1840778861957660",
-                "sha256:c01d0e84c22a14dd6b0e7d8ce4105b08a3426b46582668e28046a64c07311a4f"
+                "sha256:438496cac509709cc85e60172e5538ca45b4c8a0862bb97cd73e49f2ace419cb",
+                "sha256:f7f7a2f9d36f4150ad125afef0e20b1c76c8ff83eb5e39fb02d3b9df0f9b79ab"
             ],
             "markers": "python_version >= '3.7'",
-            "version": "==1.23.2"
+            "version": "==1.23.3"
         },
         "jupyterlab": {
             "hashes": [
