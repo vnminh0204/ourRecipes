@@ -1,6 +1,6 @@
 {
 
-    "apiEndpoint": "http://0.0.0.0:9696",
+    "apiEndpoint": "https://seashell-app-5q8rg.ondigitalocean.app",
     "spoonacularAPIEndpoint": "https://api.spoonacular.com",
     "spoonacularAPIKey": "65cdf0d8be2f4777b318c3e82cec2245"
 }
