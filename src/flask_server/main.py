@@ -8,13 +8,15 @@ from lib.nutritionCalculator import calculate_score
 import jwt
 from datetime import datetime, timedelta
 from functools import wraps
+from flask_cors import CORS, cross_origin
 
 # import json
 # from decimal import Decimal
 
 # Init app
 app = Flask("ourRecipes")
-
+CORS(app)
+app.config["CORS_HEADERS"] = "Content-Type"
 app.config["SECRET_KEY"] = "c68df6752f4e460e90859655e2b77db3"
 
 
@@ -55,6 +57,7 @@ def root_route():
 
 
 @app.route("/home")
+@cross_origin()
 def home():
     if not session.get("logged_in"):
         return {"msg": "Not yet loggedin, handle"}
@@ -63,7 +66,7 @@ def home():
 
 
 @app.route("/register", methods=["POST"])
-#
+@cross_origin()
 def register():
     """
     Data is of the form {username, password, data: {height, ....}}
@@ -108,6 +111,7 @@ def register():
 
 
 @app.route("/login", methods=["POST"])
+@cross_origin()
 def login():
     """
     Login flow: login -> acquire token, save user info to session (session ends on closing brwoser...)
@@ -156,6 +160,7 @@ def login():
 
 
 @app.route("/logout", methods=["POST"])
+@cross_origin()
 @token_required
 def logout():
     token = request.headers["x-access-token"]
@@ -167,6 +172,7 @@ def logout():
 
 
 @app.route("/auth")
+@cross_origin()
 @token_required
 def auth():
     """
@@ -177,6 +183,7 @@ def auth():
 
 
 @app.route("/recipes/<recipeid>", methods=["POST"])
+@cross_origin()
 @token_required
 def addRecipe(recipeid):
     if request.method == "POST":
@@ -220,7 +227,9 @@ def addRecipe(recipeid):
         user_data = jwt.decode(
             data["x-access-token"], app.config["SECRET_KEY"], algorithms=["HS256"]
         )
-        response = dynamodb.add_recipe(data, nutriScore=nutritionScore, author = user_data["name"])
+        response = dynamodb.add_recipe(
+            data, nutriScore=nutritionScore, author=user_data["name"]
+        )
         if response["ResponseMetadata"]["HTTPStatusCode"] == 200:
             return {"msg": "Add food successful", "nutritionScore": nutritionScore}
         return {"msg": "error occurred", "response": response}
@@ -239,11 +248,13 @@ def addRecipe(recipeid):
 
 
 @app.route("/recipes/<recipeid>", methods=["GET"])
+@cross_origin()
 def get_recipe(recipeid):
     return dynamodb.get_specific_recipe(recipeid)
 
 
 @app.route("/recipes/<recipeid>", methods=["PUT"])
+@cross_origin()
 @token_required
 def update_recipe(recipeid):
     data = request.get_json()
@@ -283,6 +294,7 @@ def update_recipe(recipeid):
 
 
 @app.route("/recipes/<recipeid>", methods=["DELETE"])
+@cross_origin()
 @token_required
 def delete_recipe(recipeid):
     response = dynamodb.delete_recipe(recipeid)
@@ -292,6 +304,7 @@ def delete_recipe(recipeid):
 
 
 @app.route("/recipes", methods=["GET"])
+@cross_origin()
 def get_all_recipes():
     getResponse = dynamodb.get_all_recipes()
     return getResponse

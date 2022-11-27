@@ -1,3 +1,4 @@
 .env
 src/flask_server.egg-info/
 build/
+.vscode
