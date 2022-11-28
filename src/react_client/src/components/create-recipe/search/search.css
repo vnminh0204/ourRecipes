@@ -60,3 +60,9 @@
   margin-bottom: 1.5rem;
   text-align: center;
 }
+.format-right-btn {
+  font-size: 1rem !important;
+  flex: 0 0 5rem;
+  border-top-right-radius: var(--radius);
+  border-bottom-right-radius: var(--radius);
+}

@@ -354,7 +354,7 @@ const RecipeForm = ({ toast }) => {
               />
             </div>
             {editMode && (
-              <button onClick={() => onSubmit()} className="btn btn-primary">
+              <button onClick={() => onSubmit()} className="submit-btn">
                 Submit
               </button>
             )}

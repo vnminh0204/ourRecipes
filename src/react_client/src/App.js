@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Recipes from "./components/all-recipes/recipes";
 import Customer from "./components/customer";
-import MealPlanner from "./components/planner";
+import MealPlanner from "./components/meal-planner/mealPlanner";
 import NotFound from "./components/notFound";
 import LoginForm from "./components/login-register/loginForm";
 import RegisterForm from "./components/login-register/registerForm";
