@@ -66,3 +66,15 @@
   border-top-right-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
 }
+.select-btn {
+  padding: 0.25rem;
+  margin-left: 3px;
+  margin-right: 2px;
+  background: var(--clr-grey-10);
+  border-top-left-radius: var(--radius);
+  border-bottom-left-radius: var(--radius);
+  border-color: transparent;
+  font-size: 1rem;
+  flex: 1 0 auto;
+  color: var(--clr-grey-5);
+}

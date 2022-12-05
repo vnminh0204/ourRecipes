@@ -84,11 +84,11 @@ const MealsSearch = ({ addItem, toast }) => {
           <input
             type="text"
             className="ingredient w-50"
-            placeholder="e.g. apple"
+            placeholder="e.g. overnight oats"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
           />
-          <select onChange={onOptionChangeHandler}>
+          <select className="select-btn" onChange={onOptionChangeHandler}>
             {options.map((option, index) => {
               return <option key={index}>{option}</option>;
             })}
