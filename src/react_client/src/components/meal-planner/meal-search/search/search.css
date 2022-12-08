@@ -1,20 +1,42 @@
-.section-ingredient-search {
-  width: 23vw;
+.section-meal-search {
+  width: 27vw;
   height: 100%;
   margin: 0 auto;
-}
-.section-ingredient-search {
   background: var(--clr-white);
   border-radius: var(--radius);
   box-shadow: var(--light-shadow);
   transition: var(--transition);
   padding: 2rem;
 }
+
+.section-ingredient-search {
+}
 .ingredient-container {
   margin-top: 2rem;
-  max-height: 300px;
 }
-
+.border-highlight {
+  border: solid 2px var(--clr-primary-8);
+  background: var(--clr-grey-10);
+}
+.edit-block {
+  display: inline-flex;
+}
+.quantity-btn {
+  padding: 0.25rem;
+  margin-left: 3px;
+  margin-right: 2px;
+  background: white;
+  border-radius: var(--radius);
+  font-size: 1rem;
+  flex: 1 0 auto;
+  color: var(--clr-grey-5);
+  border: 1px solid;
+}
+.input-field {
+  flex: 0 0 5px;
+  overflow: visible;
+  width: 50px;
+}
 .ingredient-item {
   display: flex;
   align-items: center;
