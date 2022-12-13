@@ -31,7 +31,6 @@ const MealsSearchList = ({ data, addItem }) => {
   const options = ["Breakfast", "Lunch", "Dinner", "Snack"];
   const onOptionChangeHandler = (event) => {
     setSelectedFilterOption(event.target.value);
-    // console.log("User Selected Value - ", selectedFilterOption);
   };
 
   const onInputChangeHandler = ({ currentTarget: input }) => {
