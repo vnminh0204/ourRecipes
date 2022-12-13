@@ -20,6 +20,42 @@ const MealList = ({ mealType, nutrition, meals }) => {
             <div className="meal-icons">
               <div className="meal-icon">
                 <IoIosInformationCircleOutline size={25} />
+                {nutrition && (
+                  <div className="meal-nutrition-info">
+                    <div>Calories</div>
+                    <div className="nutrition-info">
+                      {nutrition.kcal.amount}
+                    </div>
+                    <div>Carbs</div>
+                    <div className="nutrition-info">
+                      {nutrition.carbs.amount} g
+                    </div>
+                    <div>Fat</div>
+                    <div className="nutrition-info">
+                      {nutrition.fat.amount} g
+                    </div>
+                    <div>Protein</div>
+                    <div className="nutrition-info">
+                      {nutrition.protein.amount} g
+                    </div>
+                    <div>Fiber</div>
+                    <div className="nutrition-info">
+                      {nutrition.fibre.amount} g
+                    </div>
+                    <div>Saturates</div>
+                    <div className="nutrition-info">
+                      {nutrition.saturates.amount} g
+                    </div>
+                    <div>Sodium</div>
+                    <div className="nutrition-info">
+                      {nutrition.sodium.amount} mg
+                    </div>
+                    <div>Sugars</div>
+                    <div className="nutrition-info">
+                      {nutrition.sugars.amount} g
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
           </div>

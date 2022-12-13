@@ -102,3 +102,32 @@
   color: #76767a;
   font-size: 15px;
 }
+
+.meal-icons .meal-nutrition-info {
+  visibility: hidden;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 10px 0;
+  position: absolute;
+  right: -22%;
+  bottom: -50%;
+  width: 200px;
+  margin-left: -100px;
+  z-index: 1;
+}
+.meal-icons:hover .meal-nutrition-info {
+  visibility: visible;
+}
+
+.meal-icons .meal-nutrition-info ::after {
+  content: " ";
+  position: absolute;
+  top: 41%;
+  right: 100%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: transparent #555 transparent transparent;
+}
