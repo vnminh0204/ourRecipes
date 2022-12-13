@@ -23,7 +23,7 @@ const MealsSearchList = ({ data, addItem }) => {
     console.log(selectedFilterOption);
     setSelectedItem();
     setEdit(true);
-    addItem(item, "Breakfast");
+    addItem(item, selectedFilterOption);
   };
 
   const options = ["Breakfast", "Lunch", "Dinner", "Snack"];

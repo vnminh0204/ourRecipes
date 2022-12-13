@@ -37,7 +37,6 @@ const MealsSearch = ({ addItem, toast }) => {
         var i = 0;
         console.log(data);
         for (const item of data.Items) {
-          //TODO change author
           const recipe = {
             ...item.data,
             dateObject: new Date(item.date),

@@ -8,11 +8,15 @@ const MealPlanner = ({ toast, user }) => {
   const [breakfastMeals, setBreakFastMeals] = useState([]);
   const [breakfastNutrition, setBreakFastNutrition] = useState({});
   const [lunchMeals, setLunchMeals] = useState([]);
+  const [lunchNutrition, setLunchNutrition] = useState({});
   const [dinnerMeals, setDinnerMeals] = useState([]);
+  const [dinnerNutrition, setDinnerNutrition] = useState({});
   const [snackMeals, setSnackMeals] = useState([]);
+  const [snackNutrition, setSnackNutrition] = useState({});
 
   const addMeal = (newMeal, mealType) => {
     toast.success("Meal is added");
+    console.log(mealType);
     switch (mealType) {
       case "Breakfast":
         const newbreakfastMeals = [...breakfastMeals, newMeal];
@@ -39,6 +43,21 @@ const MealPlanner = ({ toast, user }) => {
     const updatedBreakfastNutrition = getNutritionTotal(breakfastMeals);
     setBreakFastNutrition(updatedBreakfastNutrition);
   }, [breakfastMeals]);
+
+  useEffect(() => {
+    const updatedLunchNutrition = getNutritionTotal(lunchMeals);
+    setLunchNutrition(updatedLunchNutrition);
+  }, [lunchMeals]);
+
+  useEffect(() => {
+    const updatedDinnerNutrition = getNutritionTotal(dinnerMeals);
+    setDinnerNutrition(updatedDinnerNutrition);
+  }, [dinnerMeals]);
+
+  useEffect(() => {
+    const updatedSnackNutrition = getNutritionTotal(snackMeals);
+    setSnackNutrition(updatedSnackNutrition);
+  }, [snackMeals]);
 
   const getNutritionTotal = (mealList) => {
     const newNutritionTable = {
@@ -144,6 +163,39 @@ const MealPlanner = ({ toast, user }) => {
                   <div className="meal-content">
                     <ul className="meal-foods">
                       {breakfastMeals.map((meal) => (
+                        <li key={meal.id} className="food ">
+                          <div className="food-name">{meal.title}</div>
+                          <div className="food-unit">
+                            {meal.quantity} serving
+                          </div>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              )}
+            </div>
+            <div className="meal-list-container">
+              {lunchMeals && lunchMeals.length !== 0 && (
+                <div className="meal-container">
+                  <div className="meal-header">
+                    <div className="meal-info">
+                      <div className="meal-type">Lunch</div>
+                      {lunchNutrition && (
+                        <div className="meal-calo">
+                          {lunchNutrition.kcal.amount} Calories
+                        </div>
+                      )}
+                    </div>
+                    <div className="meal-icons">
+                      <div className="meal-icon">
+                        <IoIosInformationCircleOutline size={25} />
+                      </div>
+                    </div>
+                  </div>
+                  <div className="meal-content">
+                    <ul className="meal-foods">
+                      {lunchMeals.map((meal) => (
                         <li key={meal.id} className="food ">
                           <div className="food-name">{meal.title}</div>
                           <div className="food-unit">
