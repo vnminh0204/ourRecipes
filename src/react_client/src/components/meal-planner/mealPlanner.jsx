@@ -3,6 +3,7 @@ import MealsSearch from "./meal-search/search/mealsSearch";
 import { IoIosInformationCircleOutline } from "react-icons/io";
 import "./mealPlanner.css";
 import { useState, useEffect } from "react";
+import MealList from "./meal-list/mealList";
 
 const MealPlanner = ({ toast, user }) => {
   const [breakfastMeals, setBreakFastMeals] = useState([]);
@@ -142,72 +143,26 @@ const MealPlanner = ({ toast, user }) => {
             <div className="day-header">
               <div className="day-title">Your Meal Plan</div>
             </div>
-            <div className="meal-list-container">
-              {breakfastMeals && breakfastMeals.length !== 0 && (
-                <div className="meal-container">
-                  <div className="meal-header">
-                    <div className="meal-info">
-                      <div className="meal-type">Breakfasts</div>
-                      {breakfastNutrition && (
-                        <div className="meal-calo">
-                          {breakfastNutrition.kcal.amount} Calories
-                        </div>
-                      )}
-                    </div>
-                    <div className="meal-icons">
-                      <div className="meal-icon">
-                        <IoIosInformationCircleOutline size={25} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="meal-content">
-                    <ul className="meal-foods">
-                      {breakfastMeals.map((meal) => (
-                        <li key={meal.id} className="food ">
-                          <div className="food-name">{meal.title}</div>
-                          <div className="food-unit">
-                            {meal.quantity} serving
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </div>
-            <div className="meal-list-container">
-              {lunchMeals && lunchMeals.length !== 0 && (
-                <div className="meal-container">
-                  <div className="meal-header">
-                    <div className="meal-info">
-                      <div className="meal-type">Lunch</div>
-                      {lunchNutrition && (
-                        <div className="meal-calo">
-                          {lunchNutrition.kcal.amount} Calories
-                        </div>
-                      )}
-                    </div>
-                    <div className="meal-icons">
-                      <div className="meal-icon">
-                        <IoIosInformationCircleOutline size={25} />
-                      </div>
-                    </div>
-                  </div>
-                  <div className="meal-content">
-                    <ul className="meal-foods">
-                      {lunchMeals.map((meal) => (
-                        <li key={meal.id} className="food ">
-                          <div className="food-name">{meal.title}</div>
-                          <div className="food-unit">
-                            {meal.quantity} serving
-                          </div>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-              )}
-            </div>
+            <MealList
+              mealType={"Breakfast"}
+              meals={breakfastMeals}
+              nutrition={breakfastNutrition}
+            ></MealList>
+            <MealList
+              mealType={"Lunch"}
+              meals={lunchMeals}
+              nutrition={lunchNutrition}
+            ></MealList>
+            <MealList
+              mealType={"Dinner"}
+              meals={dinnerMeals}
+              nutrition={dinnerNutrition}
+            ></MealList>
+            <MealList
+              mealType={"Snack"}
+              meals={snackMeals}
+              nutrition={snackNutrition}
+            ></MealList>
           </div>
           <MealsSearch addItem={addMeal} toast={toast}></MealsSearch>
         </div>

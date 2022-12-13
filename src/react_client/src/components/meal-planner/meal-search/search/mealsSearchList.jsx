@@ -14,6 +14,8 @@ const MealsSearchList = ({ data, addItem }) => {
     item.quantity = 1;
     setEdit(true);
     setSelectedItem(item.id);
+    setSelectedFilterOption("Breakfast");
+    setInputValue(1);
     // addItem(item, "Breakfast");
   };
 
