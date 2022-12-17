@@ -141,7 +141,7 @@ const MealPlanner = ({ toast, user }) => {
         <div className="meal-plan-continer">
           <div className="day-plan-container">
             <div className="day-header">
-              <div className="day-title">Your Meal Plan</div>
+              <h3 className="day-title fs-3">Your Meal Plan</h3>
             </div>
             <MealList
               mealType={"Breakfast"}

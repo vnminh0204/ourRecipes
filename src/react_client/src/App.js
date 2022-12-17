@@ -6,7 +6,7 @@ import NotFound from "./components/notFound";
 import LoginForm from "./components/login-register/loginForm";
 import RegisterForm from "./components/login-register/registerForm";
 import NavBar from "./components/nav/navBar";
-import RecipeForm from "./components/create-recipe/recipeForm";
+import RecipeForm from "./components/recipe-form/recipeForm";
 import jwt_decode from "jwt-decode";
 import { Route, Routes } from "react-router-dom";
 import { toast } from "react-toastify";

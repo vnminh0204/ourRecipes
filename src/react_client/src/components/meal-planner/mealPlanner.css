@@ -2,20 +2,28 @@
   width: 50%;
   flex: 0 0 50%;
   max-width: 50%;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  transition: var(--transition);
+  /* padding: 2rem; */
+  padding: 2rem 1rem 2rem 2rem;
 }
 
 .day-header {
   padding-top: 20px;
   padding-bottom: 5px;
+  display: flex;
+  justify-content: center;
 }
 
 .day-title {
   font-size: 24px;
   vertical-align: middle;
   display: inline-block;
-  letter-spacing: 0.3px;
-  flex: 0 0 auto;
   width: auto;
+  margin-left: 20px;
+  margin-right: 20px;
   max-width: none;
 }
 

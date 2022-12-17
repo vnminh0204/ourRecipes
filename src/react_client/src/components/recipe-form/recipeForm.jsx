@@ -315,7 +315,7 @@ const RecipeForm = ({ toast }) => {
   return (
     <React.Fragment>
       <div className="row">
-        <div className="col">
+        <div className="col recipe-form-container">
           <div className="row title-row">
             <Title
               title={title}
@@ -341,7 +341,7 @@ const RecipeForm = ({ toast }) => {
                 editItem={editItem}
                 ingredients={ingredients}
                 setIngredients={setIngredients}
-                editMode = {editMode}
+                editMode={editMode}
               />
             </div>
             <div className="col">
@@ -350,7 +350,7 @@ const RecipeForm = ({ toast }) => {
                 setCookingMethod={setCookingMethod}
                 editCookingMethod={editCookingMethod}
                 setEditCookingMethod={setEditCookingMethod}
-                editMode = {editMode}
+                editMode={editMode}
               />
             </div>
             {editMode && (
