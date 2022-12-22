@@ -20,4 +20,5 @@
   box-shadow: var(--light-shadow);
   transition: var(--transition);
   margin-right: 20px;
+  min-height: 85vh;
 }

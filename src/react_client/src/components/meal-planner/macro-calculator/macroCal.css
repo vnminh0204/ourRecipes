@@ -1,0 +1,10 @@
+.calulator-container {
+  width: 27vw;
+  height: 100%;
+  margin: 0 auto;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  transition: var(--transition);
+  padding: 2.5rem;
+}

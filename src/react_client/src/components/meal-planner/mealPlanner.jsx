@@ -4,6 +4,7 @@ import { IoIosInformationCircleOutline } from "react-icons/io";
 import "./mealPlanner.css";
 import { useState, useEffect } from "react";
 import MealList from "./meal-list/mealList";
+import MacroCal from "./macro-calculator/macroCal";
 
 const MealPlanner = ({ toast, user }) => {
   const [breakfastMeals, setBreakFastMeals] = useState([]);
@@ -138,6 +139,7 @@ const MealPlanner = ({ toast, user }) => {
     <React.Fragment>
       <div className="planner-container">
         <h1>MealPlanner</h1>
+        {/* <MacroCal></MacroCal> */}
         <div className="meal-plan-continer">
           <div className="day-plan-container">
             <div className="day-header">
