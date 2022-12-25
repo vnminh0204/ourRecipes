@@ -1,5 +1,6 @@
 import React from "react";
 import "./common.css";
+
 const MyInput = ({
   name,
   label,
@@ -13,7 +14,7 @@ const MyInput = ({
     <div className="form-row">
       <label className="form-label">{label}</label>
       <input
-        className="form-input"
+        className="my-form-input"
         name={name}
         type={type}
         value={value}

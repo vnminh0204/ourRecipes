@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
+import { RiEdit2Fill } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa";
 import Select from "../common/select";
 import "./title.css";
 
@@ -78,7 +79,7 @@ const Title = ({
           onChange={handleTitleChange}
         ></input>
         <button type="button" className="add-btn" onClick={setTitleState}>
-          <RiCheckboxCircleFill size={25} />
+          <FaCheck size={25} />
         </button>
         <div className="meal-info-box">
           <p className="meal-info1">MAKES </p>

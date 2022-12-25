@@ -139,7 +139,7 @@ const MealPlanner = ({ toast, user }) => {
     <React.Fragment>
       <div className="planner-container">
         <h1>MealPlanner</h1>
-        {/* <MacroCal></MacroCal> */}
+        <MacroCal></MacroCal>
         <div className="meal-plan-continer">
           <div className="day-plan-container">
             <div className="day-header">

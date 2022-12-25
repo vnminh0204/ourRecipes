@@ -8,6 +8,7 @@
   transition: var(--transition);
   /* padding: 2rem; */
   padding: 2rem 1rem 2rem 2rem;
+  margin-bottom: 50px;
 }
 
 .day-header {

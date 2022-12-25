@@ -1,6 +1,8 @@
 import React, { useState } from "react";
-import { RiEdit2Fill, RiCheckboxCircleFill } from "react-icons/ri";
-import "./cookingMethod.css"
+import { RiEdit2Fill } from "react-icons/ri";
+import { FaCheck } from "react-icons/fa";
+
+import "./cookingMethod.css";
 
 const CookingMethod = ({
   cookingMethod,
@@ -28,9 +30,7 @@ const CookingMethod = ({
 
   if (!editMode) {
     return (
-      <section
-        className="section-ingredients"
-      >
+      <section className="section-ingredients">
         <div className="row">
           <h3 className="fs-5 recipe-heading w-50">METHOD</h3>
         </div>
@@ -45,7 +45,16 @@ const CookingMethod = ({
   if (editCookingMethod) {
     return (
       <section className="section-ingredients">
-        <h3 className="fs-5 recipe-heading">METHOD</h3>
+        <div className="method-title-container">
+          <h3 className="fs-5 recipe-heading w-50">METHOD</h3>
+          <button
+            type="button"
+            className="add-btn w-25"
+            onClick={changeEditState}
+          >
+            <FaCheck size={20} />
+          </button>
+        </div>
         <div>
           <textarea
             name="method"
@@ -57,11 +66,6 @@ const CookingMethod = ({
             onChange={handleCookingMethodChange}
           />
         </div>
-        <div className="row">
-          <button type="button" className="add-btn" onClick={changeEditState}>
-            <RiCheckboxCircleFill size={25} />
-          </button>
-        </div>
       </section>
     );
   } else {
@@ -71,10 +75,14 @@ const CookingMethod = ({
         onMouseEnter={onMouseEnterHandler}
         onMouseLeave={onMouseLeaveHandler}
       >
-        <div className="row">
+        <div className="method-title-container">
           <h3 className="fs-5 recipe-heading w-50">METHOD</h3>
           {showEditIcon && (
-            <button type="button" className="add-btn w-25" onClick={changeEditState}>
+            <button
+              type="button"
+              className="add-btn w-25"
+              onClick={changeEditState}
+            >
               <RiEdit2Fill size={20} />
             </button>
           )}
