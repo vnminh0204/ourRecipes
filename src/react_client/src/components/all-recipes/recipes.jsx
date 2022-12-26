@@ -1,28 +1,51 @@
+
+
+
+
 import React from "react";
-import ListGroup from "../common/listGroup";
-import Pagination from "../common/pagination";
-import RecipesTable from "./recipesTable";
-import { Link } from "react-router-dom";
-import { paginate } from "../../utils/paginate";
-import SearchBox from "../common/searchBox";
-import _ from "lodash";
+
 import { useState, useEffect } from "react";
 import config from "../../config.json";
+import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
+import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
+
+import List from "./List";
+import './recipes.scss'
+
 
 const Recipes = ({ toast }) => {
-  const [recipes, setRecipes] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(4);
-  const [sortColumn, setSortColumn] = useState({ path: "title", order: "asc" });
-  const [selectedFilterOption, setSelectedFilterOption] = useState();
+
+  const PAGE_SIZE = 4
   const [searchQuery, setSearchQuery] = useState("");
-  const filterOptions = [
-    { name: "All Type" },
-    { name: "Breakfast" },
-    { name: "Lunch" },
-    { name: "Dinner" },
-    { name: "Snack" },
-  ];
+  const [filterType, setFilterType] = useState('')
+  const [types, setTypes] = useState([""])
+  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([])
+  const [pageNr, setPageNr] = useState(0)
+  const [displayedRecipes, setDisplayedRecipes] = useState([])
+
+
+
+  useEffect(() => {
+    console.log(filterType)
+    setPageNr(0)
+    const newRecipes = recipes.filter(item => (filterType === '' || item.mealType === filterType) && item.title.includes(searchQuery))
+
+    setFilteredRecipes(newRecipes)
+  }, [searchQuery, filterType])
+
+  useEffect(() => {
+    const typesArr = recipes.map(item => item.mealType)
+    setTypes([... new Set(typesArr)])
+  }, [recipes])
+
+
+  useEffect(() => {
+    const indStart = pageNr * PAGE_SIZE
+    const indEnd = Math.min(indStart + PAGE_SIZE, filteredRecipes.length)
+    setDisplayedRecipes(filteredRecipes.slice(indStart, indEnd))
+  }, [filteredRecipes, pageNr])
+
 
   const handleExpectedError = (response) => {
     if (!response.ok) {
@@ -34,7 +57,7 @@ const Recipes = ({ toast }) => {
 
   //replace componentDidMount
   useEffect(() => {
-    const getAllRecipes = async () => {
+    const getData = async () => {
       //get request
       const apiEndpoint = config.apiEndpoint + "/recipes";
       await fetch(apiEndpoint)
@@ -43,29 +66,25 @@ const Recipes = ({ toast }) => {
           return response.json();
         })
         .then((data) => {
-          var recipes = new Array(data.Count);
-          var i = 0;
-          for (const item of data.Items) {
-            //TODO change author
-            const recipe = {
-              ...item.data,
-              dateObject: (new Date(item.date)),
-              date: (new Date(item.date)).toLocaleDateString("en-GB"),
-              id: item.id,
-              nutriScore: item.nutriScore,
-              author: item.author,
-            };
-            recipes[i] = recipe;
-            i++;
-          }
+          //TODO change author
+          const recipes = data.Items.map(item =>
+          ({
+            ...item.data,
+            dateObject: (new Date(item.date)),
+            date: (new Date(item.date)).toLocaleDateString("en-GB"),
+            id: item.id,
+            nutriScore: item.nutriScore,
+            author: item.author,
+            imgUrl: "https://images-prod.healthline.com/hlcmsresource/images/AN_images/health-benefits-of-apples-1296x728-feature.jpg"
+          })
+          )
           setRecipes(recipes);
         })
         .catch((error) => {
           toast.error(error.message);
-          return;
         });
-    };
-    getAllRecipes();
+    }
+    getData()
   }, [toast]);
 
   const handleDelete = async (recipe) => {
@@ -102,118 +121,92 @@ const Recipes = ({ toast }) => {
       });
   };
 
-  const handleLike = (recipe) => {
-    console.log("Clicked");
-    if (recipes) {
-      const clonerecipes = [...recipes];
-      const index = clonerecipes.indexOf(recipe);
-      clonerecipes[index] = { ...clonerecipes[index] };
-      clonerecipes[index].liked = !clonerecipes[index].liked;
-      setRecipes(clonerecipes);
-    }
-  };
 
-  const handleFilterOptionSelect = (option) => {
-    setSelectedFilterOption(option);
-    setCurrentPage(1);
-  };
 
-  const handleSearch = (searchQuery) => {
-    setSearchQuery(searchQuery);
-    setCurrentPage(1);
-  };
-
-  const getPagedData = () => {
-    //filter
-
-    if (recipes) {
-      var filteredrecipes =
-        selectedFilterOption &&
-        selectedFilterOption.name &&
-        selectedFilterOption.name !== "All Type"
-          ? recipes.filter((r) => r.mealType === selectedFilterOption.name)
-          : recipes;
-
-      if (searchQuery) {
-        filteredrecipes = filteredrecipes.filter((r) =>
-          r.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      }
-      //order we can change [] to have more criterias to sort
-      console.log(sortColumn);
-      var sortedrecipes;
-      if (sortColumn?.path === 'date'){
-        sortedrecipes = _.orderBy(
-          filteredrecipes,
-          ['dateObject'],
-          [sortColumn.order]
-        );
-      } else {
-        sortedrecipes = _.orderBy(
-          filteredrecipes,
-          [sortColumn.path],
-          [sortColumn.order]
-        );
-      }
-
-      //paginate
-      const pageRecipes = paginate(sortedrecipes, currentPage, pageSize);
-      return { totalCount: filteredrecipes.length, data: pageRecipes };
-    }
-  };
-
-  if (!recipes || recipes.length === 0)
-    return (
-      <React.Fragment>
-        <p>There are no recipes in the database!</p>
-        <span className="float-right">
-          <Link to="/recipes/new" className="btn btn-primary">
-            New recipe
-          </Link>
-        </span>
-      </React.Fragment>
-    );
-  const { totalCount, data: pageRecipes } = getPagedData();
 
   return (
-    <div className="row">
-      {/* left col with size 3 */}
-      <div className="col-2">
-        <ListGroup
-          items={filterOptions}
-          selectedItem={selectedFilterOption}
-          onItemSelect={handleFilterOptionSelect}
-        />
-      </div>
-      {/* rest col */}
-      <div className="col">
-        <span>
-          <span className="float-right">
-            <Link to="/recipes/new" className="btn btn-primary">
-              New recipe
-            </Link>
-          </span>
-          <span className="w-50">
-            <SearchBox value={searchQuery} onChange={handleSearch} />
-            <p className="w-50">
-              Showing {totalCount} recipes in the database!
-            </p>
-          </span>
-        </span>
 
-        <RecipesTable
-          recipes={pageRecipes}
-          sortColumn={sortColumn}
-          onLike={handleLike}
-          onDelete={handleDelete}
-          onSort={setSortColumn}
+    <div className="recipes">
+      <div className="left">
+
+
+        <h1>Filter</h1>
+
+
+
+        <div className='filterItem'>
+          <h2>Search</h2>
+          <div className="search">
+            <input className='searchInput' type='text' required placeholder='Calories'
+              value={searchQuery} onChange={(e) => setSearchQuery(e.target.value)} />
+          </div>
+        </div>
+
+
+        <div className='filterItem'>
+          <h2>Sort by</h2>
+          <select onChange={(e) => setFilterType(e.target.value)} >
+            <option value='' >{' '}</option>
+            {types.map((item, index) => (
+              <option className="optionTab" key={index} value={item}>{item}</option>
+            ))}
+          </select>
+        </div>
+
+
+
+
+
+        <div className='filterItem'>
+          <h2>Sort by</h2>
+          <div className='inputItem'>
+            <input type='radio' id='asc' value="asc" name='price' />
+            <label htmlFor='asc'> Price (Lowest first)</label>
+          </div>
+
+          <div className='inputItem'>
+            <input type='radio' id='desc' value="desc" name='price' />
+            <label htmlFor='desc'> Price (Lowest first)</label>
+          </div>
+        </div>
+
+
+      </div>
+
+      <div className='right'>
+
+        <img
+          className="coverImg"
+          src="https://images.pexels.com/photos/1074535/pexels-photo-1074535.jpeg?auto=compress&cs=tinysrgb&w=1600"
+          alt=""
         />
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={setCurrentPage}
-        />
+
+        <div className="tbl">
+          <h1 className="title">Recipes</h1>
+
+          
+
+
+
+
+          <List recipes={displayedRecipes} />
+
+          <div className="pagination">
+            <div className="page" onClick={() => setPageNr(prev => Math.max(0, prev - 1))}>
+              <ArrowBackIosIcon />
+            </div>
+            {
+              [...Array((Math.ceil(filteredRecipes.length / PAGE_SIZE))).keys()].map(
+                num => (
+                  <div className="page" onClick={() => setPageNr(num)}>{num + 1}</div>
+                )
+              )
+            }
+            <div className="page" onClick={() => setPageNr(prev => Math.min(Math.ceil(filteredRecipes.length / PAGE_SIZE) - 1, prev + 1))}>
+              <ArrowForwardIosIcon />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

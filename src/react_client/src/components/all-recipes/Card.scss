@@ -2,9 +2,8 @@
     display: flex;
     height: 300px;
     border: none;
-    max-width: calc(20wh - 1000px);
     flex-direction: row;
-    background-color: #f5f7fa;
+    background-color: #fff;
 
     padding: 25px 0;
 
@@ -41,7 +40,13 @@
 
 
 
-        .details-left {}
+        .details-left {
+            
+            .mealType{
+                
+                font-weight: 300;
+            }
+        }
 
         .details-right {
             display: flex;
@@ -50,7 +55,9 @@
             justify-content: space-between;
             margin-left: auto;
 
-            .score {}
+            .score {
+                
+            }
 
             .authorLine {
 
