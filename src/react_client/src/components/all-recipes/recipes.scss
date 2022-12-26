@@ -1,0 +1,34 @@
+.recipes {
+    display: flex;
+
+    .left {
+        color: var(--clr-primary-1);
+        flex: 2;
+        position: sticky;
+
+
+        .filterItem{
+            margin-bottom: 50px;
+
+            h2{
+                font-weight: 400;
+                margin-bottom: 20px;
+            }
+             
+            label{
+                margin-left: 10px;
+            }
+        }
+    }
+
+    .right {
+        flex: 7;
+
+        .coverImg {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            margin-bottom: 200px;
+        }
+    }
+}
