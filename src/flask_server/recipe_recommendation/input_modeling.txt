@@ -1,6 +1,6 @@
 recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float]
 {
-    "caloIntake": int,
+    "suggestNutriIntake": recipe_vector,
     "numMeals": int,
     "Monday": {
         "Breakfast": recipe_vector, 
@@ -8,4 +8,4 @@ recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float
     },
     "Tuesday": ...
 }
-Note: "Lunch" and "Snack" have already been chosen by users. There is no need to reccommend them.
+Note: "Breakfast" and "Dinner" are chosen by users.
