@@ -1,5 +1,7 @@
 recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float]
 {
+    "caloIntake": int,
+    "numMeals": int,
     "Monday": {
         "Breakfast": recipe_vector, 
         "Dinner": recipe_vector, 
