@@ -6,5 +6,6 @@ recipe_vector = {"kcal": float ,"sodium": float, "sugars": float, "carbs": float
     "Lunch": recipe_vector,
     "Dinner": recipe_vector,
     "Snack": recipe_vector,
+    "x-access-token": string,
 }
 Note: "Breakfast" and "Dinner" are chosen by users.
