@@ -1,11 +1,10 @@
-recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float]
+recipe_vector = {"kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float}
 {
     "suggestNutriIntake": recipe_vector,
     "numMeals": int,
-    "Monday": {
-        "Breakfast": recipe_vector, 
-        "Dinner": recipe_vector, 
-    },
-    "Tuesday": ...
+    "Breakfast": recipe_vector,
+    "Lunch": recipe_vector,
+    "Dinner": recipe_vector,
+    "Snack": recipe_vector,
 }
 Note: "Breakfast" and "Dinner" are chosen by users.
