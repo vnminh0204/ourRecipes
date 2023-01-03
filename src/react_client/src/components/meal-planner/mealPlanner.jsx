@@ -5,8 +5,71 @@ import "./mealPlanner.css";
 import { useState, useEffect } from "react";
 import MealList from "./meal-list/mealList";
 import MacroCal from "./macro-calculator/macroCal";
+import config from "../../config.json";
 
 const MealPlanner = ({ toast, user }) => {
+  const [numMeals, setNumMeals] = useState(3);
+
+  // Fiber = calo/1000 * 14 grams
+
+  // Sodium = 2300 mg
+
+  // Sugars = calo * 0.025
+
+  // Proteins = calo * 0.15 / 4
+
+  // Fat = calo * 0.25 / 9
+
+  // Carbs = (calo - protein * 4 - fat * 9) / 4
+
+  // Saturates = calo/1000*11 grams
+
+  // const [breakfastSuggestNutri, setBreakfastSuggestNutri] = useState({
+  //   kcal: 0,
+  //   sodium: 0,
+  //   sugars: 0,
+  //   carbs: 0,
+  //   protein: 0,
+  //   fat: 0,
+  //   saturates: 0,
+  //   fibre: 0,
+  // });
+
+  const empty_recipe_vector = {};
+
+  // const [lunchSuggestNutri, setLunchSuggestNutri] = useState({
+  //   kcal: 0,
+  //   sodium: 0,
+  //   sugars: 0,
+  //   carbs: 0,
+  //   protein: 0,
+  //   fat: 0,
+  //   saturates: 0,
+  //   fibre: 0,
+  // });
+
+  // const [dinnerSuggestNutri, setDinnerSuggestNutri] = useState({
+  //   kcal: 0,
+  //   sodium: 0,
+  //   sugars: 0,
+  //   carbs: 0,
+  //   protein: 0,
+  //   fat: 0,
+  //   saturates: 0,
+  //   fibre: 0,
+  // });
+
+  // const [snackSuggestNutri, setSnackSuggestNutri] = useState({
+  //   kcal: 0,
+  //   sodium: 0,
+  //   sugars: 0,
+  //   carbs: 0,
+  //   protein: 0,
+  //   fat: 0,
+  //   saturates: 0,
+  //   fibre: 0,
+  // });
+
   const [breakfastMeals, setBreakFastMeals] = useState([]);
   const [breakfastNutrition, setBreakFastNutrition] = useState({});
   const [lunchMeals, setLunchMeals] = useState([]);
@@ -15,6 +78,69 @@ const MealPlanner = ({ toast, user }) => {
   const [dinnerNutrition, setDinnerNutrition] = useState({});
   const [snackMeals, setSnackMeals] = useState([]);
   const [snackNutrition, setSnackNutrition] = useState({});
+
+  const getMealNutriRatio = () => {
+    if (numMeals === 3) {
+      const breakfastRatio = 30 + Math.floor(Math.random() * 6);
+      const lunchRatio = 35 + Math.floor(Math.random() * 6);
+      const dinnerRatio = 100 - breakfastRatio - lunchRatio;
+      return [breakfastRatio, lunchRatio, dinnerRatio];
+    }
+
+    if (numMeals === 4) {
+      const breakfastRatio = 26 + Math.floor(Math.random() * 5);
+      const lunchRatio = 36 + Math.floor(Math.random() * 5);
+      const dinnerRatio = 26 + Math.floor(Math.random() * 5);
+      const snackRation = 100 - breakfastRatio - lunchRatio - dinnerRatio;
+      return [breakfastRatio, lunchRatio, dinnerRatio];
+    }
+  };
+
+  const handleExpectedError = (response) => {
+    if (!response.ok) {
+      throw new Error("Server error: Error code " + response.status + "!");
+    }
+
+    return response;
+  };
+
+  const suggestMealNutriPlan = async () => {
+    console.log("HERE UPDATE");
+    const jwt = localStorage.getItem("token");
+    const obj = {
+      "x-access-token": jwt,
+      suggestNutriIntake: empty_recipe_vector,
+      numMeals: 4,
+      Breakfast: empty_recipe_vector,
+      Lunch: empty_recipe_vector,
+      Dinner: empty_recipe_vector,
+      Snack: empty_recipe_vector,
+    };
+    const requestOptions = {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(obj),
+    };
+    console.log(JSON.stringify(obj));
+    await fetch(config.apiEndpoint + "/mealPlanner", requestOptions)
+      .then(async (response) => {
+        handleExpectedError(response);
+        return response.json();
+      })
+      .then((data) => {
+        console.log(data);
+        if (data.error === "false") {
+          toast.success("Meal planner is updated");
+        } else {
+          toast.error("Meal planner is not updated");
+        }
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   const addMeal = (newMeal, mealType) => {
     toast.success("Meal is added");
@@ -144,6 +270,7 @@ const MealPlanner = ({ toast, user }) => {
           <div className="day-plan-container">
             <div className="day-header">
               <h3 className="day-title fs-3">Your Meal Plan</h3>
+              <button onClick={() => suggestMealNutriPlan()}>Suggest</button>
             </div>
             <MealList
               mealType={"Breakfast"}
