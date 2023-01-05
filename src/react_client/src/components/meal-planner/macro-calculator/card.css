@@ -33,6 +33,54 @@
 }
 
 .card-back {
-  background-color: #ffad66;
   transform: rotateY(180deg);
+}
+
+.macronutrients {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+}
+
+.nutri-info {
+  display: block;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-heading);
+}
+
+.nutri-block {
+  text-align: center;
+  text-transform: lowercase;
+  width: 100%;
+  color: black;
+  font-weight: 600;
+}
+
+.result {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  border-color: var(--clr-heading);
+  border-style: solid;
+  transition: var(--transition);
+  /* padding: 2.5rem; */
+  display: grid;
+}
+
+.result-heading {
+  background: var(--clr-title);
+  color: white;
+  /* text-align: center; */
+  /* align-items: center; */
+  /* align-content: center; */
+  justify-content: center;
+  display: flex;
+}
+
+.result-heading-h {
+  align-self: center;
 }

@@ -13,13 +13,10 @@ export const getActivityLevel = (activityLevel) => {
   switch (activityLevel) {
     case "sedentary":
       return 1.2;
-      break;
     case "lightActivity":
       return 1.375;
-      break;
     case "moderateActivity":
       return 1.55;
-      break;
     case "veryActive":
       return 1.725;
     default:
@@ -62,6 +59,21 @@ export const proteinCalories = (protein) => {
 export const getFat = (goal) => {
   var fats = Math.round((goal * 0.25) / 9);
   return fats;
+};
+
+export const getFiber = (cals) => {
+  var fiber = Math.round((cals * 14) / 1000);
+  return fiber;
+};
+
+export const getSugars = (cals) => {
+  var sugars = Math.round(cals * 0.025);
+  return sugars;
+};
+
+export const getSaturates = (cals) => {
+  var saturates = Math.round((cals * 11) / 1000);
+  return saturates;
 };
 
 export const fatCalories = (fat) => {

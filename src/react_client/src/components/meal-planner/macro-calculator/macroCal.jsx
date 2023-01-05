@@ -1,7 +1,6 @@
 import React from "react";
 import { useState } from "react";
 import "./macroCal.css";
-import { IoIosInformationCircleOutline } from "react-icons/io";
 import * as func from "./helperFunctions";
 import MyInput from "../../common/myInput";
 import MyRadioGroup from "../../common/myRadioGroup";
@@ -22,6 +21,10 @@ const MacroCal = ({ caloGoal }) => {
   const [fat, setFat] = useState(0);
   const [protein, setProtein] = useState(0);
   const [carbs, setCarbs] = useState(0);
+  const [fiber, setFiber] = useState(0);
+  const [sodium, setSodium] = useState(2300);
+  const [sugars, setSugars] = useState(0);
+  const [saturates, setSaturates] = useState(0);
   const [goal, setGoal] = useState("Maintain");
 
   const goalSelections = ["Maintain", "Lose", "Gain"];
@@ -73,10 +76,25 @@ const MacroCal = ({ caloGoal }) => {
 
     const newCarbs = func.getTotalCarbs(carbCalories);
     setCarbs(newCarbs);
+
+    const newSugars = func.getSugars(newCalories);
+    setSugars(newSugars);
+
+    const newFiber = func.getFiber(newCalories);
+    setFiber(newFiber);
+
+    const newSaturates = func.getSaturates(newCalories);
+    setSaturates(newSaturates);
   };
 
   const handleSubmit = () => {
     getResult();
+    setShowFront((v) => !v);
+    return false;
+  };
+
+  const handleBack = () => {
+    setShowFront((v) => !v);
     return false;
   };
 
@@ -108,13 +126,48 @@ const MacroCal = ({ caloGoal }) => {
     <div className="cal-container">
       <div className="flippable-card-container">
         <CSSTransition in={showFront} timeout={300} classNames="flip">
-          <div
-            className="card"
-            onClick={() => {
-              setShowFront((v) => !v);
-            }}
-          >
-            <div className="card-back">Back</div>
+          <div className="card">
+            <div className="card-back">
+              <div className="result">
+                <div className="result-heading">
+                  <h3 className="result-heading-h">Macronutrients per day</h3>
+                </div>
+                <div className="macronutrients">
+                  <div className="nutri-block">
+                    <span className="nutri-info">kcal</span> {calories}
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">carbs</span> {carbs}g
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">fat</span> {fat}g
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">protein</span> {protein}g
+                  </div>
+
+                  <div className="nutri-block">
+                    <span className="nutri-info">fiber</span> {fiber}g
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">saturates</span> {saturates}g
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">sodium</span> {sodium}mg
+                  </div>
+                  <div className="nutri-block">
+                    <span className="nutri-info">sugars</span> {sugars}g
+                  </div>
+                </div>
+                <button
+                  type="button"
+                  onClick={handleBack}
+                  className="submit-btn"
+                >
+                  Back
+                </button>
+              </div>
+            </div>
             <div className="card-front calulator-container">
               <h3 className="fs-3">Your macro calculator</h3>
               <div className="calculator-form-control">
