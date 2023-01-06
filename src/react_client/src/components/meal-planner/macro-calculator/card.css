@@ -1,0 +1,86 @@
+.card {
+  /* Sizing */
+  height: 100%;
+  width: 100%;
+
+  transform-style: preserve-3d;
+
+  /* Content Alignment */
+  position: relative;
+
+  user-select: none;
+}
+
+.card-front,
+.card-back {
+  /* Sizing */
+  height: 100%;
+  width: 100%;
+
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+
+  /* Alignment */
+  position: absolute;
+
+  /* Content Alignment */
+  justify-content: center;
+  align-items: center;
+}
+
+.card-front {
+}
+
+.card-back {
+  transform: rotateY(180deg);
+}
+
+.macronutrients {
+  display: flex;
+  flex-direction: column;
+  padding-top: 20px;
+  height: 100%;
+}
+
+.nutri-info {
+  display: block;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: var(--clr-heading);
+}
+
+.nutri-block {
+  text-align: center;
+  text-transform: lowercase;
+  width: 100%;
+  color: black;
+  font-weight: 600;
+}
+
+.result {
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  border-color: var(--clr-heading);
+  border-style: solid;
+  transition: var(--transition);
+  /* padding: 2.5rem; */
+  display: grid;
+}
+
+.result-heading {
+  background: #15988f;
+  color: white;
+  /* text-align: center; */
+  /* align-items: center; */
+  /* align-content: center; */
+  justify-content: center;
+  display: flex;
+}
+
+.result-heading-h {
+  align-self: center;
+}

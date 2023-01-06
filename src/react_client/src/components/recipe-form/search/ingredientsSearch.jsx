@@ -67,7 +67,7 @@ const IngredientsSearch = ({ addItem, toast }) => {
             value={name}
             onChange={(e) => setName(e.target.value)}
           />
-          <button type="submit" className="submit-btn fs-6">
+          <button type="submit" className="submit-btn format-right-btn">
             Search
           </button>
         </div>

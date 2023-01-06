@@ -22,3 +22,8 @@
   border: 1px solid #ced4da;
   border-radius: 0.25rem;
 }
+
+.method-title-container {
+  display: flex;
+  margin-bottom: 15px;
+}

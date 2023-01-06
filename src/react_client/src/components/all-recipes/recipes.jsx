@@ -8,6 +8,7 @@ import SearchBox from "../common/searchBox";
 import _ from "lodash";
 import { useState, useEffect } from "react";
 import config from "../../config.json";
+import "./recipes.css"
 
 const Recipes = ({ toast }) => {
   const [recipes, setRecipes] = useState([]);
@@ -188,11 +189,9 @@ const Recipes = ({ toast }) => {
       {/* rest col */}
       <div className="col">
         <span>
-          <span className="float-right">
-            <Link to="/recipes/new" className="btn btn-primary">
-              New recipe
-            </Link>
-          </span>
+          <Link to="/recipes/new" className="create-btn round-box button-padding">
+            New recipe
+          </Link>
           <span className="w-50">
             <SearchBox value={searchQuery} onChange={handleSearch} />
             <p className="w-50">

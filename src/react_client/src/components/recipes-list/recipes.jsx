@@ -1,13 +1,7 @@
 import React from "react";
-<<<<<<<< HEAD:src/react_client/src/components/recipes-list/recipes.jsx
-import ListGroup from "./common/listGroup";
-import Pagination from "./common/pagination";
-import RecipesTable from "./recipes-list/recipesTable";
-========
 import ListGroup from "../common/listGroup";
 import Pagination from "../common/pagination";
 import RecipesTable from "./recipesTable";
->>>>>>>> deploy_test_stable:src/react_client/src/components/all-recipes/recipes.jsx
 import { Link } from "react-router-dom";
 import { paginate } from "../../utils/paginate";
 import SearchBox from "../common/searchBox";
