@@ -58,6 +58,7 @@
   flex: 0 0 auto;
   width: auto;
   max-width: none;
+  position: relative;
 }
 .meal-icon {
   cursor: pointer;
@@ -74,7 +75,9 @@
   min-height: 50px;
   list-style: none;
 }
-
+.food-title {
+  display: block;
+}
 .food {
   transition: border 0.15s ease-in-out;
   cursor: move;
@@ -85,6 +88,10 @@
   border-radius: 5px;
   padding: 5px;
   letter-spacing: 0.3px;
+  display: flex;
+  max-width: 100%;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .food:hover {
@@ -109,6 +116,17 @@
   color: #76767a;
   font-size: 15px;
 }
+.redirect-icon {
+  visibility: hidden;
+}
+.food:hover .redirect-icon {
+  visibility: visible;
+  color: #84be6a;
+  float: right;
+}
+.redirect-icon:hover {
+  color: #84be6a;
+}
 
 .meal-icons .meal-nutrition-info {
   visibility: hidden;
@@ -118,8 +136,10 @@
   padding: 10px 0;
   position: absolute;
   width: 200px;
-  margin-top: -145px;
-  margin-left: 30px;
+  /* margin-top: -145px;
+  margin-left: 30px; */
+  top: -120px;
+  left: 30px;
   z-index: 1;
 }
 .meal-icons:hover .meal-nutrition-info {

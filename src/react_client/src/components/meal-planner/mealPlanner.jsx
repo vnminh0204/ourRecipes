@@ -1,6 +1,5 @@
 import React from "react";
 import MealsSearch from "./meal-search/search/mealsSearch";
-import { IoIosInformationCircleOutline } from "react-icons/io";
 import "./mealPlanner.css";
 import { useState, useEffect } from "react";
 import MealList from "./meal-list/mealList";
@@ -9,6 +8,8 @@ import config from "../../config.json";
 
 const MealPlanner = ({ toast, user }) => {
   const [numMeals, setNumMeals] = useState(3);
+
+  const [userMacro, setUserMacro] = useState({});
 
   // Fiber = calo/1000 * 14 grams
 
@@ -24,77 +25,95 @@ const MealPlanner = ({ toast, user }) => {
 
   // Saturates = calo/1000*11 grams
 
-  // const [breakfastSuggestNutri, setBreakfastSuggestNutri] = useState({
-  //   kcal: 0,
-  //   sodium: 0,
-  //   sugars: 0,
-  //   carbs: 0,
-  //   protein: 0,
-  //   fat: 0,
-  //   saturates: 0,
-  //   fibre: 0,
-  // });
-
-  const empty_recipe_vector = {};
-
-  // const [lunchSuggestNutri, setLunchSuggestNutri] = useState({
-  //   kcal: 0,
-  //   sodium: 0,
-  //   sugars: 0,
-  //   carbs: 0,
-  //   protein: 0,
-  //   fat: 0,
-  //   saturates: 0,
-  //   fibre: 0,
-  // });
-
-  // const [dinnerSuggestNutri, setDinnerSuggestNutri] = useState({
-  //   kcal: 0,
-  //   sodium: 0,
-  //   sugars: 0,
-  //   carbs: 0,
-  //   protein: 0,
-  //   fat: 0,
-  //   saturates: 0,
-  //   fibre: 0,
-  // });
-
-  // const [snackSuggestNutri, setSnackSuggestNutri] = useState({
-  //   kcal: 0,
-  //   sodium: 0,
-  //   sugars: 0,
-  //   carbs: 0,
-  //   protein: 0,
-  //   fat: 0,
-  //   saturates: 0,
-  //   fibre: 0,
-  // });
-
   const [breakfastMeals, setBreakFastMeals] = useState([]);
-  const [breakfastNutrition, setBreakFastNutrition] = useState({});
+  const [breakfastNutrition, setBreakFastNutrition] = useState({
+    kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
+    fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
+  });
   const [lunchMeals, setLunchMeals] = useState([]);
-  const [lunchNutrition, setLunchNutrition] = useState({});
+  const [lunchNutrition, setLunchNutrition] = useState({
+    kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
+    fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
+  });
   const [dinnerMeals, setDinnerMeals] = useState([]);
-  const [dinnerNutrition, setDinnerNutrition] = useState({});
+  const [dinnerNutrition, setDinnerNutrition] = useState({
+    kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
+    fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
+  });
   const [snackMeals, setSnackMeals] = useState([]);
-  const [snackNutrition, setSnackNutrition] = useState({});
+  const [snackNutrition, setSnackNutrition] = useState({
+    kcal: { amount: 0, unit: "", percentOfDailyNeeds: 0 },
+    fat: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    saturates: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    carbs: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sugars: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    fibre: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    protein: { amount: 0, unit: "g", percentOfDailyNeeds: 0 },
+    sodium: { amount: 0, unit: "mg", percentOfDailyNeeds: 0 },
+  });
 
-  const getMealNutriRatio = () => {
-    if (numMeals === 3) {
-      const breakfastRatio = 30 + Math.floor(Math.random() * 6);
-      const lunchRatio = 35 + Math.floor(Math.random() * 6);
-      const dinnerRatio = 100 - breakfastRatio - lunchRatio;
-      return [breakfastRatio, lunchRatio, dinnerRatio];
+  const convertNutriTableToObject = (nutriTable) => {
+    if (
+      nutriTable.fibre.amount === 0 &&
+      nutriTable.kcal.amount === 0 &&
+      nutriTable.sodium.amount === 0 &&
+      nutriTable.sugars.amount === 0 &&
+      nutriTable.carbs.amount === 0 &&
+      nutriTable.protein.amount === 0 &&
+      nutriTable.fat.amount === 0 &&
+      nutriTable.saturates.amount === 0
+    ) {
+      return {};
     }
 
-    if (numMeals === 4) {
-      const breakfastRatio = 26 + Math.floor(Math.random() * 5);
-      const lunchRatio = 36 + Math.floor(Math.random() * 5);
-      const dinnerRatio = 26 + Math.floor(Math.random() * 5);
-      const snackRation = 100 - breakfastRatio - lunchRatio - dinnerRatio;
-      return [breakfastRatio, lunchRatio, dinnerRatio];
-    }
+    const nutriObject = {
+      kcal: nutriTable.kcal.amount,
+      sodium: nutriTable.sodium.amount,
+      sugars: nutriTable.sugars.amount,
+      carbs: nutriTable.carbs.amount,
+      protein: nutriTable.protein.amount,
+      fat: nutriTable.fat.amount,
+      saturates: nutriTable.saturates.amount,
+      fibre: nutriTable.fibre.amount,
+    };
+
+    return nutriObject;
   };
+
+  // const getMealNutriRatio = () => {
+  //   if (numMeals === 3) {
+  //     const breakfastRatio = 30 + Math.floor(Math.random() * 6);
+  //     const lunchRatio = 35 + Math.floor(Math.random() * 6);
+  //     const dinnerRatio = 100 - breakfastRatio - lunchRatio;
+  //     return [breakfastRatio, lunchRatio, dinnerRatio];
+  //   }
+
+  //   if (numMeals === 4) {
+  //     const breakfastRatio = 26 + Math.floor(Math.random() * 5);
+  //     const lunchRatio = 36 + Math.floor(Math.random() * 5);
+  //     const dinnerRatio = 26 + Math.floor(Math.random() * 5);
+  //     const snackRation = 100 - breakfastRatio - lunchRatio - dinnerRatio;
+  //     return [breakfastRatio, lunchRatio, dinnerRatio];
+  //   }
+  // };
 
   const handleExpectedError = (response) => {
     if (!response.ok) {
@@ -105,16 +124,23 @@ const MealPlanner = ({ toast, user }) => {
   };
 
   const suggestMealNutriPlan = async () => {
-    console.log("HERE UPDATE");
+    if (Object.keys(userMacro).length === 0) {
+      toast.error("You need to fill macro calculator to get the suggestion");
+      return;
+    }
+    var snackObject = {};
+    if (numMeals === 4) {
+      snackObject = convertNutriTableToObject(snackNutrition);
+    }
     const jwt = localStorage.getItem("token");
     const obj = {
       "x-access-token": jwt,
-      suggestNutriIntake: empty_recipe_vector,
+      suggestNutriIntake: userMacro,
       numMeals: 4,
-      Breakfast: empty_recipe_vector,
-      Lunch: empty_recipe_vector,
-      Dinner: empty_recipe_vector,
-      Snack: empty_recipe_vector,
+      Breakfast: convertNutriTableToObject(breakfastNutrition),
+      Lunch: convertNutriTableToObject(lunchNutrition),
+      Dinner: convertNutriTableToObject(dinnerNutrition),
+      Snack: snackObject,
     };
     const requestOptions = {
       method: "PUT",
@@ -144,7 +170,6 @@ const MealPlanner = ({ toast, user }) => {
 
   const addMeal = (newMeal, mealType) => {
     toast.success("Meal is added");
-    console.log(mealType);
     switch (mealType) {
       case "Breakfast":
         const newbreakfastMeals = [...breakfastMeals, newMeal];
@@ -261,17 +286,28 @@ const MealPlanner = ({ toast, user }) => {
     return newNutritionTable;
   };
 
+  const options = [3, 4];
+  const onOptionChangeHandler = (event) => {
+    setNumMeals(parseInt(event.target.value));
+  };
+
   return (
     <React.Fragment>
       <div className="planner-container">
         <h1>MealPlanner</h1>
-        <MacroCal></MacroCal>
+        <MacroCal toast={toast} setMacro={setUserMacro}></MacroCal>
         <div className="meal-plan-continer">
           <div className="day-plan-container">
             <div className="day-header">
               <h3 className="day-title fs-3">Your Meal Plan</h3>
-              <button onClick={() => suggestMealNutriPlan()}>Suggest</button>
             </div>
+            <select className="select-btn" onChange={onOptionChangeHandler}>
+              {options.map((option, index) => {
+                return <option key={index}>{option}</option>;
+              })}
+            </select>
+            <button>Reset</button>
+            <button onClick={() => suggestMealNutriPlan()}>Suggest</button>
             <MealList
               mealType={"Breakfast"}
               meals={breakfastMeals}
@@ -287,11 +323,13 @@ const MealPlanner = ({ toast, user }) => {
               meals={dinnerMeals}
               nutrition={dinnerNutrition}
             ></MealList>
-            <MealList
-              mealType={"Snack"}
-              meals={snackMeals}
-              nutrition={snackNutrition}
-            ></MealList>
+            {numMeals && numMeals === 4 && (
+              <MealList
+                mealType={"Snack"}
+                meals={snackMeals}
+                nutrition={snackNutrition}
+              ></MealList>
+            )}
           </div>
           <MealsSearch addItem={addMeal} toast={toast}></MealsSearch>
         </div>

@@ -9,7 +9,7 @@ import { CSSTransition } from "react-transition-group";
 import "./card.css";
 import "./flip-transition.css";
 
-const MacroCal = ({ caloGoal }) => {
+const MacroCal = ({ toast, setMacro }) => {
   const [showFront, setShowFront] = useState(true);
   const [age, setAge] = useState();
   const [height, setHeight] = useState();
@@ -49,7 +49,6 @@ const MacroCal = ({ caloGoal }) => {
   ];
 
   const getResult = () => {
-    console.log("HERE");
     const weightNum = parseFloat(weight);
     const heightNum = parseFloat(height);
     const activityLevelScale = func.getActivityLevel(activityLevel);
@@ -60,7 +59,6 @@ const MacroCal = ({ caloGoal }) => {
 
     const newFat = func.getFat(newCalories);
     setFat(newFat);
-    console.log("Fat", newFat);
     const fatCalories = func.fatCalories(newFat);
 
     const weightLbs = func.getKilos(weightNum);
@@ -85,9 +83,25 @@ const MacroCal = ({ caloGoal }) => {
 
     const newSaturates = func.getSaturates(newCalories);
     setSaturates(newSaturates);
+
+    const newMacro = {
+      kcal: newCalories,
+      sodium: sodium,
+      sugars: newSugars,
+      carbs: newCarbs,
+      protein: newProtein,
+      fat: newFat,
+      saturates: newSaturates,
+      fibre: newFiber,
+    };
+    setMacro(newMacro);
   };
 
   const handleSubmit = () => {
+    if (!age || !height | !weight) {
+      toast.error("Please fill all the fields in  macro calculator");
+      return;
+    }
     getResult();
     setShowFront((v) => !v);
     return false;
@@ -169,7 +183,7 @@ const MacroCal = ({ caloGoal }) => {
               </div>
             </div>
             <div className="card-front calulator-container">
-              <h3 className="fs-3">Your macro calculator</h3>
+              <h3 className="calulator-heading fs-3">Your macro calculator</h3>
               <div className="calculator-form-control">
                 <MyInput
                   label="Age"
@@ -217,13 +231,15 @@ const MacroCal = ({ caloGoal }) => {
                   options={goalSelections}
                   selectedOptions={goal}
                 />
-                <button
-                  type="button"
-                  onClick={handleSubmit}
-                  className="submit-btn"
-                >
-                  Submit
-                </button>
+                <div>
+                  <button
+                    type="button"
+                    onClick={handleSubmit}
+                    className="submit-btn"
+                  >
+                    Submit
+                  </button>
+                </div>
               </div>
             </div>
           </div>

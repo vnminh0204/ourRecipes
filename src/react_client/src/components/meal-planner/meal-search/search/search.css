@@ -1,6 +1,5 @@
 .section-meal-search {
   width: 27vw;
-  height: 100%;
   min-height: 500px;
   margin: 0 auto;
   background: var(--clr-white);
@@ -56,9 +55,9 @@
 .ingredient-item:hover .title {
   color: var(--clr-grey-5);
 }
-.ingredient-list {
-  max-height: 400px;
+.meal-list {
   overflow-y: scroll;
+  max-height: 600px;
 }
 .ingredient-search-form-control {
   display: flex;

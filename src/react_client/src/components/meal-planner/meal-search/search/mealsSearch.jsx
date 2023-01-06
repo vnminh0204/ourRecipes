@@ -19,14 +19,12 @@ const MealsSearch = ({ addItem, toast }) => {
     e.preventDefault();
     setList([]);
     const apiEndpoint = config.apiEndpoint + "/recipes";
-    console.log(apiEndpoint);
     await fetch(apiEndpoint)
       .then((response) => {
         handleExpectedError(response);
         return response.json();
       })
       .then((data) => {
-        // console.log(data);
         if (data.length === 0) {
           toast.error("No matched meals found");
         } else {
@@ -35,7 +33,6 @@ const MealsSearch = ({ addItem, toast }) => {
 
         var recipes = new Array(data.Count);
         var i = 0;
-        console.log(data);
         for (const item of data.Items) {
           const recipe = {
             ...item.data,
@@ -72,7 +69,6 @@ const MealsSearch = ({ addItem, toast }) => {
   const options = ["All Type", "Breakfast", "Lunch", "Dinner", "Snack"];
   const onOptionChangeHandler = (event) => {
     setSelectedFilterOption(event.target.value);
-    console.log("User Selected Value - ", selectedFilterOption);
   };
 
   return (

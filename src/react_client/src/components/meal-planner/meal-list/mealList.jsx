@@ -1,12 +1,14 @@
 import React from "react";
-import { useState } from "react";
 import "./mealList.css";
 import { IoIosInformationCircleOutline } from "react-icons/io";
+import { FiChevronRight } from "react-icons/fi";
+import { Link } from "react-router-dom";
 
 const MealList = ({ mealType, nutrition, meals }) => {
+  console.log(meals);
   return (
     <React.Fragment>
-      {meals && meals.length !== 0 && (
+      {meals && (
         <div className="meal-list-container">
           <div className="meal-container">
             <div className="meal-header">
@@ -64,8 +66,18 @@ const MealList = ({ mealType, nutrition, meals }) => {
               <ul className="meal-foods">
                 {meals.map((meal) => (
                   <li key={meal.id} className="food ">
-                    <div className="food-name">{meal.title}</div>
-                    <div className="food-unit">{meal.quantity} serving</div>
+                    <div className="food-title">
+                      <div className="food-name">{meal.title}</div>
+                      <div className="food-unit">{meal.quantity} serving</div>
+                    </div>
+                    <Link
+                      className="redirect-icon"
+                      to={`/recipes/${meal.id}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      <FiChevronRight size={50} />
+                    </Link>
                   </li>
                 ))}
               </ul>

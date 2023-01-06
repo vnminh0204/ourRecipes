@@ -21,8 +21,6 @@ const MealsSearchList = ({ data, addItem }) => {
 
   const confirmItem = (item) => {
     item.quantity = inputValue;
-    console.log(item.quantity);
-    console.log(selectedFilterOption);
     setSelectedItem();
     setEdit(true);
     addItem(item, selectedFilterOption);
@@ -39,14 +37,13 @@ const MealsSearchList = ({ data, addItem }) => {
 
   return (
     <div
-      className="ingredient-list"
+      className="meal-list"
       // onMouseLeave={() => {
       //   setEdit(false);
       //   setSelectedItem();
       // }}
     >
       {data.map((item) => {
-        // console.log(item);
         const { id, title } = item;
         return (
           <article
