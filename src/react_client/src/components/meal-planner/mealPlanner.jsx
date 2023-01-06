@@ -291,6 +291,13 @@ const MealPlanner = ({ toast, user }) => {
     setNumMeals(parseInt(event.target.value));
   };
 
+  const resetMealPlan = () => {
+    setBreakFastMeals([]);
+    setDinnerMeals([]);
+    setLunchMeals([]);
+    setSnackMeals([]);
+  };
+
   return (
     <React.Fragment>
       <div className="planner-container">
@@ -306,7 +313,7 @@ const MealPlanner = ({ toast, user }) => {
                 return <option key={index}>{option}</option>;
               })}
             </select>
-            <button>Reset</button>
+            <button onClick={() => resetMealPlan()}>Reset</button>
             <button onClick={() => suggestMealNutriPlan()}>Suggest</button>
             <MealList
               mealType={"Breakfast"}
