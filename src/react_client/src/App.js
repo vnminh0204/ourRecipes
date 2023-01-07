@@ -37,7 +37,6 @@ const App = () => {
             path="/register"
             element={<RegisterForm toast={toast} user={user} />}
           />
-          {/* <Route path="/recipes/:id" element={<MovieForm />} /> */}
           <Route
             path="/recipes/:id"
             element={<RecipeForm toast={toast} user={user} />}
