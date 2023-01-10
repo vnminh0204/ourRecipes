@@ -46,7 +46,7 @@ How to run frontend:
 ```
 cd ourRecipes/src/react_client/src
 npm install
-
+npm start
 ```
 
 How to run backend:
