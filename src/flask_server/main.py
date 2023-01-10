@@ -346,8 +346,8 @@ def recommend_meals():
     randomized_ratios = nutrition_funcs.randomize_meal_ratios(org_ratios, num_meals)
     remain_ratio, remain_nutrition = nutrition_funcs.remain_total_NutriRatio(meal_request, meal_names, randomized_ratios)
     normalized_ratios = nutrition_funcs.reNormalize_ratio(randomized_ratios, remain_ratio)
-    response = k_nearest_recipes(df, meal_request, remain_nutrition, meal_names, normalized_ratios)
-    return make_response({"message": response, "status": "success"}, 200)
+    recipe_recommendations = k_nearest_recipes(df, meal_request, remain_nutrition, meal_names, normalized_ratios)
+    return make_response({"message": recipe_recommendations, "status": "success"}, 200)
 
 
 # Run development server
