@@ -5,7 +5,7 @@
 Functions to calculate useful nutrition information.
 """
 import numpy as np
-
+import typing
 def randomize_meal_ratios(org_ratios: dict, num_meals: int, smallest_step = 0.01) -> list:
     """
     Given a dictionary with lits of meal ratios ranges, key is the number of meals. Randomize the ratio
@@ -39,7 +39,7 @@ def subtract_nutri(total_nutri: dict, target_nutri: dict) -> dict:
         return {"error": f"{nutri} does not exist in the recipe"}
     return result
 
-def remain_total_nutri_ratio(meal_request: dict, meal_names: dict, meal_ratios: dict) -> tuple(float, dict):
+def remain_total_nutri_ratio(meal_request: dict, meal_names: dict, meal_ratios: dict) -> typing.Tuple[float, dict]:
     """
     Iterating through all chosen meals and calculate the remaining meal nutrition. Also
     calculating remaining meal ratios.
