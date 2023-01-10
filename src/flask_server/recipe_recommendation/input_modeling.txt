@@ -1,9 +1,11 @@
-recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float]
+recipe_vector = {"kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float}
 {
-    "Monday": {
-        "Breakfast": recipe_vector, 
-        "Dinner": recipe_vector, 
-    },
-    "Tuesday": ...
+    "suggestNutriIntake": recipe_vector,
+    "numMeals": int,
+    "Breakfast": recipe_vector,
+    "Lunch": recipe_vector,
+    "Dinner": recipe_vector,
+    "Snack": recipe_vector,
+    "x-access-token": string,
 }
-Note: "Lunch" and "Snack" have already been chosen by users. There is no need to reccommend them.
+Note: "Breakfast" and "Dinner" are chosen by users.

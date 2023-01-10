@@ -1,10 +1,11 @@
-recipe_vector = ["kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float]
+recipe_vector = {"kcal": float ,"sodium": float, "sugars": float, "carbs": float, "protein": float, "fat": float, "saturates": float, "fibre": float}
 pred_result = [["id": String, "title": String, "nutriScore": float, recipe_vector], ["id": String, "title": String, "nutriScore": float, recipe_vector], ...] # Shape (n_neighbors, 11)
 {
-    "Monday": {
-        "Breakfast": pred_result, 
+        "Breakfast": pred_result,
+        "Lunch": chosen_recipes_by_users,
         "Dinner": pred_result, 
-    },
-    "Tuesday": ...
+        "Snack": chosen_recipes_by_users,
+
 }
-Note: "Lunch" and "Snack" have already been chosen by users. There is no need to use ml for that meal.
+Note: chosen_recipes_by_users is of type "recipe_vector"
+Note: "number of neighbors" = 1
