@@ -2,6 +2,7 @@ from decimal import Decimal
 from urllib import response
 from flask import Flask, request, jsonify, session, make_response
 import os
+import io
 import dynamoDB.controller as dynamodb
 import dynamoDB.tokenBlacklisting as token_blacklisting
 from lib.nutritionCalculator import calculate_score
@@ -9,7 +10,10 @@ import jwt
 from datetime import datetime, timedelta
 from functools import wraps
 from flask_cors import CORS, cross_origin
+import pandas as pd
 
+from recipe_recommendation.utils import data_io, nutrition_funcs
+from recipe_recommendation.recommend_model import k_nearest_recipes
 # import json
 # from decimal import Decimal
 
@@ -19,6 +23,9 @@ CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 app.config["SECRET_KEY"] = "c68df6752f4e460e90859655e2b77db3"
 
+AWS_ACCESS_KEY_ID = os.environ["AWS_ACCESS_KEY_ID"]
+AWS_SECRET_ACCESS_KEY = os.environ["AWS_SECRET_ACCESS_KEY"]
+AWS_DEFAULT_REGION = os.environ["AWS_DEFAULT_REGION"]
 
 def token_required(f):
     @wraps(f)
@@ -308,6 +315,39 @@ def delete_recipe(recipeid):
 def get_all_recipes():
     getResponse = dynamodb.get_all_recipes()
     return getResponse
+
+@app.route("/mealPlanner", methods=["GET"])
+@cross_origin()
+@token_required
+def recommend_meals():
+    """
+    Recommend meals based on user request. if a meal field is empty,
+    it means that meal needs to be recommended.
+    """
+    meal_request = request.get_json()
+
+    # Load the dataset into memory from S3
+    bucket_name, object_key = "toeat-mlbucket", "recipes.csv"
+    csv_string = data_io.read_text_s3(AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY, AWS_DEFAULT_REGION, bucket_name, object_key)
+    df = pd.read_csv(io.StringIO(csv_string), dtype = {"title": str, "mealType": str})
+
+    # Setup important parameters
+    num_meals = meal_request["numMeals"]
+    org_ratios = {
+        3: [(0.30, 0.35), (0.35, 0.4), (0.25, 0.35)],
+        4: [(0.25, 0.3), (0.35, 0.4), (0.05, 0.1), (0.25, 0.3)]
+    }
+    meal_names = {
+        3: ["Breakfast", "Lunch", "Dinner"],
+        4: ["Breakfast", "Lunch", "Snack", "Dinner"]
+    }
+    # Model pipeline
+
+    randomized_ratios = nutrition_funcs.randomize_meal_ratios(org_ratios, num_meals)
+    remain_ratio, remain_nutrition = nutrition_funcs.remain_total_NutriRatio(meal_request, meal_names, randomized_ratios)
+    normalized_ratios = nutrition_funcs.reNormalize_ratio(randomized_ratios, remain_ratio)
+    response = k_nearest_recipes(df, meal_request, remain_nutrition, meal_names, normalized_ratios)
+    return make_response({"message": response, "status": "success"}, 200)
 
 
 # Run development server
