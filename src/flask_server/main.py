@@ -3,6 +3,7 @@ from urllib import response
 from flask import Flask, request, jsonify, session, make_response
 import os
 import io
+import json
 import dynamoDB.controller as dynamodb
 import dynamoDB.tokenBlacklisting as token_blacklisting
 from lib.nutritionCalculator import calculate_score
@@ -316,7 +317,7 @@ def get_all_recipes():
     getResponse = dynamodb.get_all_recipes()
     return getResponse
 
-@app.route("/mealPlanner", methods=["GET"])
+@app.route("/mealPlanner", methods=["PUT"])
 @cross_origin()
 @token_required
 def recommend_meals():
@@ -344,10 +345,11 @@ def recommend_meals():
     # Model pipeline
 
     randomized_ratios = nutrition_funcs.randomize_meal_ratios(org_ratios, num_meals)
-    remain_ratio, remain_nutrition = nutrition_funcs.remain_total_NutriRatio(meal_request, meal_names, randomized_ratios)
-    normalized_ratios = nutrition_funcs.reNormalize_ratio(randomized_ratios, remain_ratio)
+    remain_ratio, remain_nutrition = nutrition_funcs.remain_total_nutri_ratio(meal_request, meal_names, randomized_ratios)
+    normalized_ratios = nutrition_funcs.re_normalize_ratio(randomized_ratios, remain_ratio)
     recipe_recommendations = k_nearest_recipes(df, meal_request, remain_nutrition, meal_names, normalized_ratios)
-    return make_response({"message": recipe_recommendations, "status": "success"}, 200)
+    recommendations_json = json.dumps(recipe_recommendations, default=str)
+    return recommendations_json
 
 
 # Run development server
