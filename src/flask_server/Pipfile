@@ -118,9 +118,9 @@ webencodings = "==0.5.1"
 websocket-client = "==1.4.1"
 werkzeug = "==2.2.1"
 zipp = "==3.8.1"
-flask-server = {path = "."}
 gunicorn = "*"
 flask-cors = "*"
+flask-server = {path = "."}
 
 [dev-packages]
 jupyterlab = "*"
