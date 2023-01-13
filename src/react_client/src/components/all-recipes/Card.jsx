@@ -12,7 +12,7 @@ const recipesCard = ({
   imgUrl,
 }) => {
   return (
-    <Link to={`${id}`}>
+    <Link to={`/recipes/${id}`}>
       <div className="card">
         <div className="img">
           <img src={imgUrl} />
