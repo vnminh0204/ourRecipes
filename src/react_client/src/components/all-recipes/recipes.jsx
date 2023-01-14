@@ -5,6 +5,7 @@ import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import theme from "./theme.png";
 import List from "./List";
+import _ from "lodash";
 import "./recipes.scss";
 
 const Recipes = ({ toast }) => {
@@ -15,9 +16,8 @@ const Recipes = ({ toast }) => {
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [pageNr, setPageNr] = useState(0);
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
-  const [sortOption, setSortOPtion] = useState("title");
   const types = ["All Type", "Breakfast", "Lunch", "Dinner", "Snack"];
-
+  const [sortbyFilter, setSortbyFilter] = useState("title-asc");
   //replace componentDidMount
   useEffect(() => {
     const getData = async () => {
@@ -63,8 +63,17 @@ const Recipes = ({ toast }) => {
       );
     }
 
+    if (sortbyFilter) {
+      const sortOption = convertSortType(sortbyFilter);
+      filteredrecipes = _.orderBy(
+        filteredrecipes,
+        [sortOption.path],
+        [sortOption.order]
+      );
+    }
+
     setFilteredRecipes(filteredrecipes);
-  }, [searchQuery, filterType, recipes, sortOption]);
+  }, [searchQuery, filterType, recipes, sortbyFilter]);
 
   useEffect(() => {
     const indStart = pageNr * PAGE_SIZE;
@@ -117,9 +126,39 @@ const Recipes = ({ toast }) => {
   const options = [
     { value: "title-asc", displayText: "Title - A to Z" },
     { value: "title-desc", displayText: "Title - Z to A" },
+    { value: "nutriScore-desc", displayText: "Score - highest to lowest" },
+    { value: "nutriScore-asc", displayText: "Score - lowest to highest" },
+    { value: "dateObject-desc", displayText: "Date - latest to oldest" },
+    { value: "dateObject-asc", displayText: "Date - oldest to lastest" },
   ];
-  const [sortbyFilter, setSortbyFilter] = useState("title-asc");
-  const object = {};
+
+  const convertSortType = (option) => {
+    var returnVal = { path: "title", order: "desc" };
+    switch (option) {
+      case "title-asc":
+        returnVal = { path: "title", order: "asc" };
+        break;
+      case "title-desc":
+        returnVal = { path: "title", order: "desc" };
+        break;
+      case "nutriScore-desc":
+        returnVal = { path: "nutriScore", order: "desc" };
+        break;
+      case "nutriScore-asc":
+        returnVal = { path: "nutriScore", order: "asc" };
+        break;
+      case "dateObject-desc":
+        returnVal = { path: "dateObject", order: "desc" };
+        break;
+      case "dateObject-asc":
+        returnVal = { path: "dateObject", order: "asc" };
+        break;
+      default:
+        returnVal = { path: "title", order: "desc" };
+    }
+    return returnVal;
+  };
+
   const onChangeSortByFilter = (value) => {
     console.log("here");
     console.log(value);
