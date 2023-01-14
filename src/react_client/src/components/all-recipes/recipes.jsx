@@ -1,41 +1,26 @@
 import React from "react";
-import ListGroup from "../common/listGroup";
-import Pagination from "../common/pagination";
-import RecipesTable from "./recipesTable";
-import { Link } from "react-router-dom";
-import { paginate } from "../../utils/paginate";
-import SearchBox from "../common/searchBox";
-import _ from "lodash";
 import { useState, useEffect } from "react";
 import config from "../../config.json";
-import "./recipes.css"
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import theme from "./theme.png";
+import List from "./List";
+import _ from "lodash";
+import "./recipes.scss";
 
 const Recipes = ({ toast }) => {
-  const [recipes, setRecipes] = useState([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(4);
-  const [sortColumn, setSortColumn] = useState({ path: "title", order: "asc" });
-  const [selectedFilterOption, setSelectedFilterOption] = useState();
+  const PAGE_SIZE = 4;
   const [searchQuery, setSearchQuery] = useState("");
-  const filterOptions = [
-    { name: "All Type" },
-    { name: "Breakfast" },
-    { name: "Lunch" },
-    { name: "Dinner" },
-    { name: "Snack" },
-  ];
-
-  const handleExpectedError = (response) => {
-    if (!response.ok) {
-      throw new Error("Server error: Error code " + response.status + "!");
-    }
-
-    return response;
-  };
-
+  const [filterType, setFilterType] = useState("All Type");
+  const [recipes, setRecipes] = useState([]);
+  const [filteredRecipes, setFilteredRecipes] = useState([]);
+  const [pageNr, setPageNr] = useState(0);
+  const [displayedRecipes, setDisplayedRecipes] = useState([]);
+  const types = ["All Type", "Breakfast", "Lunch", "Dinner", "Snack"];
+  const [sortbyFilter, setSortbyFilter] = useState("title-asc");
   //replace componentDidMount
   useEffect(() => {
-    const getAllRecipes = async () => {
+    const getData = async () => {
       //get request
       const apiEndpoint = config.apiEndpoint + "/recipes";
       await fetch(apiEndpoint)
@@ -44,30 +29,65 @@ const Recipes = ({ toast }) => {
           return response.json();
         })
         .then((data) => {
-          var recipes = new Array(data.Count);
-          var i = 0;
-          for (const item of data.Items) {
-            //TODO change author
-            const recipe = {
-              ...item.data,
-              dateObject: (new Date(item.date)),
-              date: (new Date(item.date)).toLocaleDateString("en-GB"),
-              id: item.id,
-              nutriScore: item.nutriScore,
-              author: item.author,
-            };
-            recipes[i] = recipe;
-            i++;
-          }
+          //TODO change author
+          const recipes = data.Items.map((item) => ({
+            ...item.data,
+            dateObject: new Date(item.date),
+            date: new Date(item.date).toLocaleDateString("en-GB"),
+            id: item.id,
+            nutriScore: item.nutriScore,
+            author: item.author,
+            imgUrl:
+              "https://images-prod.healthline.com/hlcmsresource/images/AN_images/health-benefits-of-apples-1296x728-feature.jpg",
+          }));
           setRecipes(recipes);
         })
         .catch((error) => {
           toast.error(error.message);
-          return;
         });
     };
-    getAllRecipes();
+    getData();
   }, [toast]);
+
+  useEffect(() => {
+    console.log(recipes);
+    setPageNr(0);
+    var filteredrecipes =
+      filterType && filterType && filterType !== "All Type"
+        ? recipes.filter((r) => r.mealType === filterType)
+        : recipes;
+
+    if (searchQuery) {
+      filteredrecipes = filteredrecipes.filter((r) =>
+        r.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    }
+
+    if (sortbyFilter) {
+      const sortOption = convertSortType(sortbyFilter);
+      filteredrecipes = _.orderBy(
+        filteredrecipes,
+        [sortOption.path],
+        [sortOption.order]
+      );
+    }
+
+    setFilteredRecipes(filteredrecipes);
+  }, [searchQuery, filterType, recipes, sortbyFilter]);
+
+  useEffect(() => {
+    const indStart = pageNr * PAGE_SIZE;
+    const indEnd = Math.min(indStart + PAGE_SIZE, filteredRecipes.length);
+    setDisplayedRecipes(filteredRecipes.slice(indStart, indEnd));
+  }, [filteredRecipes, pageNr]);
+
+  const handleExpectedError = (response) => {
+    if (!response.ok) {
+      throw new Error("Server error: Error code " + response.status + "!");
+    }
+
+    return response;
+  };
 
   const handleDelete = async (recipe) => {
     const originnalRecipes = recipes;
@@ -103,116 +123,141 @@ const Recipes = ({ toast }) => {
       });
   };
 
-  const handleLike = (recipe) => {
-    console.log("Clicked");
-    if (recipes) {
-      const clonerecipes = [...recipes];
-      const index = clonerecipes.indexOf(recipe);
-      clonerecipes[index] = { ...clonerecipes[index] };
-      clonerecipes[index].liked = !clonerecipes[index].liked;
-      setRecipes(clonerecipes);
+  const options = [
+    { value: "title-asc", displayText: "Title - A to Z" },
+    { value: "title-desc", displayText: "Title - Z to A" },
+    { value: "nutriScore-desc", displayText: "Score - highest to lowest" },
+    { value: "nutriScore-asc", displayText: "Score - lowest to highest" },
+    { value: "dateObject-desc", displayText: "Date - latest to oldest" },
+    { value: "dateObject-asc", displayText: "Date - oldest to lastest" },
+  ];
+
+  const convertSortType = (option) => {
+    var returnVal = { path: "title", order: "desc" };
+    switch (option) {
+      case "title-asc":
+        returnVal = { path: "title", order: "asc" };
+        break;
+      case "title-desc":
+        returnVal = { path: "title", order: "desc" };
+        break;
+      case "nutriScore-desc":
+        returnVal = { path: "nutriScore", order: "desc" };
+        break;
+      case "nutriScore-asc":
+        returnVal = { path: "nutriScore", order: "asc" };
+        break;
+      case "dateObject-desc":
+        returnVal = { path: "dateObject", order: "desc" };
+        break;
+      case "dateObject-asc":
+        returnVal = { path: "dateObject", order: "asc" };
+        break;
+      default:
+        returnVal = { path: "title", order: "desc" };
     }
+    return returnVal;
   };
 
-  const handleFilterOptionSelect = (option) => {
-    setSelectedFilterOption(option);
-    setCurrentPage(1);
+  const onChangeSortByFilter = (value) => {
+    console.log("here");
+    console.log(value);
+    setSortbyFilter(value);
   };
-
-  const handleSearch = (searchQuery) => {
-    setSearchQuery(searchQuery);
-    setCurrentPage(1);
-  };
-
-  const getPagedData = () => {
-    //filter
-
-    if (recipes) {
-      var filteredrecipes =
-        selectedFilterOption &&
-        selectedFilterOption.name &&
-        selectedFilterOption.name !== "All Type"
-          ? recipes.filter((r) => r.mealType === selectedFilterOption.name)
-          : recipes;
-
-      if (searchQuery) {
-        filteredrecipes = filteredrecipes.filter((r) =>
-          r.title.toLowerCase().includes(searchQuery.toLowerCase())
-        );
-      }
-      //order we can change [] to have more criterias to sort
-      console.log(sortColumn);
-      var sortedrecipes;
-      if (sortColumn?.path === 'date'){
-        sortedrecipes = _.orderBy(
-          filteredrecipes,
-          ['dateObject'],
-          [sortColumn.order]
-        );
-      } else {
-        sortedrecipes = _.orderBy(
-          filteredrecipes,
-          [sortColumn.path],
-          [sortColumn.order]
-        );
-      }
-
-      //paginate
-      const pageRecipes = paginate(sortedrecipes, currentPage, pageSize);
-      return { totalCount: filteredrecipes.length, data: pageRecipes };
-    }
-  };
-
-  if (!recipes || recipes.length === 0)
-    return (
-      <React.Fragment>
-        <p>There are no recipes in the database!</p>
-        <span className="float-right">
-          <Link to="/recipes/new" className="btn btn-primary">
-            New recipe
-          </Link>
-        </span>
-      </React.Fragment>
-    );
-  const { totalCount, data: pageRecipes } = getPagedData();
 
   return (
-    <div className="row">
-      {/* left col with size 3 */}
-      <div className="col-2">
-        <ListGroup
-          items={filterOptions}
-          selectedItem={selectedFilterOption}
-          onItemSelect={handleFilterOptionSelect}
-        />
-      </div>
-      {/* rest col */}
-      <div className="col">
-        <span>
-          <Link to="/recipes/new" className="create-btn round-box button-padding">
-            New recipe
-          </Link>
-          <span className="w-50">
-            <SearchBox value={searchQuery} onChange={handleSearch} />
-            <p className="w-50">
-              Showing {totalCount} recipes in the database!
-            </p>
-          </span>
-        </span>
+    <div className="recipes">
+      <div className="left">
+        <h1>Filter</h1>
 
-        <RecipesTable
-          recipes={pageRecipes}
-          sortColumn={sortColumn}
-          onLike={handleLike}
-          onDelete={handleDelete}
-          onSort={setSortColumn}
-        />
-        <Pagination
-          itemsCount={totalCount}
-          pageSize={pageSize}
-          currentPage={currentPage}
-          onPageChange={setCurrentPage}
-        />
+        <div className="filterItem">
+          <h2>Search</h2>
+          <div className="search">
+            <input
+              className="searchInput"
+              type="text"
+              required
+              placeholder="Calories"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+            />
+          </div>
+        </div>
+
+        <div className="filterItem">
+          <h2>Meal type</h2>
+          <select onChange={(e) => setFilterType(e.target.value)}>
+            {types.map((item, index) => (
+              <option className="optionTab" key={index} value={item}>
+                {item}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div className="filterItem">
+          <h2>Sort by</h2>
+          <div>
+            {options.map((opt) => {
+              return (
+                <div key={opt.value} className="inputItem">
+                  <label>
+                    <input
+                      name={opt.value}
+                      onChange={(e) => onChangeSortByFilter(e.target.value)}
+                      value={opt.value}
+                      checked={sortbyFilter.indexOf(opt.value) > -1}
+                      type="radio"
+                    />
+                    {opt.displayText}
+                  </label>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
+      <div className="right">
+        <img className="coverImg" src={theme} alt="" />
+
+        <div className="tbl">
+          <h1 className="title">Recipes</h1>
+
+          <List recipes={displayedRecipes} />
+
+          <div className="pagination">
+            <div
+              className="page"
+              onClick={() => setPageNr((prev) => Math.max(0, prev - 1))}
+            >
+              <ArrowBackIosIcon />
+            </div>
+            {[
+              ...Array(Math.ceil(filteredRecipes.length / PAGE_SIZE)).keys(),
+            ].map((num) => (
+              <div
+                key={num + 1}
+                className="page"
+                onClick={() => setPageNr(num)}
+              >
+                {num + 1}
+              </div>
+            ))}
+            <div
+              className="page"
+              onClick={() =>
+                setPageNr((prev) =>
+                  Math.min(
+                    Math.ceil(filteredRecipes.length / PAGE_SIZE) - 1,
+                    prev + 1
+                  )
+                )
+              }
+            >
+              <ArrowForwardIosIcon />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   );

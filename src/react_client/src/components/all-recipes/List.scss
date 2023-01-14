@@ -1,0 +1,15 @@
+.list {
+    display: flex;
+    flex-direction: column;
+
+    gap: 50px;
+
+    
+    a {
+        text-decoration: none;
+        border: none;
+        outline: none;
+    }
+
+    
+}
