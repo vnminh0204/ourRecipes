@@ -13,7 +13,7 @@
 }
 .ingredient-name {
   margin-bottom: 0;
-  color: var(--clr-grey-1);
+  color: var(--clr-primary-1);
   font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
   letter-spacing: normal;
   font-size: 1.125rem;

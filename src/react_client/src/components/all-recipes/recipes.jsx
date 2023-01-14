@@ -4,7 +4,12 @@ import config from "../../config.json";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import theme from "./theme.png";
+import { IoIosAdd } from "react-icons/io";
 import List from "./List";
+import { Link } from "react-router-dom";
+import lunchImg from "./lunch.jpg";
+import dinnerImg from "./dinner.png";
+import breakfastImg from "./breakfast.png";
 import _ from "lodash";
 import "./recipes.scss";
 
@@ -37,8 +42,9 @@ const Recipes = ({ toast }) => {
             id: item.id,
             nutriScore: item.nutriScore,
             author: item.author,
-            imgUrl:
-              "https://iamafoodblog.b-cdn.net/wp-content/uploads/2017/11/spatchcock-turkey-3194w-2048x1366.webp",
+            imgUrl: item.imgUrl
+              ? item.imgUrl
+              : getMealTypeImgUrl(item.data.mealType),
           }));
           setRecipes(recipes);
         })
@@ -48,6 +54,30 @@ const Recipes = ({ toast }) => {
     };
     getData();
   }, [toast]);
+
+  const getMealTypeImgUrl = (mealType) => {
+    var url;
+    console.log(mealType);
+
+    switch (mealType) {
+      case "Breakfast":
+        url = breakfastImg;
+        break;
+      case "Lunch":
+        url = lunchImg;
+        break;
+      case "Dinner":
+        url = dinnerImg;
+        break;
+      case "Snack":
+        url =
+          "https://www.foodiesfeed.com/wp-content/uploads/2021/08/tiramisu.jpg";
+        break;
+      default:
+        url = "";
+    }
+    return url;
+  };
 
   useEffect(() => {
     console.log(recipes);
@@ -168,7 +198,7 @@ const Recipes = ({ toast }) => {
   return (
     <div className="recipes">
       <div className="left">
-        <h1>Filter</h1>
+        <h1 className="title">Filter</h1>
 
         <div className="filterItem">
           <h2>Search</h2>
@@ -177,7 +207,7 @@ const Recipes = ({ toast }) => {
               className="searchInput"
               type="text"
               required
-              placeholder="Calories"
+              placeholder="Meal title"
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
             />
@@ -186,7 +216,10 @@ const Recipes = ({ toast }) => {
 
         <div className="filterItem">
           <h2>Meal type</h2>
-          <select onChange={(e) => setFilterType(e.target.value)}>
+          <select
+            className="select-btn"
+            onChange={(e) => setFilterType(e.target.value)}
+          >
             {types.map((item, index) => (
               <option className="optionTab" key={index} value={item}>
                 {item}
@@ -199,14 +232,15 @@ const Recipes = ({ toast }) => {
           <div>
             {options.map((opt) => {
               return (
-                <div key={opt.value} className="inputItem">
-                  <label>
+                <div key={opt.value}>
+                  <label className="inputItem">
                     <input
                       name={opt.value}
                       onChange={(e) => onChangeSortByFilter(e.target.value)}
                       value={opt.value}
                       checked={sortbyFilter.indexOf(opt.value) > -1}
                       type="radio"
+                      className="filter-radio"
                     />
                     {opt.displayText}
                   </label>
@@ -221,6 +255,12 @@ const Recipes = ({ toast }) => {
         <img className="coverImg" src={theme} alt="" />
 
         <div className="tbl">
+          <span className="float-right">
+            <Link to="/recipes/new" className="new-recipe-btn">
+              <IoIosAdd size={25}></IoIosAdd>
+              <h5>New recipe</h5>
+            </Link>
+          </span>
           <h1 className="title">Recipes</h1>
 
           <List recipes={displayedRecipes} />

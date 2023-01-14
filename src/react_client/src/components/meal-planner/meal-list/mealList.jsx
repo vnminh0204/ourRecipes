@@ -65,20 +65,22 @@ const MealList = ({ mealType, nutrition, meals }) => {
             <div className="meal-content">
               <ul className="meal-foods">
                 {meals.map((meal) => (
-                  <li key={meal.id} className="food ">
-                    <div className="food-title">
-                      <div className="food-name">{meal.title}</div>
-                      <div className="food-unit">{meal.quantity} serving</div>
-                    </div>
-                    <Link
-                      className="redirect-icon"
-                      to={`/recipes/${meal.id}`}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      <FiChevronRight size={50} />
-                    </Link>
-                  </li>
+                  <Link
+                    className="link-container"
+                    to={`/recipes/${meal.id}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <li key={meal.id} className="food ">
+                      <div className="food-title">
+                        <div className="food-name">{meal.title}</div>
+                        <div className="food-unit">{meal.quantity} serving</div>
+                      </div>
+                      <div className="redirect-icon">
+                        <FiChevronRight size={50} />
+                      </div>
+                    </li>
+                  </Link>
                 ))}
               </ul>
             </div>

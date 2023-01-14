@@ -74,7 +74,7 @@ const MealsSearch = ({ addItem, toast }) => {
   return (
     <section className="section-meal-search">
       <form className="ingredient-search-form" onSubmit={handleSubmit}>
-        <h3 className="fs-3">Meals Search</h3>
+        <h3 className="fs-3 search-title">Meals Search</h3>
         <div className="ingredient-search-form-control">
           <input
             type="text"

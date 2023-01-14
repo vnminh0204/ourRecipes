@@ -9,7 +9,9 @@
   padding: 2rem;
   margin-bottom: 50px;
 }
-
+.search-title {
+  color: var(--clr-primary-heading) !important;
+}
 .section-ingredient-search {
 }
 .ingredient-container {

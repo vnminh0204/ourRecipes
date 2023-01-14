@@ -11,6 +11,7 @@
   letter-spacing: normal;
   font-weight: 400;
   white-space: pre-line;
+  color: var(--clr-primary-1);
 }
 .textarea {
   font-family: "Chronicle SSm A", serif;

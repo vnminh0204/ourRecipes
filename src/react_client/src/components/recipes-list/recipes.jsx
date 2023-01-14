@@ -49,8 +49,8 @@ const Recipes = ({ toast }) => {
             //TODO change author
             const recipe = {
               ...item.data,
-              dateObject: (new Date(item.date)),
-              date: (new Date(item.date)).toLocaleDateString("en-GB"),
+              dateObject: new Date(item.date),
+              date: new Date(item.date).toLocaleDateString("en-GB"),
               id: item.id,
               nutriScore: item.nutriScore,
               author: "Minh",
