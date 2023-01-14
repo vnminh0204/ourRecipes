@@ -22,7 +22,7 @@
 }
 .meal-info2 {
   display: flex;
-  color: black;
+  color: var(--clr-primary-1);
   font-weight: 600;
   margin: 0;
   justify-content: center;

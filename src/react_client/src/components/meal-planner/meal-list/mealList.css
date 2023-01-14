@@ -36,7 +36,8 @@
 .meal-type {
   letter-spacing: 1.5px;
   color: var(--clr-heading);
-  text-decoration: underline;
+  margin-bottom: 3px;
+  /* text-decoration: underline; */
   font-weight: 700;
   font-size: 22px;
   font-style: normal;
@@ -80,10 +81,11 @@
 }
 .food {
   transition: border 0.15s ease-in-out;
-  cursor: move;
-  cursor: grab;
-  cursor: -moz-grab;
-  cursor: -webkit-grab;
+  cursor: pointer;
+  /* cursor: move; */
+  /* cursor: grab; */
+  /* cursor: -moz-grab; */
+  /* cursor: -webkit-grab; */
   border: solid 2px rgba(0, 0, 0, 0);
   border-radius: 5px;
   padding: 5px;
@@ -96,7 +98,7 @@
 
 .food:hover {
   box-shadow: 0 2px 2px 0 rgb(0 0 0 / 12%);
-  border: solid 2px #84be6a;
+  border: solid 2px var(--clr-heading);
   position: relative;
 }
 
@@ -106,7 +108,7 @@
   line-height: 15px;
   font-weight: 700;
   letter-spacing: 0.3px;
-  color: #2d303c;
+  color: var(--clr-primary-1);
   display: inline;
 }
 
@@ -121,11 +123,11 @@
 }
 .food:hover .redirect-icon {
   visibility: visible;
-  color: #84be6a;
+  color: var(--clr-heading);
   float: right;
 }
 .redirect-icon:hover {
-  color: #84be6a;
+  color: var(--clr-heading);
 }
 
 .meal-icons .meal-nutrition-info {
@@ -166,4 +168,8 @@
 .nutrition-info-value {
   font-weight: normal;
   color: #76767a;
+}
+.link-container {
+  text-decoration: none;
+  margin-top: 5px;
 }

@@ -19,8 +19,8 @@ const recipesCard = ({
         </div>
         <div className="details">
           <div className="details-left">
-            <p className="mealType">{mealType}</p>
-            <h1>{title}</h1>
+            <small className="mealType">{mealType}</small>
+            <h3 className="mealTitle">{title}</h3>
           </div>
           <div className="details-right">
             <div className="score">{Math.round(nutriScore)}/100</div>

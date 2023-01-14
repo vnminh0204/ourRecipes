@@ -6,14 +6,19 @@
     background-color: #fff;
 
     padding: 25px 0;
-
-
-
-
-
-
+    margin-top: 10px;
+    margin-bottom: 10px;
+    margin-bottom: 5px;
+    position: relative;
+    border-radius: var(--radius);
+    border-style: solid;
+    border-color: #f5f7fa;
+    box-shadow: var(--light-shadow);
+    transition: var(--transition);
+    padding: 2rem;
+    
     .img {
-        flex-basis: 160px;
+        flex-basis: 200px;
         flex-grow: 0;
         flex-shrink: 0;
 
@@ -43,8 +48,18 @@
         .details-left {
             
             .mealType{
-                
-                font-weight: 300;
+                font-weight: bold;
+                background: var(--clr-primary-heading);
+                color: #fff;
+                display: inline-block;
+                padding: 0 7px 2px;
+                margin-bottom: 5px;
+            }
+
+            .mealTitle{
+                color: var(--clr-primary-heading);
+                // font-weight: 600;
+                // letter-spacing: -1.5px;
             }
         }
 
@@ -68,6 +83,7 @@
                 .author {
                     font-size: 1.2rem;
                     font-weight: 500;
+                    color: #12596f;
                 }
             }
         }

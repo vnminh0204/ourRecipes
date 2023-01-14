@@ -301,7 +301,6 @@ const MealPlanner = ({ toast, user }) => {
   return (
     <React.Fragment>
       <div className="planner-container">
-        <h1>MealPlanner</h1>
         <MacroCal toast={toast} setMacro={setUserMacro}></MacroCal>
         <div className="meal-plan-continer">
           <div className="day-plan-container">
