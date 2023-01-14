@@ -140,7 +140,7 @@ const MacroCal = ({ toast, setMacro }) => {
     <div className="cal-container">
       <div className="flippable-card-container">
         <CSSTransition in={showFront} timeout={300} classNames="flip">
-          <div className="card">
+          <div className="card-cal">
             <div className="card-back">
               <div className="result">
                 <div className="result-heading">

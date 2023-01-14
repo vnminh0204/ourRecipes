@@ -38,7 +38,7 @@ const Recipes = ({ toast }) => {
             nutriScore: item.nutriScore,
             author: item.author,
             imgUrl:
-              "https://images-prod.healthline.com/hlcmsresource/images/AN_images/health-benefits-of-apples-1296x728-feature.jpg",
+              "https://iamafoodblog.b-cdn.net/wp-content/uploads/2017/11/spatchcock-turkey-3194w-2048x1366.webp",
           }));
           setRecipes(recipes);
         })
