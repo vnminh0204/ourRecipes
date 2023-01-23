@@ -164,6 +164,10 @@ const RecipeForm = ({ toast }) => {
     return response;
   };
 
+  const setImg = () => {
+    console.log("Upload your recipe image!");
+  };
+
   const addItem = (newIngredient) => {
     // const { name, id, possibleUnits } = newIngredient;
     toast.success("Ingerdient is added");
@@ -328,6 +332,7 @@ const RecipeForm = ({ toast }) => {
               editTitle={editTitle}
               setEditTile={setEditTile}
               editMode={editMode}
+              uploadImg={setImg}
             />
           </div>
           <div className="row nutrition-row">

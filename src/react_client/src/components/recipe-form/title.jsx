@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { RiEdit2Fill } from "react-icons/ri";
+import { BiUpload } from "react-icons/bi";
 import { FaCheck } from "react-icons/fa";
 import Select from "../common/select";
 import "./title.css";
@@ -15,6 +16,7 @@ const Title = ({
   editTitle,
   setEditTile,
   editMode,
+  uploadImg,
 }) => {
   const [showEditIcon, setShowEditIcon] = useState(false);
   const handleTitleChange = ({ currentTarget: input }) => {
@@ -105,6 +107,9 @@ const Title = ({
             />
           </div>
         </div>
+        <button type="button" className="add-btn" onClick={() => uploadImg()}>
+          <BiUpload size={50} />
+        </button>
       </div>
     );
   } else {
