@@ -252,16 +252,19 @@ const Recipes = ({ toast }) => {
       </div>
 
       <div className="right">
-        <img className="coverImg" src={theme} alt="" />
-
+        {/*<img className="coverImg" src={theme} alt="" />*/}
         <div className="tbl">
-          <span className="float-right">
+          <div className="block-title">
+            <h1 className="title">All Recipes</h1>
+            <span className="new-recipe-block">
             <Link to="/recipes/new" className="new-recipe-btn">
               <IoIosAdd size={25}></IoIosAdd>
               <h5>New recipe</h5>
             </Link>
           </span>
-          <h1 className="title">Recipes</h1>
+          </div>
+
+
 
           <List recipes={displayedRecipes} />
 
