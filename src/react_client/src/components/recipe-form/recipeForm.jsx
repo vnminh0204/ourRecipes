@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import IngredientsSearch from "./search/ingredientsSearch";
-import NutritionTable from "./nutritionTable";
-import IngredientsList from "./ingredientsList";
+import NutritionTable from "./nutritionTable/nutritionTable";
+import IngredientsList from "./ingredientsList/ingredientsList";
 import CookingMethod from "./cooking-method/cookingMethod";
-import Title from "./title";
+import Title from "./title/title";
 import config from "../../config.json";
 import "./recipeForm.css";
 

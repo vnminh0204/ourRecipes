@@ -4,7 +4,7 @@ import {
   RiCheckboxCircleFill,
   RiEdit2Fill,
 } from "react-icons/ri";
-import Select from "../common/select";
+import Select from "../../common/select";
 import "./ingredientsList.css";
 
 const IngredientsList = ({

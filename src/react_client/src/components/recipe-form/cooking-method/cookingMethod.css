@@ -4,7 +4,8 @@
 .recipe-heading {
   letter-spacing: 1.5px;
   color: var(--clr-heading);
-  text-decoration: underline;
+  /*text-decoration: underline;*/
+  font-weight: bold;
 }
 .cooking-method {
   font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;

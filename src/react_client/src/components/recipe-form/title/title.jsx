@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { RiEdit2Fill } from "react-icons/ri";
 import { FaCheck } from "react-icons/fa";
-import Select from "../common/select";
+import Select from "../../common/select";
 import "./title.css";
 
 const Title = ({
