@@ -1,31 +1,35 @@
 .section-ingredients {
-  padding: 2rem;
+    padding: 2rem;
 }
+
 .recipe-heading {
-  letter-spacing: 1.5px;
-  color: var(--clr-heading);
-  /*text-decoration: underline;*/
-  font-weight: bold;
+    letter-spacing: 1.5px;
+    color: var(--clr-heading);
+    /*text-decoration: underline;*/
+    font-weight: bold;
 }
+
 .cooking-method {
-  font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
-  letter-spacing: normal;
-  font-weight: 400;
-  white-space: pre-line;
-  color: var(--clr-primary-1);
+    font-family: corporate-s, Helvetica Neue, Helvetica, Arial, sans-serif;
+    letter-spacing: normal;
+    font-size: 1.125rem;
+    font-weight: 400;
+    white-space: pre-line;
+    color: var(--clr-primary-1);
 }
+
 .textarea {
-  font-family: "Chronicle SSm A", serif;
-  font-size: 13px;
-  line-height: 1.5;
-  color: #495057;
-  background-color: #fff;
-  background-clip: padding-box;
-  border: 1px solid #ced4da;
-  border-radius: 0.25rem;
+    font-family: "Chronicle SSm A", serif;
+    font-size: 13px;
+    line-height: 1.5;
+    color: #495057;
+    background-color: #fff;
+    background-clip: padding-box;
+    border: 1px solid #ced4da;
+    border-radius: 0.25rem;
 }
 
 .method-title-container {
-  display: flex;
-  margin-bottom: 15px;
+    display: flex;
+    margin-bottom: 15px;
 }
