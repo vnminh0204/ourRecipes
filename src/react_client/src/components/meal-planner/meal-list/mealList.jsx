@@ -69,8 +69,9 @@ const MealList = ({mealType, nutrition, meals}) => {
                                         to={`/recipes/${meal.id}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
+                                        key={meal.id}
                                     >
-                                        <li key={meal.id} className="food ">
+                                        <li className="food ">
                                             <div className="food-title">
                                                 <div className="food-name">{meal.title}</div>
                                                 <div className="food-unit">{meal.quantity} serving</div>

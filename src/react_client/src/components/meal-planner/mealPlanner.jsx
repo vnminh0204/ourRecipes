@@ -2,16 +2,27 @@ import React from "react";
 import MealsSearch from "./meal-search/mealsSearch";
 import "./mealPlanner.scss";
 import {useState, useEffect} from "react";
-import MealList from "./meal-list/mealList";
 import MacroCal from "./macro-calculator/macroCal";
 import config from "../../config.json";
 import DayPlan from "./day-plan/dayPlan";
+import {MyTab, MyTabs} from "../common/tabs";
+import PlannerNav from "./plannerNav/plannerNav";
 
 const MealPlanner = ({toast, user}) => {
     const [numMeals, setNumMeals] = useState(3);
 
-    const [userMacro, setUserMacro] = useState({});
+    const [userMacro, setUserMacro] = useState({
+        kcal: 0,
+        sodium: 2300,
+        sugars: 0,
+        carbs: 0,
+        protein: 0,
+        fat: 0,
+        saturates: 0,
+        fibre: 0,
+    });
 
+    const [showFront, setShowFront] = useState(true);
     // Fiber = calo/1000 * 14 grams
 
     // Sodium = 2300 mg
@@ -396,10 +407,18 @@ const MealPlanner = ({toast, user}) => {
     };
 
     return (
-        <React.Fragment>
+        <div className="planner-page">
             <div className="planner-container">
-                <MacroCal toast={toast} setMacro={setUserMacro}></MacroCal>
-                <div className="meal-plan-container">
+                <div className="planner-header">
+                    <h1 className="day-title">Your Meal Plan</h1>
+                </div>
+                <PlannerNav
+                    suggestMealNutriPlan={suggestMealNutriPlan}
+                    onNumMealsChangeHandler={onNumMealsChange}
+                    resetMealPlan={resetMealPlan}>
+                </PlannerNav>
+
+                <div className="planner-content">
                     <DayPlan
                         numMeals={numMeals}
                         toast={toast}
@@ -412,14 +431,25 @@ const MealPlanner = ({toast, user}) => {
                         dinnerNutrition={dinnerNutrition}
                         snackMeals={snackMeals}
                         snackNutrition={snackNutrition}
-                        suggestMealNutriPlan={suggestMealNutriPlan}
-                        onNumMealsChangeHandler={onNumMealsChange}
-                        resetMealPlan={resetMealPlan}
+
+                        addMeal={addMeal}
+                        setUserMacro={setUserMacro}
                     ></DayPlan>
-                    <MealsSearch addItem={addMeal} toast={toast}></MealsSearch>
+
+                    <div className="planner-tools">
+                        <MyTabs>
+                            <MyTab label={"calculator"} tabName={"Macro Calculator"}>
+                                <MacroCal setShowFront={setShowFront} showFront={showFront} toast={toast}
+                                          setMacro={setUserMacro} userMacro={userMacro}></MacroCal>
+                            </MyTab>
+                            <MyTab label={"search"} tabName={"Meals Search"}>
+                                <MealsSearch addItem={addMeal} toast={toast}></MealsSearch>
+                            </MyTab>
+                        </MyTabs>
+                    </div>
                 </div>
             </div>
-        </React.Fragment>
+        </div>
     );
 };
 
