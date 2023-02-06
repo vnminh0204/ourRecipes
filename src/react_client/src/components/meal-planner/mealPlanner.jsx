@@ -6,7 +6,7 @@ import MacroCal from "./macro-calculator/macroCal";
 import config from "../../config.json";
 import DayPlan from "./day-plan/dayPlan";
 import {MyTab, MyTabs} from "../common/tabs";
-import PlannerNav from "./plannerNav/plannerNav";
+import PlannerrNav from "./plannerNav/plannerNav";
 
 const MealPlanner = ({toast, user}) => {
     const [numMeals, setNumMeals] = useState(3);
@@ -412,11 +412,11 @@ const MealPlanner = ({toast, user}) => {
                 <div className="planner-header">
                     <h1 className="day-title">Your Meal Plan</h1>
                 </div>
-                <PlannerNav
+                <PlannerrNav
                     suggestMealNutriPlan={suggestMealNutriPlan}
                     onNumMealsChangeHandler={onNumMealsChange}
                     resetMealPlan={resetMealPlan}>
-                </PlannerNav>
+                </PlannerrNav>
 
                 <div className="planner-content">
                     <DayPlan
