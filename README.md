@@ -4,6 +4,25 @@
 
 https://monkfish-app-ctiss.ondigitalocean.app/
 
+# Homepage
+
+![Alt text](images/homepage.png)
+
+# Food Recipes
+
+![Alt text](images/modify_recipe.png)
+![Alt text](images/recipe_info.png)
+
+# Macro nutrition
+
+|    Macro Nutrition Calculator    |    Macro Nutrition Result    |
+| :------------------------------: | :--------------------------: |
+| ![](images/macro_calculator.png) | ![](images/macro_result.png) |
+
+# Recipe Recommendations
+
+![Alt text](images/meal_planner.png)
+
 # Python package install
 
 Install pyenv by following: https://github.com/pyenv/pyenv#installation
