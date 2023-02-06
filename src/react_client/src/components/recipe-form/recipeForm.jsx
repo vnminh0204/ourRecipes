@@ -137,7 +137,6 @@ const RecipeForm = ({toast}) => {
                     })
                     .then((data) => {
                         // const data = await response.json();
-                        console.log(data);
                         setEditTile(false);
                         setEditCookingMethod(false);
                         setCookingMethod(data.data.cookingMethod);
@@ -186,7 +185,6 @@ const RecipeForm = ({toast}) => {
     };
 
     const editItem = (ingredient) => {
-        console.log("edit");
         const index = ingredients.indexOf(ingredient);
         const newIngredients = [...ingredients];
         const newIngredient = {...ingredient, edit: true};
@@ -220,7 +218,6 @@ const RecipeForm = ({toast}) => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
                 const kcal = findNutritionObject(data, "Calories");
                 const fat = findNutritionObject(data, "Fat");
                 const saturates = findNutritionObject(data, "Saturated Fat");
@@ -284,7 +281,6 @@ const RecipeForm = ({toast}) => {
             nutritionTable,
             "x-access-token": jwt,
         };
-        console.log(obj);
         const requestOptions = {
             method: "POST",
             headers: {
@@ -301,8 +297,6 @@ const RecipeForm = ({toast}) => {
                 return response.json();
             })
             .then((data) => {
-                console.log(data);
-
                 toast.success("Your recipe is submitted");
                 navigate("/recipes");
             })

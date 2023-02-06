@@ -26,7 +26,7 @@ const recipesCard = ({
                     <div className="details-right">
                         <div className="top-right-block">
                             <div className="score">{Math.round(nutriScore)}/100</div>
-                            <div><FiMenu></FiMenu></div>
+                            {/*<div><FiMenu></FiMenu></div>*/}
                         </div>
 
                         <span className="authorLine">
