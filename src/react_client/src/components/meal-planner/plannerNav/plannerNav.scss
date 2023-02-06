@@ -1,5 +1,5 @@
 .day-plan-nav {
-  background: #007788;
+  background: var(--clr-primary-button);
   padding: 2rem;
   border-radius: 8px;
   z-index: 1;
@@ -29,7 +29,7 @@
     display: inline-flex;
     vertical-align: middle;
     color: #ffffff;
-    background-color: #268b9a;
+    background-color: var(--clr-primary-option);
     border-color: transparent;
     margin-left: 10px;
     margin-bottom: 0;
