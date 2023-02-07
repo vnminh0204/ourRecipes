@@ -2,7 +2,11 @@
 
 # Project overview
 
-Here is the project description
+ourRecipe is a project that we build for our group of friends.
+ourRecipe is a food website designed to encourage a healthy eating diet and regular exercising. 
+With a focus on creating and sharing nutritious recipes, ourRecipe is the perfect platform for anyone who want to discover new and healthy meal ideas. 
+The website features a unique scoring system that grades each recipe based on its cooking method and ingredients, making it easier for users to make informed choices about what they eat.
+We also have a meal planner using a kNN model to suggest personalized meal plans based on user's macro, providing users with the nutrients they need for a healthy diet.
 
 # Demo
 
