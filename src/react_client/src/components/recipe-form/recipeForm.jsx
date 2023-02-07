@@ -28,9 +28,6 @@ const RecipeForm = ({toast}) => {
         sodium: {amount: 0, unit: "mg", percentOfDailyNeeds: 0},
     });
 
-    const [editTitle, setEditTile] = useState(true);
-    const [editCookingMethod, setEditCookingMethod] = useState(true);
-
     useEffect(() => {
         const updateNutritionTable = () => {
             const newNutritionTable = {
@@ -137,8 +134,6 @@ const RecipeForm = ({toast}) => {
                     })
                     .then((data) => {
                         // const data = await response.json();
-                        setEditTile(false);
-                        setEditCookingMethod(false);
                         setCookingMethod(data.data.cookingMethod);
                         setNumServings(data.data.numServings);
                         setIngredients(data.data.ingredients);
@@ -184,73 +179,88 @@ const RecipeForm = ({toast}) => {
         return object;
     };
 
-    const editItem = (ingredient) => {
-        const index = ingredients.indexOf(ingredient);
-        const newIngredients = [...ingredients];
-        const newIngredient = {...ingredient, edit: true};
-        newIngredients[index] = newIngredient;
-        setIngredients(newIngredients);
-    };
+    // const editItem = (ingredient) => {
+    //
+    // };
 
-    const saveItem = async (ingredient) => {
-        if (!ingredient.amount || !ingredient.unit) {
-            toast.error("You need to fill both amount and unit");
-            return;
+    const editItem = async (ingredient) => {
+
+        if (ingredient.edit === true) {
+            if (!ingredient.amount || !ingredient.unit) {
+                toast.error("You need to fill both amount and unit");
+                return;
+            }
+            if (ingredient.amount && ingredient.amount < 0) {
+                toast.error("Ingredient amount cannot be negative");
+                return;
+            }
+            const apiEndpoint =
+                config.spoonacularAPIEndpoint +
+                "/food/ingredients/" +
+                ingredient.id +
+                "/information?apiKey=" +
+                config.spoonacularAPIKey +
+                "&amount=" +
+                ingredient.amount +
+                "&unit=" +
+                ingredient.unit;
+
+            await fetch(apiEndpoint)
+                .then((response) => {
+                    handleExpectedError(response);
+                    return response.json();
+                })
+                .then((data) => {
+                    const kcal = findNutritionObject(data, "Calories");
+                    const fat = findNutritionObject(data, "Fat");
+                    const saturates = findNutritionObject(data, "Saturated Fat");
+                    const carbs = findNutritionObject(data, "Net Carbohydrates");
+                    const sugars = findNutritionObject(data, "Sugar");
+                    const fibre = findNutritionObject(data, "Fiber");
+                    const protein = findNutritionObject(data, "Protein");
+                    const sodium = findNutritionObject(data, "Sodium");
+
+                    const nutrition = {
+                        kcal: kcal,
+                        fat: fat,
+                        saturates: saturates,
+                        carbs: carbs,
+                        sugars: sugars,
+                        fibre: fibre,
+                        protein: protein,
+                        sodium: sodium,
+                    };
+                    const index = ingredients.indexOf(ingredient);
+                    const newIngredients = [...ingredients];
+                    ingredient.nutrition = nutrition;
+                    ingredient.edit = false;
+                    newIngredients[index] = ingredient;
+                    setIngredients(newIngredients);
+                })
+                .catch((error) => {
+                    toast.error(error.message);
+                });
+        } else {
+            const index = ingredients.indexOf(ingredient);
+            const newIngredients = [...ingredients];
+            const newIngredient = {...ingredient, edit: true};
+            newIngredients[index] = newIngredient;
+            setIngredients(newIngredients);
         }
-        if (ingredient.amount && ingredient.amount < 0) {
-            toast.error("Ingredient amount cannot be negative");
-            return;
-        }
-        const apiEndpoint =
-            config.spoonacularAPIEndpoint +
-            "/food/ingredients/" +
-            ingredient.id +
-            "/information?apiKey=" +
-            config.spoonacularAPIKey +
-            "&amount=" +
-            ingredient.amount +
-            "&unit=" +
-            ingredient.unit;
 
-        await fetch(apiEndpoint)
-            .then((response) => {
-                handleExpectedError(response);
-                return response.json();
-            })
-            .then((data) => {
-                const kcal = findNutritionObject(data, "Calories");
-                const fat = findNutritionObject(data, "Fat");
-                const saturates = findNutritionObject(data, "Saturated Fat");
-                const carbs = findNutritionObject(data, "Net Carbohydrates");
-                const sugars = findNutritionObject(data, "Sugar");
-                const fibre = findNutritionObject(data, "Fiber");
-                const protein = findNutritionObject(data, "Protein");
-                const sodium = findNutritionObject(data, "Sodium");
 
-                const nutrition = {
-                    kcal: kcal,
-                    fat: fat,
-                    saturates: saturates,
-                    carbs: carbs,
-                    sugars: sugars,
-                    fibre: fibre,
-                    protein: protein,
-                    sodium: sodium,
-                };
-                const index = ingredients.indexOf(ingredient);
-                const newIngredients = [...ingredients];
-                ingredient.nutrition = nutrition;
-                ingredient.edit = false;
-                newIngredients[index] = ingredient;
-                setIngredients(newIngredients);
-            })
-            .catch((error) => {
-                toast.error(error.message);
-            });
     };
 
     const onSubmit = async () => {
         let check = true;
+        if (numServings < 1) {
+            toast.error("Servings cannot be smaller than 1");
+            check = false;
+        }
+        if (title.length <= 0 || mealType.length <= 0) {
+            toast.error("Text field cannot be empty");
+            check = false;
+        }
         if (cookingMethod.length === 0) {
             toast.error("Cooking method cannot be empty");
             check = false;
@@ -264,7 +274,7 @@ const RecipeForm = ({toast}) => {
                 check = check && ingredient.edit === false;
             }
         }
-        check = check && editTitle === false && editCookingMethod === false;
+        check = check;
 
         if (!check) {
             toast.error("Every fields need to be saved before submitting");
@@ -318,8 +328,6 @@ const RecipeForm = ({toast}) => {
                         mealType={mealType}
                         setMealType={setMealType}
                         toast={toast}
-                        editTitle={editTitle}
-                        setEditTile={setEditTile}
                         editMode={editMode}
                     />
                 </div>
@@ -331,7 +339,6 @@ const RecipeForm = ({toast}) => {
                     <div className="sub-container">
                         <IngredientsList
                             removeItem={removeItem}
-                            saveItem={saveItem}
                             editItem={editItem}
                             ingredients={ingredients}
                             setIngredients={setIngredients}
@@ -342,8 +349,6 @@ const RecipeForm = ({toast}) => {
                         <CookingMethod
                             cookingMethod={cookingMethod}
                             setCookingMethod={setCookingMethod}
-                            editCookingMethod={editCookingMethod}
-                            setEditCookingMethod={setEditCookingMethod}
                             editMode={editMode}
                         />
                     </div>

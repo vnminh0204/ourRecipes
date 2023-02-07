@@ -29,6 +29,10 @@
     border-radius: 0.25rem;
 }
 
+.textarea:focus {
+    outline-color: var(--clr-primary-button);
+}
+
 .method-title-container {
     display: flex;
     margin-bottom: 15px;
