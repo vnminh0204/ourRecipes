@@ -5,124 +5,136 @@ Variables
 */
 
 :root {
-  /* dark shades of primary color*/
-  --clr-primary-heading: #12596f;
-  --clr-primary-1: hsl(205, 86%, 17%);
-  --clr-primary-2: #12596f;
-  --clr-primary-3: hsl(205, 72%, 37%);
-  --clr-primary-4: hsl(205, 63%, 48%);
-  /* primary/main color */
-  --clr-primary-5: hsl(205, 78%, 60%);
-  /* lighter shades of primary color */
-  --clr-primary-6: hsl(205, 89%, 70%);
-  --clr-primary-7: hsl(205, 90%, 76%);
-  --clr-primary-8: hsl(205, 86%, 81%);
-  --clr-primary-9: hsl(205, 90%, 88%);
-  --clr-primary-10: hsl(205, 100%, 96%);
-  /* darkest grey - used for headings */
-  --clr-grey-1: hsl(209, 61%, 16%);
-  --clr-grey-2: hsl(211, 39%, 23%);
-  --clr-grey-3: hsl(209, 34%, 30%);
-  --clr-grey-4: hsl(209, 28%, 39%);
-  /* grey used for paragraphs */
-  --clr-grey-5: hsl(210, 22%, 49%);
-  --clr-grey-6: hsl(209, 23%, 60%);
-  --clr-grey-7: hsl(211, 27%, 70%);
-  --clr-grey-8: hsl(210, 31%, 80%);
-  --clr-grey-9: hsl(212, 33%, 89%);
-  --clr-grey-10: hsl(210, 36%, 96%);
-  --clr-white: #fff;
-  --clr-red-dark: hsl(360, 67%, 44%);
-  --clr-red-light: hsl(360, 71%, 66%);
-  --clr-green-dark: hsl(125, 67%, 44%);
-  --clr-green-light: hsl(125, 71%, 66%);
-  --clr-yellow-dark: hsl(80, 53%, 55%);
-  --clr-skin: #fefbd8;
-  --clr-heading: #639fa5;
-  --clr-title: rgb(123, 184, 177);
-  --clr-nutrition: rgba(81, 147, 152, 0.25);
-  --clr-black: #222;
-  --transition: all 0.3s linear;
-  --spacing: 0.1rem;
-  --radius: 0.25rem;
-  --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  --max-width: 1170px;
-  --fixed-width: 620px;
+    /* dark shades of primary color*/
+    --clr-primary-heading: #12596f;
+    --clr-primary-button: #007788;
+    --clr-primary-option: #268b9a;
+    --clr-primary-1: hsl(205, 86%, 17%);
+    --clr-primary-2: #12596f;
+    --clr-primary-3: hsl(205, 72%, 37%);
+    --clr-primary-4: hsl(205, 63%, 48%);
+    /* primary/main color */
+    --clr-primary-5: hsl(205, 78%, 60%);
+    /* lighter shades of primary color */
+    --clr-primary-6: hsl(205, 89%, 70%);
+    --clr-primary-7: hsl(205, 90%, 76%);
+    --clr-primary-8: hsl(205, 86%, 81%);
+    --clr-primary-9: hsl(205, 90%, 88%);
+    --clr-primary-10: hsl(205, 100%, 96%);
+    /* darkest grey - used for headings */
+    --clr-grey-1: hsl(209, 61%, 16%);
+    --clr-grey-2: hsl(211, 39%, 23%);
+    --clr-grey-3: hsl(209, 34%, 30%);
+    --clr-grey-4: hsl(209, 28%, 39%);
+    /* grey used for paragraphs */
+    --clr-grey-5: hsl(210, 22%, 49%);
+    --clr-grey-6: hsl(209, 23%, 60%);
+    --clr-grey-7: hsl(211, 27%, 70%);
+    --clr-grey-8: hsl(210, 31%, 80%);
+    --clr-grey-9: hsl(212, 33%, 89%);
+    --clr-grey-10: hsl(210, 36%, 96%);
+    --clr-white: #fff;
+    --clr-red-dark: hsl(360, 67%, 44%);
+    --clr-red-light: hsl(360, 71%, 66%);
+    --clr-green-dark: hsl(125, 67%, 44%);
+    --clr-green-light: hsl(125, 71%, 66%);
+    --clr-yellow-dark: hsl(80, 53%, 55%);
+    --clr-skin: #fefbd8;
+    --clr-heading: #639fa5;
+    --clr-title: rgb(123, 184, 177);
+    --clr-nutrition: rgba(81, 147, 152, 0.25);
+    --clr-black: #222;
+    --transition: all 0.3s linear;
+    --spacing: 0.1rem;
+    --radius: 0.25rem;
+    --light-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    --dark-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    --max-width: 1170px;
+    --fixed-width: 620px;
 }
+
 .my-container {
-  margin-left: 30px;
-  margin-right: 50px;
+    margin-left: 30px;
+    margin-right: 50px;
 }
 
 /* section */
 
 .inalert {
-  color: var(--clr-grey-5);
-  margin-bottom: 1rem;
-  height: 1.25rem;
-  display: grid;
-  align-items: center;
-  text-align: center;
-  font-size: 0.7rem;
-  border-radius: 0.25rem;
-  letter-spacing: var(--spacing);
-  text-transform: capitalize;
+    color: var(--clr-grey-5);
+    margin-bottom: 1rem;
+    height: 1.25rem;
+    display: grid;
+    align-items: center;
+    text-align: center;
+    font-size: 0.7rem;
+    border-radius: 0.25rem;
+    letter-spacing: var(--spacing);
+    text-transform: capitalize;
 }
+
 .inalert-danger {
-  color: #721c24;
-  background: #f8d7da;
+    color: #721c24;
+    background: #f8d7da;
 }
+
 .inalert-success {
-  color: #155724;
-  background: #d4edda;
+    color: #155724;
+    background: #d4edda;
 }
 
 .submit-btn {
-  color: var(--clr-primary-1);
-  background: var(--clr-primary-8);
-  text-decoration: none;
-  border-color: transparent;
-  font-size: 1rem !important;
-  align-items: center;
-  padding: 0.25rem;
-  text-transform: capitalize;
-  letter-spacing: 2px;
-  cursor: pointer;
-  content: var(--clr-primary-5);
-  transition: var(--transition);
-  font-size: 0.85rem;
+    color: var(--clr-primary-1);
+    background: var(--clr-primary-8);
+    text-decoration: none;
+    border-color: transparent;
+    font-size: 1rem !important;
+    align-items: center;
+    padding: 0.25rem;
+    text-transform: capitalize;
+    letter-spacing: 2px;
+    cursor: pointer;
+    content: var(--clr-primary-5);
+    transition: var(--transition);
+    font-size: 0.85rem;
 }
 
 .round-box {
-  border-radius: var(--radius);
+    border-radius: var(--radius);
 }
+
 .submit-btn:hover {
-  background: var(--clr-primary-5);
-  color: var(--clr-white);
+    background: var(--clr-primary-5);
+    color: var(--clr-white);
 }
+
 .add-btn,
 .delete-btn {
-  background: transparent;
-  border-color: transparent;
-  cursor: pointer;
-  font-size: 0.7rem;
-  margin: 0 0.15rem;
-  transition: var(--transition);
+    background: transparent;
+    border-color: transparent;
+    cursor: pointer;
+    font-size: 0.7rem;
+    margin: 0 0.15rem;
+    transition: var(--transition);
 }
+
 .add-btn {
-  color: var(--clr-green-light);
+    color: var(--clr-green-light);
 }
+
 .add-btn:hover {
-  color: var(--clr-green-dark);
+    color: var(--clr-green-dark);
 }
+
 .delete-btn {
-  color: var(--clr-red-light);
+    color: var(--clr-red-light);
 }
+
 .delete-btn:hover {
-  color: var(--clr-red-dark);
+    color: var(--clr-red-dark);
 }
+
 .selected {
-  background: var(--clr-primary-4) !important;
-  color: var(--clr-white) !important;
+    background: var(--clr-primary-4) !important;
+    color: var(--clr-white) !important;
 }

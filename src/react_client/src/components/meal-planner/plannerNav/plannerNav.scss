@@ -1,0 +1,53 @@
+.day-plan-nav {
+  background: var(--clr-primary-button);
+  padding: 2rem;
+  border-radius: 8px;
+  z-index: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-top: 2rem;
+  margin-bottom: 0;
+
+  .day-plan-nav-select {
+    display: flex;
+  }
+
+  .day-plan-nav-icon-text {
+    display: flex !important;
+    align-content: center;
+    flex-wrap: wrap;
+  }
+
+  .day-plan-nav-title {
+    color: var(--clr-white);
+  }
+
+  .day-plan-nav-btn {
+    display: inline-flex;
+    vertical-align: middle;
+    color: #ffffff;
+    background-color: var(--clr-primary-option);
+    border-color: transparent;
+    margin-left: 10px;
+    margin-bottom: 0;
+    height: 42px;
+    padding: 0 21px;
+    border-radius: 100px;
+    font-size: 1.5rem;
+    line-height: 42px;
+
+    .day-plan-nav-text {
+      display: flex;
+
+    }
+
+    .day-plan-nav-icon {
+      align-self: center;
+      margin-right: 5px;
+      color: var(--clr-white);
+    }
+  }
+}

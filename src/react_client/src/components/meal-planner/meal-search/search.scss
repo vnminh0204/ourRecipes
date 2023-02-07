@@ -1,29 +1,29 @@
 .section-meal-search {
-  width: 27vw;
-  min-height: 500px;
-  margin: 0 auto;
-  background: var(--clr-white);
-  border-radius: var(--radius);
-  box-shadow: var(--light-shadow);
-  transition: var(--transition);
-  padding: 2rem;
-  margin-bottom: 50px;
+  margin-top: 40px;
+  height: 700px;
 }
+
 .search-title {
   color: var(--clr-primary-heading) !important;
 }
+
 .section-ingredient-search {
 }
+
 .ingredient-container {
   margin-top: 2rem;
+
 }
+
 .border-highlight {
   border: solid 2px var(--clr-primary-8);
   background: var(--clr-grey-10);
 }
+
 .edit-block {
   display: inline-flex;
 }
+
 .quantity-btn {
   padding: 0.25rem;
   margin-left: 3px;
@@ -35,11 +35,13 @@
   color: var(--clr-grey-5);
   border: 1px solid;
 }
+
 .input-field {
   flex: 0 0 5px;
   overflow: visible;
   width: 50px;
 }
+
 .ingredient-item {
   display: flex;
   align-items: center;
@@ -50,21 +52,26 @@
   border-radius: var(--radius);
   text-transform: capitalize;
 }
+
 .ingredient-item:hover {
   color: var(--clr-grey-5);
   background: var(--clr-grey-10);
 }
+
 .ingredient-item:hover .title {
   color: var(--clr-grey-5);
 }
+
 .meal-list {
   overflow-y: scroll;
-  max-height: 600px;
+  max-height: 500px;
 }
+
 .ingredient-search-form-control {
   display: flex;
   justify-content: center;
 }
+
 .ingredient {
   padding: 0.25rem;
   padding-left: 1rem;
@@ -76,21 +83,25 @@
   flex: 1 0 auto;
   color: var(--clr-grey-5);
 }
+
 .ingredient::placeholder {
   font-family: var(--ff-secondary);
   color: var(--clr-grey-5);
 }
+
 .ingredient-search-form h3 {
   color: var(--clr-primary-1);
   margin-bottom: 1.5rem;
   text-align: center;
 }
+
 .format-right-btn {
   font-size: 1rem !important;
   flex: 0 0 5rem;
   border-top-right-radius: var(--radius);
   border-bottom-right-radius: var(--radius);
 }
+
 .select-btn {
   padding: 0.25rem;
   margin-left: 3px;
