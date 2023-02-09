@@ -30,6 +30,7 @@
 
     .planner-content {
       display: flex;
+      flex-wrap: wrap-reverse;
       margin-top: 20px;
 
       .planner-tools {
@@ -40,7 +41,6 @@
         box-shadow: var(--light-shadow);
         transition: var(--transition);
         padding: 15px;
-
       }
     }
   }
