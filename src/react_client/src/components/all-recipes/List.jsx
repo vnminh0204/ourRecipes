@@ -1,14 +1,15 @@
 import React from 'react'
-import Card from './Card'
+import Card from './RecipeCard'
 import './List.scss'
+import RecipeCard from "./RecipeCard";
 
-const List = ({recipes}) => {
+const List = ({handleDelete, handleEdit, recipes}) => {
 
     return (
         <div className='list'>
             {
                 recipes.map(item => (
-                    <Card key={item.id} {...item} />
+                    <RecipeCard handleDelete={handleDelete} handleEdit={handleEdit} key={item.id} recipe={item} />
                 ))
             }
         </div>

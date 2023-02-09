@@ -10,7 +10,6 @@ import breakfastImg from "./breakfast.png";
 import _ from "lodash";
 import "./recipes.scss";
 import ReactPaginate from "react-paginate";
-import {paginate} from "../../utils/paginate";
 
 const Recipes = ({ toast }) => {
   const PAGE_SIZE = 4;
@@ -120,6 +119,11 @@ const Recipes = ({ toast }) => {
     return response;
   };
 
+  const handleEdit = (recipe) => {
+    console.log("EDIT",recipe);
+    window.location = `/recipes/${recipe.id}/true`;
+  }
+
   const handleDelete = async (recipe) => {
     const originnalRecipes = recipes;
     console.log("DELETE");
@@ -141,7 +145,6 @@ const Recipes = ({ toast }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.error === "false") {
           toast.success("Recipe is deleted");
         } else {
@@ -191,8 +194,6 @@ const Recipes = ({ toast }) => {
   };
 
   const onChangeSortByFilter = (value) => {
-    console.log("here");
-    console.log(value);
     setSortbyFilter(value);
   };
 
@@ -263,7 +264,7 @@ const Recipes = ({ toast }) => {
           <div className="block-title">
             <h1 className="title">All Recipes</h1>
             <span className="new-recipe-block">
-            <Link to="/recipes/new" className="new-recipe-btn">
+            <Link to="/recipes/new/true" className="new-recipe-btn">
               <IoIosAdd size={25}></IoIosAdd>
               <h5>New recipe</h5>
             </Link>
@@ -272,7 +273,7 @@ const Recipes = ({ toast }) => {
 
 
 
-          <List recipes={displayedRecipes} />
+          <List handleDelete={handleDelete} handleEdit={handleEdit} recipes={displayedRecipes} />
           <ReactPaginate
               previousLabel={"← Previous"}
               nextLabel={"Next →"}

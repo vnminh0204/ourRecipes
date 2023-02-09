@@ -54,8 +54,8 @@ const IngredientsList = ({
 
     const renderIngredient = (ingredient) => {
         if (!editMode) {
-            return (<div className="ingredients-li-container">
-                <li className="ingredients-li" key={ingredient.id}>
+            return (<div key={ingredient.id} className="ingredients-li-container">
+                <li className="ingredients-li" >
                     <article
                         className="ingredient-item2"
                     >
@@ -69,10 +69,10 @@ const IngredientsList = ({
 
 
         if (ingredient.edit === true) {
-            return (<div className="ingredients-li-container-edit">
+            return (<div key={ingredient.id} className="ingredients-li-container-edit">
                 <MyCheckbox checked={!ingredient.edit}
                             onHandleTickChange={() => editItem(ingredient)}></MyCheckbox>
-                <li className="ingredients-li-edit" key={ingredient.id}>
+                <li className="ingredients-li-edit">
                     <article className="ingredient-item2">
                         <article className="ingredient-edit">
                             <input
@@ -100,12 +100,12 @@ const IngredientsList = ({
             </div>);
         } else {
             return (
-                <div className="ingredients-li-container-edit"
+                <div key={ingredient.id} className="ingredients-li-container-edit"
                      onMouseEnter={() => onMouseEnterHandler(ingredient)}
                      onMouseLeave={() => onMouseLeaveHandler(ingredient)}>
                     <MyCheckbox checked={!ingredient.edit}
                                 onHandleTickChange={() => editItem(ingredient)}></MyCheckbox>
-                    <li className="ingredients-li-edit" key={ingredient.id}>
+                    <li className="ingredients-li-edit">
                         <article
                             className="ingredient-item2"
                         >
