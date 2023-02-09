@@ -61,7 +61,6 @@ const Title = ({
                 <div className="meal-info-box">
                     <p className="meal-info1">MAKES </p>
                     <p className="meal-info2">
-                        <div className="meal-info-wrap-box">
                             <input
                                 type="number"
                                 className="title-input-amount"
@@ -69,8 +68,6 @@ const Title = ({
                                 onChange={handleNumServingsChange}
                             ></input>
                             Servings
-                        </div>
-
                     </p>
                     <p className="meal-info1">TYPE </p>
                     <div className="meal-info2">

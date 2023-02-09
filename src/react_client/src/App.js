@@ -38,7 +38,7 @@ const App = () => {
             element={<RegisterForm toast={toast} user={user} />}
           />
           <Route
-            path="/recipes/:id"
+            path="/recipes/:id/:edit"
             element={<RecipeForm toast={toast} user={user} />}
           />
           <Route

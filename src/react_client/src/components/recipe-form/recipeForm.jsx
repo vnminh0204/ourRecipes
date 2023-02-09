@@ -9,7 +9,7 @@ import config from "../../config.json";
 import "./recipeForm.scss";
 
 const RecipeForm = ({toast}) => {
-    const {id: recipeID} = useParams();
+    const {id: recipeID, edit: editOption} = useParams();
     const navigate = useNavigate();
     const [editMode, setEditMode] = useState(true);
     const [ingredients, setIngredients] = useState([]);
@@ -125,7 +125,12 @@ const RecipeForm = ({toast}) => {
     useEffect(() => {
         const fetchData = async () => {
             if (recipeID !== "new") {
-                setEditMode(false);
+                // setEditMode(false);
+                if (editOption === "true") {
+                    setEditMode(true);
+                } else if (editOption === "false") {
+                    setEditMode(false);
+                }
                 const apiEndpoint = config.apiEndpoint + "/recipes/" + recipeID;
                 await fetch(apiEndpoint)
                     .then((response) => {
@@ -290,8 +295,15 @@ const RecipeForm = ({toast}) => {
             nutritionTable,
             "x-access-token": jwt,
         };
+
+        let requestMethod = "POST";
+
+        if (editOption === "true") {
+            requestMethod = "PUT"
+        }
+
         const requestOptions = {
-            method: "POST",
+            method: requestMethod,
             headers: {
                 "Content-Type": "application/json",
             },
@@ -332,7 +344,7 @@ const RecipeForm = ({toast}) => {
                 </div>
                 <div className="nutrition-row">
                     <NutritionTable nutritionTable={nutritionTable}/>
-                    <caption className="nutrition-row-caption">Nutrition: Per serving</caption>
+                    <span className="nutrition-row-caption">Nutrition: Per serving</span>
                 </div>
                 <div className="recipes-row">
                     <div className="sub-container">

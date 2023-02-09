@@ -1,10 +1,9 @@
 .card {
   display: flex;
   height: 300px;
-  border: none;
   flex-direction: row;
   background-color: #fff;
-
+  min-width: 520px;
   margin-top: 10px;
   margin-bottom: 10px;
   margin-bottom: 5px;
@@ -14,7 +13,7 @@
   border-color: #f5f7fa;
   box-shadow: var(--light-shadow);
   transition: var(--transition);
-  padding: 2.2rem;
+  padding: 2.2rem 0 2.2rem 2.2rem;
 
 
   .details {
@@ -25,94 +24,105 @@
     color: var(--clr-primary-1);
 
     //padding: 0 25px;
-    display: flex;
-    flex-direction: row;
 
 
-    .img {
-      flex-basis: 240px;
-      flex-grow: 0;
-      flex-shrink: 0;
-      margin-right: 30px;
-
-      img {
-        border-radius: 5px;
-        height: 100%;
-        width: 100%;
-        object-fit: cover;
-
-      }
-    }
-
-
-    .details-left {
-
-      .mealType {
-        font-weight: bold;
-        background: var(--clr-primary-button);
-        color: #fff;
-        display: inline-block;
-        padding: 0 7px 2px;
-        margin-bottom: 5px;
-      }
-
-      .mealTitle {
-        color: var(--clr-primary-button);
-        // font-weight: 600;
-        // letter-spacing: -1.5px;
-      }
-    }
-
-    .details-right {
+    .details-link {
       display: flex;
-      flex-direction: column;
-      align-items: flex-end;
-      justify-content: space-between;
-      margin-left: auto;
+      flex-direction: row;
+      margin-right: 5px;
+      .img {
+        flex-basis: 240px;
+        flex-grow: 0;
+        flex-shrink: 0;
+        margin-right: 30px;
 
-      .top-right-block {
-        display: flex;
+        img {
+          border-radius: 5px;
+          height: 100%;
+          width: 100%;
+          object-fit: cover;
 
-        .score {
-          color: white;
-          font-family: HKGrotesk,sans-serif;
-          border-radius: 10px;
-          padding: 10px 20px;
-
-          .main-score {
-            font-size: 18px;
-            font-weight: 700;
-          }
-          .sub-score {
-            font-size:13px;
-          }
         }
-        .score-excellent {
-          background: #9fc90f;
-        }
-        .score-ok {
-          background: #f89821;
-        }
-        .score-bad {
-          background: #eb5c21;
-        }
-
       }
 
+      .details-left {
 
-      .authorLine {
+        .mealType {
+          font-weight: bold;
+          background: var(--clr-primary-button);
+          color: #fff;
+          display: inline-block;
+          padding: 0 7px 2px;
+          margin-bottom: 5px;
+        }
 
-        align-self: flex-end;
-
-
-        .author {
-          font-size: 1.2rem;
-          font-weight: 500;
-          color: #12596f;
+        .mealTitle {
+          color: var(--clr-primary-button);
         }
       }
     }
+    .right-box{
+      display: flex;
+      margin-left: auto;
+      .details-right {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        justify-content: space-between;
+        min-width: 240px;
+
+        .top-right-block {
+          display: flex;
+
+          .score {
+            color: white;
+            font-family: HKGrotesk,sans-serif;
+            border-radius: 10px;
+            padding: 10px 20px;
+
+            .main-score {
+              font-size: 18px;
+              font-weight: 700;
+            }
+            .sub-score {
+              font-size:13px;
+            }
+          }
+          .score-excellent {
+            background: #9fc90f;
+          }
+          .score-ok {
+            background: #f89821;
+          }
+          .score-bad {
+            background: #eb5c21;
+          }
+
+        }
+        .authorLine {
+
+          align-self: flex-end;
 
 
-  }
+          .author {
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: #12596f;
+          }
+        }
+      }
+    }
+    .show-options {
+      //visibility: hidden;
+      align-items: center;
+      display: flex;
+    }
+
+    .empty{
+      padding: 33px;
+    }
+    }
+
+
+
 }
