@@ -296,10 +296,10 @@ const RecipeForm = ({toast}) => {
             "x-access-token": jwt,
         };
 
-        let requestMethod = "POST";
+        let requestMethod = "PUT";
 
-        if (editOption === "true") {
-            requestMethod = "PUT"
+        if (recipeID === "new") {
+            requestMethod = "POST"
         }
 
         const requestOptions = {
