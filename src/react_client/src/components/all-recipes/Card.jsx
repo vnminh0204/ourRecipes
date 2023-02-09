@@ -25,7 +25,9 @@ const recipesCard = ({
                     </div>
                     <div className="details-right">
                         <div className="top-right-block">
-                            <div className="score">{Math.round(nutriScore)}/100</div>
+                            <span className={`score ${Math.round(nutriScore) >= 70? "score-excellent" : ""}${Math.round(nutriScore) < 70 && Math.round(nutriScore) >= 50? "score-ok" : ""}${Math.round(nutriScore) < 50? "score-bad" : ""}`}>
+                                <span className="main-score">{Math.round(nutriScore)}</span> <span className="sub-score">/100</span>
+                            </span>
                             {/*<div><FiMenu></FiMenu></div>*/}
                         </div>
 

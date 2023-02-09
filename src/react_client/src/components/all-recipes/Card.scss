@@ -74,7 +74,27 @@
         display: flex;
 
         .score {
+          color: white;
+          font-family: HKGrotesk,sans-serif;
+          border-radius: 10px;
+          padding: 10px 20px;
 
+          .main-score {
+            font-size: 18px;
+            font-weight: 700;
+          }
+          .sub-score {
+            font-size:13px;
+          }
+        }
+        .score-excellent {
+          background: #9fc90f;
+        }
+        .score-ok {
+          background: #f89821;
+        }
+        .score-bad {
+          background: #eb5c21;
         }
 
       }

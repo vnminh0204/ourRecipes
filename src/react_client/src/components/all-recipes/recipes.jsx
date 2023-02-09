@@ -1,8 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import config from "../../config.json";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import { IoIosAdd } from "react-icons/io";
 import List from "./List";
 import { Link } from "react-router-dom";
@@ -109,16 +107,11 @@ const Recipes = ({ toast }) => {
   }, [searchQuery, filterType, recipes, sortbyFilter]);
 
   useEffect(() => {
-    console.log(pageNr);
     const indStart = pageNr * PAGE_SIZE;
     const indEnd = Math.min(indStart + PAGE_SIZE, filteredRecipes.length);
-    const data = paginate(filterType, pageNr, PAGE_SIZE)
-    console.log(indStart);
-    console.log(indEnd);
-    console.log(filteredRecipes.slice(indStart, indEnd));
     setDisplayedRecipes(filteredRecipes.slice(indStart, indEnd));
     setPageCount(Math.ceil(filteredRecipes.length / PAGE_SIZE));
-  }, [filteredRecipes, pageNr]);
+  }, [filteredRecipes, filterType, pageNr]);
 
   const handleExpectedError = (response) => {
     if (!response.ok) {
