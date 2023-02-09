@@ -42,20 +42,21 @@
 }
 
 .ingredient-search-form-control {
+    width: 95%;
     display: flex;
     justify-content: center;
 }
 
 .ingredient {
-    padding: 0.25rem;
     padding-left: 1rem;
     background: var(--clr-grey-10);
     border-top-left-radius: var(--radius);
     border-bottom-left-radius: var(--radius);
     border-color: transparent;
     font-size: 1rem;
-    flex: 1 0 auto;
+    flex: 2 0 auto;
     color: var(--clr-grey-5);
+    width: 110px !important;
 }
 
 .ingredient::placeholder {

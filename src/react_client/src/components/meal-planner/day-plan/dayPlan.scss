@@ -1,10 +1,12 @@
 
 .day-plan-content {
   display: flex;
+  width: 60%;
 
   .day-plan-meal {
-    min-width: 700px;
-    margin-right: 100px;
+    min-width: 500px;
+
+    margin-right: 70px;
   }
 }
 

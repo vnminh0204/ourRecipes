@@ -63,7 +63,7 @@ const IngredientsSearch = ({addItem, toast}) => {
                 <div className="ingredient-search-form-control">
                     <input
                         type="text"
-                        className="ingredient w-50"
+                        className="ingredient"
                         placeholder="e.g. apple"
                         value={name}
                         onChange={(e) => setName(e.target.value)}

@@ -9,10 +9,8 @@ const MealsSearchList = ({data, addItem}) => {
     const [selectedFilterOption, setSelectedFilterOption] = useState("Breakfast");
     const [inputValue, setInputValue] = useState(1);
     const [selectedItem, setSelectedItem] = useState();
-    const [edit, setEdit] = useState(false);
     const editItem = (item) => {
         item.quantity = 1;
-        setEdit(true);
         setSelectedItem(item.id);
         setSelectedFilterOption("Breakfast");
         setInputValue(1);
@@ -22,7 +20,6 @@ const MealsSearchList = ({data, addItem}) => {
     const confirmItem = (item) => {
         item.quantity = inputValue;
         setSelectedItem();
-        setEdit(true);
         addItem(item, selectedFilterOption);
     };
 
@@ -38,10 +35,6 @@ const MealsSearchList = ({data, addItem}) => {
     return (
         <div
             className="meal-list"
-            // onMouseLeave={() => {
-            //   setEdit(false);
-            //   setSelectedItem();
-            // }}
         >
             {data.map((item) => {
                 const {id, title} = item;

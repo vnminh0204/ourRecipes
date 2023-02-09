@@ -20,6 +20,7 @@
   margin-right: 20px;
   min-height: 85vh;
   max-width: 60vw;
+  min-width: 490px;
   flex: 1 0;
 
   .nutrition-row {
@@ -38,10 +39,12 @@
     /* background-color: #f0f0f0; */
     margin-bottom: 25px;
     display: flex;
+    flex-wrap: wrap;
 
     .sub-container {
       width: 50%;
       max-width: 50%;
+      min-width: 450px;
       flex-wrap: wrap;
     }
   }

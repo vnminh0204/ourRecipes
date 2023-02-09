@@ -274,7 +274,6 @@ const RecipeForm = ({toast}) => {
                 check = check && ingredient.edit === false;
             }
         }
-        check = check;
 
         if (!check) {
             toast.error("Every fields need to be saved before submitting");
