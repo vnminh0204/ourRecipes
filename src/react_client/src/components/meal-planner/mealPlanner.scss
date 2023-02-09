@@ -3,7 +3,7 @@
   justify-content: center;
 
   .planner-container {
-
+    min-width: 1000px;
     max-width: 75vw;
     background: var(--clr-white);
     border-radius: var(--radius);
@@ -34,6 +34,7 @@
 
       .planner-tools {
         max-width: 850px;
+        width: 40%;
         background: var(--clr-white);
         border-radius: var(--radius);
         box-shadow: var(--light-shadow);

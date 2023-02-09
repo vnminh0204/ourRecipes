@@ -270,7 +270,7 @@ const Recipes = ({ toast }) => {
           <div className="pagination">
             <div
               className="page"
-              onClick={() => setPageNr((prev) => Math.max(0, prev - 1))}
+                onClick={() => setPageNr((prev) => Math.max(0, prev - 1))}
             >
               <ArrowBackIosIcon />
             </div>

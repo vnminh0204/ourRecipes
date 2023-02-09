@@ -1,6 +1,7 @@
 .section-meal-search {
   margin-top: 40px;
   height: 700px;
+  width: 402px;
 }
 
 .search-title {
@@ -8,6 +9,7 @@
 }
 
 .section-ingredient-search {
+  min-width: 390px;
 }
 
 .ingredient-container {
@@ -70,6 +72,7 @@
 .ingredient-search-form-control {
   display: flex;
   justify-content: center;
+  width: auto;
 }
 
 .ingredient {

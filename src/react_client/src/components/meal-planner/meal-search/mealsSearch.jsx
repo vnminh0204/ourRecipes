@@ -1,5 +1,6 @@
 import React, {useState} from "react";
 import MealsSearchList from "./mealsSearchList";
+import {FiSearch} from "react-icons/fi";
 import "./search.scss";
 import config from "../../../config.json";
 
@@ -89,7 +90,7 @@ const MealsSearch = ({addItem, toast}) => {
                         })}
                     </select>
                     <button type="submit" className="submit-btn format-right-btn">
-                        Search
+                        <FiSearch size={22}></FiSearch>
                     </button>
                 </div>
             </form>
