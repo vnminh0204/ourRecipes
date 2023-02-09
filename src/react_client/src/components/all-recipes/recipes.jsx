@@ -3,7 +3,6 @@ import { useState, useEffect } from "react";
 import config from "../../config.json";
 import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import theme from "./theme.png";
 import { IoIosAdd } from "react-icons/io";
 import List from "./List";
 import { Link } from "react-router-dom";
