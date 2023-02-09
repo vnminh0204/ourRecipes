@@ -193,15 +193,17 @@ const MealPlanner = ({toast, user}) => {
             },
             body: JSON.stringify(obj),
         };
-        console.log(JSON.stringify(obj));
+
         await fetch(config.apiEndpoint + "/mealPlanner", requestOptions)
             .then(async (response) => {
                 handleExpectedError(response);
                 return response.json();
             })
             .then((data) => {
+                toast.success("Here is the suggestions for your meal plan!")
+
                 for (const [key, value] of Object.entries(data)) {
-                    console.log(`${key}: ${value}`);
+                    // console.log(`${key}: ${value}`);
                     // const newMeal = {
                     //     "nutriScore": value.nutriScore,
                     //     "mealType": key,
@@ -271,6 +273,7 @@ const MealPlanner = ({toast, user}) => {
                 // } else {
                 //     toast.error("Meal planner is not updated");
                 // }
+
             })
             .catch((error) => {
                 toast.error(error.message);

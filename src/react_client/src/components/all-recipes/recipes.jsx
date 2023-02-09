@@ -11,6 +11,8 @@ import dinnerImg from "./dinner.png";
 import breakfastImg from "./breakfast.png";
 import _ from "lodash";
 import "./recipes.scss";
+import ReactPaginate from "react-paginate";
+import {paginate} from "../../utils/paginate";
 
 const Recipes = ({ toast }) => {
   const PAGE_SIZE = 4;
@@ -22,6 +24,8 @@ const Recipes = ({ toast }) => {
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
   const types = ["All Type", "Breakfast", "Lunch", "Dinner", "Snack"];
   const [sortbyFilter, setSortbyFilter] = useState("title-asc");
+
+  const [pageCount, setPageCount] = useState(null);
   //replace componentDidMount
   useEffect(() => {
     const getData = async () => {
@@ -56,7 +60,6 @@ const Recipes = ({ toast }) => {
 
   const getMealTypeImgUrl = (mealType) => {
     var url;
-    console.log(mealType);
 
     switch (mealType) {
       case "Breakfast":
@@ -102,19 +105,25 @@ const Recipes = ({ toast }) => {
     }
 
     setFilteredRecipes(filteredrecipes);
+
   }, [searchQuery, filterType, recipes, sortbyFilter]);
 
   useEffect(() => {
+    console.log(pageNr);
     const indStart = pageNr * PAGE_SIZE;
     const indEnd = Math.min(indStart + PAGE_SIZE, filteredRecipes.length);
+    const data = paginate(filterType, pageNr, PAGE_SIZE)
+    console.log(indStart);
+    console.log(indEnd);
+    console.log(filteredRecipes.slice(indStart, indEnd));
     setDisplayedRecipes(filteredRecipes.slice(indStart, indEnd));
+    setPageCount(Math.ceil(filteredRecipes.length / PAGE_SIZE));
   }, [filteredRecipes, pageNr]);
 
   const handleExpectedError = (response) => {
     if (!response.ok) {
       throw new Error("Server error: Error code " + response.status + "!");
     }
-
     return response;
   };
 
@@ -194,6 +203,11 @@ const Recipes = ({ toast }) => {
     setSortbyFilter(value);
   };
 
+  const handlePageClick = (event) => {
+    setPageNr(event.selected);
+
+  };
+
   return (
     <div className="recipes">
       <div className="left">
@@ -266,39 +280,20 @@ const Recipes = ({ toast }) => {
 
 
           <List recipes={displayedRecipes} />
-
-          <div className="pagination">
-            <div
-              className="page"
-                onClick={() => setPageNr((prev) => Math.max(0, prev - 1))}
-            >
-              <ArrowBackIosIcon />
-            </div>
-            {[
-              ...Array(Math.ceil(filteredRecipes.length / PAGE_SIZE)).keys(),
-            ].map((num) => (
-              <div
-                key={num + 1}
-                className="page"
-                onClick={() => setPageNr(num)}
-              >
-                {num + 1}
-              </div>
-            ))}
-            <div
-              className="page"
-              onClick={() =>
-                setPageNr((prev) =>
-                  Math.min(
-                    Math.ceil(filteredRecipes.length / PAGE_SIZE) - 1,
-                    prev + 1
-                  )
-                )
-              }
-            >
-              <ArrowForwardIosIcon />
-            </div>
-          </div>
+          <ReactPaginate
+              previousLabel={"← Previous"}
+              nextLabel={"Next →"}
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={2}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination-item pagination"}
+              previousLinkClassName={"pagination-item pagination__link"}
+              nextLinkClassName={"pagination-item pagination__link"}
+              disabledClassName={"pagination-item pagination__link--disabled"}
+              activeClassName={"pagination-item pagination__link--active"}
+              forcePage={pageNr}
+          />
         </div>
       </div>
     </div>
