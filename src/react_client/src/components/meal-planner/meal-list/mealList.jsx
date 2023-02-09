@@ -66,7 +66,7 @@ const MealList = ({mealType, nutrition, meals}) => {
                                 {meals.map((meal) => (
                                     <Link
                                         className="link-container"
-                                        to={`/recipes/${meal.id}`}
+                                        to={`/recipes/${meal.id}/false`}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         key={meal.id}
