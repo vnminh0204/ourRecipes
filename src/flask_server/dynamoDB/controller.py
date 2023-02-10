@@ -137,6 +137,7 @@ def add_recipe(data, nutriScore, author):
             "data": data,
             "nutriScore": nutriScore,
             "date": stringifiedTime,
+            "imgEncoding": data["imgEncoding"],
         }
     )
 
