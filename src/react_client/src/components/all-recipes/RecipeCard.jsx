@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link} from "react-router-dom";
-import "./Card.scss";
+import "./RecipeCard.scss";
 import IconMenu from "./recipe-menu/recipeMenu";
 
 const RecipeCard = ({handleDelete, handleEdit, recipe :{
@@ -27,7 +27,7 @@ const RecipeCard = ({handleDelete, handleEdit, recipe :{
                 <div className="details">
                     <Link className="details-link" to={`/recipes/${id}/false`}>
                         <div className="img">
-                            <img src={imgUrl}/>
+                            <img src={imgUrl} alt=""/>
                         </div>
                         <div className="details-left">
                             <small className="mealType">{mealType}</small>

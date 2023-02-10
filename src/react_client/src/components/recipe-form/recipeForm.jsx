@@ -153,7 +153,7 @@ const RecipeForm = ({toast}) => {
             }
         };
         fetchData();
-    }, [recipeID, toast]);
+    }, [recipeID, toast, editOption]);
 
     const handleExpectedError = (response) => {
         if (!response.ok) {

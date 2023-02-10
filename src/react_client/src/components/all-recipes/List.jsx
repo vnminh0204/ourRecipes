@@ -1,5 +1,4 @@
 import React from 'react'
-import Card from './RecipeCard'
 import './List.scss'
 import RecipeCard from "./RecipeCard";
 
