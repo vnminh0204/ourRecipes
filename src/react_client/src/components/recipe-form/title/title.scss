@@ -1,0 +1,104 @@
+.my-input-title {
+  height: 50px;
+  width: 50%;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid var(--clr-primary-button);
+  border-radius: 0.25rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.my-input-title:focus {
+  outline-color: var(--clr-primary-button);
+}
+
+.meal-info-box {
+  min-width: 120px;
+  width: 15%;
+  background-color: white;
+
+  .meal-info-wrap-box {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .meal-info1 {
+    display: flex;
+    color: var(--clr-heading);
+    font-weight: 600;
+    letter-spacing: 1.5px;
+    margin: 0;
+    justify-content: center;
+  }
+
+  .meal-info2 {
+    display: flex;
+    flex-wrap: wrap;
+    color: var(--clr-primary-1);
+    font-weight: 600;
+    margin: 0;
+    justify-content: center;
+  }
+}
+
+
+.title-input-amount {
+  max-height: 24px;
+  font-size: 15px;
+  display: inline-block;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  max-width: 45px;
+  margin-right: 5px;
+  /* border:none; */
+}
+
+.title-input-amount:focus {
+  outline-color: var(--clr-primary-button);
+}
+
+.meal-type-select {
+  margin-bottom: 5px;
+  font-size: 15px;
+  /* display: block; */
+  width: 100%;
+  /* padding: 0.375rem 0.75rem; */
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+}
+
+.meal-type-select:focus {
+  outline-color: var(--clr-primary-button);
+}
+
+.edit-title-container {
+  width: 100%;
+  display: flex;
+
+  .title-checkbox {
+    align-items: center;
+    display: flex;
+    min-width: 55px;
+
+    span {
+      color: var(--clr-primary-heading)
+    }
+  }
+
+  .title-container {
+    width: 100%;
+  }
+}

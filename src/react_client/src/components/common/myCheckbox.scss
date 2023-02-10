@@ -1,0 +1,29 @@
+.checkbox-wrapper input[type="checkbox"] {
+  /* removing default appearance */
+  -webkit-appearance: none;
+  appearance: none;
+  /* creating a custom design */
+  width: 1.6em;
+  height: 1.6em;
+  border-radius: 0.15em;
+  margin-right: 0.5em;
+  border: 0.15em solid var(--clr-primary-button);
+  outline: none;
+  cursor: pointer;
+  background-color: var(--clr-white);
+}
+
+input.checked {
+  background-color: var(--clr-white);
+  position: relative;
+}
+
+input.checked::before {
+  content: "✓";
+  font-family: "Font Awesome";
+  font-size: 1.5em;
+  color: var(--clr-primary-button);
+  position: absolute;
+  right: 1px;
+  top: -5px;
+}

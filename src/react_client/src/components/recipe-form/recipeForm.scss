@@ -1,0 +1,76 @@
+.edit-form-container {
+  display: flex;
+  justify-content: center;
+
+}
+
+.title-row {
+  color: white;
+  text-align: center;
+  background: var(--clr-title);
+  padding: 2rem;
+}
+
+
+.recipe-form-container {
+  background: var(--clr-white);
+  border-radius: var(--radius);
+  box-shadow: var(--light-shadow);
+  transition: var(--transition);
+  margin-right: 20px;
+  min-height: 85vh;
+  max-width: 60vw;
+  min-width: 490px;
+  flex: 1 0;
+
+  .nutrition-row {
+    background: var(--clr-nutrition);
+    padding: 2rem;
+
+    .nutrition-row-caption {
+      margin-top: 10px;
+      margin-left: 3px;
+      justify-self: flex-end;
+      width: 170px;
+      padding-top: 0.5rem;
+      padding-bottom: 0.5rem;
+      color: #6c757d;
+      text-align: left;
+    }
+  }
+
+  .recipes-row {
+    /* background-color: #f0f0f0; */
+    margin-bottom: 25px;
+    display: flex;
+    flex-wrap: wrap;
+
+    .sub-container {
+      width: 50%;
+      max-width: 50%;
+      min-width: 450px;
+      flex-wrap: wrap;
+    }
+  }
+
+  .center-button {
+    display: flex;
+    justify-content: center;
+
+    .form-submit-btn {
+      background: #A6192e;
+      text-decoration: none;
+      border-color: transparent;
+      text-transform: capitalize;
+      font-weight: bold;
+      letter-spacing: 2px;
+      cursor: pointer;
+      padding: 5px 14px;
+      color: var(--clr-white);
+    }
+
+    .form-submit-btn:hover {
+      filter: brightness(90%);
+    }
+  }
+}

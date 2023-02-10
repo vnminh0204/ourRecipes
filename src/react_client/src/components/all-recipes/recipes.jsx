@@ -1,9 +1,6 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import config from "../../config.json";
-import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
-import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
-import theme from "./theme.png";
 import { IoIosAdd } from "react-icons/io";
 import List from "./List";
 import { Link } from "react-router-dom";
@@ -12,6 +9,7 @@ import dinnerImg from "./dinner.png";
 import breakfastImg from "./breakfast.png";
 import _ from "lodash";
 import "./recipes.scss";
+import ReactPaginate from "react-paginate";
 
 const Recipes = ({ toast }) => {
   const PAGE_SIZE = 4;
@@ -23,6 +21,8 @@ const Recipes = ({ toast }) => {
   const [displayedRecipes, setDisplayedRecipes] = useState([]);
   const types = ["All Type", "Breakfast", "Lunch", "Dinner", "Snack"];
   const [sortbyFilter, setSortbyFilter] = useState("title-asc");
+
+  const [pageCount, setPageCount] = useState(null);
   //replace componentDidMount
   useEffect(() => {
     const getData = async () => {
@@ -57,7 +57,6 @@ const Recipes = ({ toast }) => {
 
   const getMealTypeImgUrl = (mealType) => {
     var url;
-    console.log(mealType);
 
     switch (mealType) {
       case "Breakfast":
@@ -103,21 +102,27 @@ const Recipes = ({ toast }) => {
     }
 
     setFilteredRecipes(filteredrecipes);
+
   }, [searchQuery, filterType, recipes, sortbyFilter]);
 
   useEffect(() => {
     const indStart = pageNr * PAGE_SIZE;
     const indEnd = Math.min(indStart + PAGE_SIZE, filteredRecipes.length);
     setDisplayedRecipes(filteredRecipes.slice(indStart, indEnd));
-  }, [filteredRecipes, pageNr]);
+    setPageCount(Math.ceil(filteredRecipes.length / PAGE_SIZE));
+  }, [filteredRecipes, filterType, pageNr]);
 
   const handleExpectedError = (response) => {
     if (!response.ok) {
       throw new Error("Server error: Error code " + response.status + "!");
     }
-
     return response;
   };
+
+  const handleEdit = (recipe) => {
+    console.log("EDIT",recipe);
+    window.location = `/recipes/${recipe.id}/true`;
+  }
 
   const handleDelete = async (recipe) => {
     const originnalRecipes = recipes;
@@ -140,7 +145,6 @@ const Recipes = ({ toast }) => {
         return response.json();
       })
       .then((data) => {
-        console.log(data);
         if (data.error === "false") {
           toast.success("Recipe is deleted");
         } else {
@@ -190,9 +194,12 @@ const Recipes = ({ toast }) => {
   };
 
   const onChangeSortByFilter = (value) => {
-    console.log("here");
-    console.log(value);
     setSortbyFilter(value);
+  };
+
+  const handlePageClick = (event) => {
+    setPageNr(event.selected);
+
   };
 
   return (
@@ -252,51 +259,35 @@ const Recipes = ({ toast }) => {
       </div>
 
       <div className="right">
-        <img className="coverImg" src={theme} alt="" />
-
+        {/*<img className="coverImg" src={theme} alt="" />*/}
         <div className="tbl">
-          <span className="float-right">
-            <Link to="/recipes/new" className="new-recipe-btn">
+          <div className="block-title">
+            <h1 className="title">All Recipes</h1>
+            <span className="new-recipe-block">
+            <Link to="/recipes/new/true" className="new-recipe-btn">
               <IoIosAdd size={25}></IoIosAdd>
               <h5>New recipe</h5>
             </Link>
           </span>
-          <h1 className="title">Recipes</h1>
-
-          <List recipes={displayedRecipes} />
-
-          <div className="pagination">
-            <div
-              className="page"
-              onClick={() => setPageNr((prev) => Math.max(0, prev - 1))}
-            >
-              <ArrowBackIosIcon />
-            </div>
-            {[
-              ...Array(Math.ceil(filteredRecipes.length / PAGE_SIZE)).keys(),
-            ].map((num) => (
-              <div
-                key={num + 1}
-                className="page"
-                onClick={() => setPageNr(num)}
-              >
-                {num + 1}
-              </div>
-            ))}
-            <div
-              className="page"
-              onClick={() =>
-                setPageNr((prev) =>
-                  Math.min(
-                    Math.ceil(filteredRecipes.length / PAGE_SIZE) - 1,
-                    prev + 1
-                  )
-                )
-              }
-            >
-              <ArrowForwardIosIcon />
-            </div>
           </div>
+
+
+
+          <List handleDelete={handleDelete} handleEdit={handleEdit} recipes={displayedRecipes} />
+          <ReactPaginate
+              previousLabel={"← Previous"}
+              nextLabel={"Next →"}
+              pageCount={pageCount}
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={2}
+              renderOnZeroPageCount={null}
+              containerClassName={"pagination-item pagination"}
+              previousLinkClassName={"pagination-item pagination__link"}
+              nextLinkClassName={"pagination-item pagination__link"}
+              disabledClassName={"pagination-item pagination__link--disabled"}
+              activeClassName={"pagination-item pagination__link--active"}
+              forcePage={pageNr}
+          />
         </div>
       </div>
     </div>
