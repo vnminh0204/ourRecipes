@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import IngredientsSearchList from "./ingredientsSearchList";
-import "./search.css";
+import "./search.scss";
 import config from "../../../config.json";
 import {FiSearch} from "react-icons/fi";
 
@@ -57,7 +57,7 @@ const IngredientsSearch = ({addItem, toast}) => {
     };
 
     return (
-        <section className="section-ingredient-search">
+        <div className="section-ingredient-search">
             <form className="ingredient-search-form" onSubmit={handleSubmit}>
                 <h3 className="fs-3">Ingredients Search</h3>
                 <div className="ingredient-search-form-control">
@@ -76,7 +76,7 @@ const IngredientsSearch = ({addItem, toast}) => {
             <div className="ingredient-container">
                 <IngredientsSearchList data={list} addItem={addItem}/>
             </div>
-        </section>
+        </div>
     );
 };
 

@@ -1,15 +1,12 @@
 .section-meal-search {
-  margin-top: 40px;
+  //margin-top: 40px;
   height: 700px;
-  width: 402px;
+  min-width: 350px;
+  margin: 40px auto;
 }
 
 .search-title {
   color: var(--clr-primary-heading) !important;
-}
-
-.section-ingredient-search {
-  min-width: 390px;
 }
 
 .ingredient-container {
