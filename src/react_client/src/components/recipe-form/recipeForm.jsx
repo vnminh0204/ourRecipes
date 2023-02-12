@@ -10,6 +10,7 @@ import "./recipeForm.scss";
 import ImgUpload from "./img-upload/imgUpload";
 
 const RecipeForm = ({toast}) => {
+    const [image,setImage] = useState(null);
     const {id: recipeID, edit: editOption} = useParams();
     const navigate = useNavigate();
     const [editMode, setEditMode] = useState(true);
@@ -146,6 +147,11 @@ const RecipeForm = ({toast}) => {
                         setTitle(data.data.title);
                         setMealType(data.data.mealType);
                         setNutritionTable(data.data.nutritionTable);
+
+                        if (data.data.imgEncoding) {
+                            console.log("HERE");
+                            setImage(data.imgEncoding);
+                        }
 
                         console.log(data);
                     })
@@ -334,7 +340,7 @@ const RecipeForm = ({toast}) => {
         <div className="edit-form-container">
             <div className="recipe-form-container">
                 <div className="img-row">
-                    <ImgUpload></ImgUpload>
+                    <ImgUpload image={image} setImage={setImage}></ImgUpload>
                 </div>
                 <div className="title-row">
                     <Title

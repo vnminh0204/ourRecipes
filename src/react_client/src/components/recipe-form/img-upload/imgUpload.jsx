@@ -1,23 +1,24 @@
-import React, {useState} from 'react'
+import React, {useEffect} from 'react'
 import DeleteIcon from '@mui/icons-material/Delete';
 import"./imgUpload.scss";
 import {MdFileUpload} from "react-icons/md";
 
-const ImgUpload = () => {
-    const [image,setImage] = useState(null);
+const ImgUpload = ({image,setImage}) => {
+    useEffect(() => {
+    }, [image]);
+
     const uploadImage = (e) => {
         const file = e.target.files[0]
         const reader = new FileReader();
         reader.onload = function (e) {
             const dataUrl = e.target.result;
-            console.log(dataUrl);
-            setImage(dataUrl)
+            setImage(dataUrl);
         };
         reader.readAsDataURL(file);
     }
 
     const deleteImage = () => {
-        setImage(null)
+        setImage(null);
     }
 
 
@@ -60,7 +61,6 @@ const ImgUpload = () => {
                     </div>
                 )}
         </div>
-    // absolute bottom-3 right-3 p-3 rounded-full bg-red-500 text-xl cursor-pointer outline-none hover:shadow-md  duration-500 transition-all ease-in-out
     )
 }
 
