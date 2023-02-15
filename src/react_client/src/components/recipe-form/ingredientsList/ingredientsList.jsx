@@ -69,7 +69,9 @@ const IngredientsList = ({
 
 
         if (ingredient.edit === true) {
-            return (<div key={ingredient.id} className="ingredients-li-container-edit">
+            return (<div key={ingredient.id} className="ingredients-li-container-edit"
+                         onMouseEnter={() => onMouseEnterHandler(ingredient)}
+                         onMouseLeave={() => onMouseLeaveHandler(ingredient)}>
                 <MyCheckbox checked={!ingredient.edit}
                             onHandleTickChange={() => editItem(ingredient)}></MyCheckbox>
                 <li className="ingredients-li-edit">
@@ -94,6 +96,15 @@ const IngredientsList = ({
                                 onChange={handleUnitChange}
                             />
                             <p className="ingredient-name">{ingredient.name}</p>
+                            {ingredient.hover && (
+                                <button
+                                    type="button"
+                                    className="remove-ingredient-btn"
+                                    onClick={() => removeItem(ingredient)}
+                                >
+                                    <RiCloseCircleFill size={17}/>
+                                </button>
+                            )}
                         </article>
                     </article>
                 </li>
