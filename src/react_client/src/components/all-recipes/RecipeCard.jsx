@@ -10,7 +10,7 @@ const RecipeCard = ({handleDelete, handleEdit, recipe :{
                          date,
                          mealType,
                          nutriScore,
-                         imgUrl,
+                        imgEncoding,
                      }}) => {
     const [isHovering, setIsHovering] = useState(false);
     const handleMouseOver = () => {
@@ -27,7 +27,7 @@ const RecipeCard = ({handleDelete, handleEdit, recipe :{
                 <div className="details">
                     <Link className="details-link" to={`/recipes/${id}/false`}>
                         <div className="img">
-                            <img src={imgUrl} alt=""/>
+                            <img src={imgEncoding} alt=""/>
                         </div>
                         <div className="details-left">
                             <small className="mealType">{mealType}</small>
@@ -60,7 +60,7 @@ const RecipeCard = ({handleDelete, handleEdit, recipe :{
                                     date,
                                     mealType,
                                     nutriScore,
-                                    imgUrl,
+                                    imgEncoding,
                                 }}></IconMenu>
                                 : <div className="empty"> </div>}
                         </div>

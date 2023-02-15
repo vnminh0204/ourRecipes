@@ -1,4 +1,4 @@
-import lib.ingredientsConstants as IGC
+import flask_server.lib.ingredientsConstants as IGC
 
 
 def calculate_calories(amount):
@@ -75,8 +75,11 @@ def calculate_score(
         + calculate_fiber(fiber)
         + calculate_carbohydrates(carbohydrates)
     )
-    norm_score = (1 - normalize(raw_score, -15, 40)) * 100 # Normalize to range of 0 to 100.
+    norm_score = (
+        1 - normalize(raw_score, -15, 40)
+    ) * 100  # Normalize to range of 0 to 100.
     return norm_score
+
 
 def normalize(raw_score, min_score, max_score):
     """
@@ -84,4 +87,6 @@ def normalize(raw_score, min_score, max_score):
     """
     norm_score = (raw_score - min_score) / (max_score - min_score)
     return norm_score
+
+
 # print(calculateScore(1590, 22.4, 0.6, 100, 0.22, 8.5, 8.6, 0))

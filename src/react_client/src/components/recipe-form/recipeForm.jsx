@@ -7,8 +7,10 @@ import CookingMethod from "./cooking-method/cookingMethod";
 import Title from "./title/title";
 import config from "../../config.json";
 import "./recipeForm.scss";
+import ImgUpload from "./img-upload/imgUpload";
 
 const RecipeForm = ({toast}) => {
+    const [image,setImage] = useState(null);
     const {id: recipeID, edit: editOption} = useParams();
     const navigate = useNavigate();
     const [editMode, setEditMode] = useState(true);
@@ -145,6 +147,13 @@ const RecipeForm = ({toast}) => {
                         setTitle(data.data.title);
                         setMealType(data.data.mealType);
                         setNutritionTable(data.data.nutritionTable);
+
+                        if (data.data.imgEncoding) {
+                            console.log("HERE");
+                            setImage(data.imgEncoding);
+                        }
+
+                        console.log(data);
                     })
                     .catch((error) => {
                         toast.error(error.message);
@@ -287,6 +296,7 @@ const RecipeForm = ({toast}) => {
         const jwt = localStorage.getItem("token");
 
         const obj = {
+            "imgEncoding":image,
             ingredients,
             cookingMethod,
             title,
@@ -330,6 +340,9 @@ const RecipeForm = ({toast}) => {
     return (
         <div className="edit-form-container">
             <div className="recipe-form-container">
+                <div className="img-row">
+                    <ImgUpload editMode={editMode} image={image} setImage={setImage}></ImgUpload>
+                </div>
                 <div className="title-row">
                     <Title
                         title={title}
@@ -374,9 +387,7 @@ const RecipeForm = ({toast}) => {
                 )}
             </div>
             {editMode && (
-                <div className="col-md-3 justify-content-end">
-                    <IngredientsSearch addItem={addItem} toast={toast}/>
-                </div>
+                <IngredientsSearch addItem={addItem} toast={toast}/>
             )}
         </div>
     );
