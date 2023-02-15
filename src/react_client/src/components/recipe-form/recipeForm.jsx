@@ -296,6 +296,7 @@ const RecipeForm = ({toast}) => {
         const jwt = localStorage.getItem("token");
 
         const obj = {
+            "imgEncoding":image,
             ingredients,
             cookingMethod,
             title,
@@ -340,7 +341,7 @@ const RecipeForm = ({toast}) => {
         <div className="edit-form-container">
             <div className="recipe-form-container">
                 <div className="img-row">
-                    <ImgUpload image={image} setImage={setImage}></ImgUpload>
+                    <ImgUpload editMode={editMode} image={image} setImage={setImage}></ImgUpload>
                 </div>
                 <div className="title-row">
                     <Title

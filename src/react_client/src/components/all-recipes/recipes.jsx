@@ -42,8 +42,8 @@ const Recipes = ({ toast }) => {
             id: item.id,
             nutriScore: item.nutriScore,
             author: item.author,
-            imgUrl: item.imgUrl
-              ? item.imgUrl
+            imgEncoding: item.imgEncoding
+              ? item.imgEncoding
               : getMealTypeImgUrl(item.data.mealType),
           }));
           setRecipes(recipes);

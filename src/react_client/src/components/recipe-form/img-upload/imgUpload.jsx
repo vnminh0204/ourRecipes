@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import"./imgUpload.scss";
 import {MdFileUpload} from "react-icons/md";
 
-const ImgUpload = ({image,setImage}) => {
+const ImgUpload = ({editMode, image,setImage}) => {
     useEffect(() => {
     }, [image]);
 
@@ -21,16 +21,15 @@ const ImgUpload = ({image,setImage}) => {
         setImage(null);
     }
 
-
-    return (
-        <div className="img-container">
-
+    if (editMode) {
+        return (
+            <div className="img-container">
                 {!image ? (
                     <div className="img-upload">
                         <label className="upload-btn">
                             <MdFileUpload className="upload-icon" size="60px"></MdFileUpload>
                             <p className="">
-                                Upload image (1MB)
+                                Upload image
                             </p>
                             <input
                                 type="file"
@@ -60,8 +59,27 @@ const ImgUpload = ({image,setImage}) => {
                         </button>
                     </div>
                 )}
-        </div>
-    )
+            </div>
+        )
+    } else {
+        return (
+                image && (
+                <div className="img-container">
+                    <div className="img-preview">
+                        <div className="img-box">
+                            <img
+                                src={image}
+                                alt=''
+                                className="img-item"
+                            />
+
+                        </div>
+                    </div>
+                </div>
+                )
+        )
+    }
+
 }
 
 export default ImgUpload;
